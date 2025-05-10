@@ -1,0 +1,28 @@
+.footer {
+    position: sticky;   
+     background-color: #000019;
+        color: #f8f6f6;
+        padding: 10px 0;
+        text-align: center;
+      }
+      
+      .footer-container {
+        max-width: 1200px;
+        margin: auto;
+      }
+      
+      .social-icons {
+        margin-top: 10px;
+      }
+      
+      .icon {
+        display: inline-block;
+        margin: 0 10px;
+        color: #eeeaea;
+        font-size: 15px;
+        transition: color 0.3s ease;
+      }
+      
+      .icon:hover {
+        color: #1da1f2; /* Twitter blue as example */
+      }

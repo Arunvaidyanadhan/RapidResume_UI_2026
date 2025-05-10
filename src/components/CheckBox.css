@@ -1,0 +1,39 @@
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox label {
+  position: relative;
+  padding-left: 40px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.custom-checkbox label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #0d6efd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + label::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  width: 12px;
+  height: 24px;
+  color: white;
+  border: solid #0b785b;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+label{
+  font-size: 20px;
+  font-weight: bold;
+}
