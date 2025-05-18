@@ -14,9 +14,13 @@ function CarouselComponent() {
     <div class="carousel-item active">
     <div style={{minHeight: '500px',background: 'linear-gradient(90deg, rgba(2, 0, 36, 1) 28%, rgba(9, 9, 121, 1) 100%, rgba(0, 212, 255, 1) 100%)'}}>
                 <div class="carousel-caption d-block">
-                    <h1 style={{fontSize:'60px',margin:'20px'}} className="col-6 p-4  fw-4">Welcome To Rapid Resume </h1>
+                    <h1 style={{fontSize:'60px',marginBottom:'110px'}} className="col-6 p-4  fw-4">Welcome To RapidResume.in </h1>
+                    
                     <div class="d-grid gap-2 col-4">
-                            <button class="btn btn-lg p-3 btn-primary " type="button"><Link className="nav-link" to="/Form">Get Started</Link></button>  
+                      <h3 className='text-center'>Click Get Start To Select Your Template</h3>
+                      </div>
+                       <div class="d-grid gap-2 col ">
+                            <button style={{width:'200px  ',backgroundColor:'whitesmoke',padding:' 10px',borderRadius:'30px'}} class="  " type="button"><Link className="nav-link" to="/template">Get Started</Link></button>  
                     </div>
                 </div>
             </div>

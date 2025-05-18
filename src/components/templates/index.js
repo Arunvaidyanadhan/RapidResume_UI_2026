@@ -1,0 +1,12 @@
+export { default as Template1 } from '../components/template/template1';
+export { default as Template2 } from '../components/template/template2';
+export { default as Template3 } from '../components/template/template3';
+export { default as Template4 } from '../components/template/template4';
+export { default as Template5 } from '../components/template/template5';
+export { default as Template6 } from '../components/template/template6';
+export { default as Template7 } from '../components/template/template7';
+export { default as Template8 } from '../components/template/template8';
+export { default as Template9 } from '../components/template/template9';
+export { default as Template10 } from '../components/template/template10';
+export { default as Template11 } from '../components/template/template11';
+export { default as Template12 } from '../components/template/template12';

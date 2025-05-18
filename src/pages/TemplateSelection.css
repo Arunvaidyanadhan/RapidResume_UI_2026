@@ -1,0 +1,46 @@
+/*
+
+
+
+
+
+
+*/
+.template-selection {
+   
+  padding: 10px;
+ 
+  
+}
+.thumbnail-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+
+  
+ 
+  width:400px;
+  height:600px;
+ 
+  background: #fff;
+  transition: transform 0.2s;
+}
+.thumbnail-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+.template-thumbnails {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+}
+.thumbnail-preview {
+    width: 600px;
+  height: 450px;
+  
+  transform: scale(0.6);
+  transform-origin: top left;
+  pointer-events: none;
+}
