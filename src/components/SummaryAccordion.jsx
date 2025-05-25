@@ -9,7 +9,7 @@ function SummaryAccordion() {
      <div class="accordion" id="accordionSixItems">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingFive">
-        <button class="accordion-button fw-bolder fs-3 collapsed" type="button" data-bs-toggle="collapse"
+        <button class="accordion-button fw-bolder fs-5 collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
        Summary
         </button>

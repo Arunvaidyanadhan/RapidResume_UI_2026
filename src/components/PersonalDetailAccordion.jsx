@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useResume } from '../context/resumecontext'
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 import './ImageUpload.css';
 
@@ -31,113 +31,139 @@ function PersonalDetailAccordion() {
     setIsEditing(true);
   };
 
+  const profileImage = formData.image || 'https://via.placeholder.com/200?text=Upload+Photo';
+
   return (
-    <div className="container mt-2">
-      <h2 className="pb-4">Fill Your Resume</h2>
+    <div className="container my-3">
       <div className="accordion" id="accordionSixItems">
-        <div className="accordion-item">
+        <div className="accordion-item border-0 shadow-sm rounded">
           <h2 className="accordion-header" id="headingOne">
-            <button className="accordion-button fw-bolder fs-3" type="button" 
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne" 
-                    aria-expanded="true" 
-                    aria-controls="collapseOne">
-              Personal Details
+            <button
+              className="accordion-button fs-5 fw-semibold"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              👤 Personal Details
             </button>
           </h2>
-          <div id="collapseOne" 
-               className="accordion-collapse collapse show border border-secondary" 
-               aria-labelledby="headingOne"
-               data-bs-parent="#accordionSixItems">
-            <div className="accordion-body">
-              <form className="row g-3" onSubmit={handleSubmit}>
-                <div className="col-md-3">
-                  <h6 className="text-center">Image View</h6>
-                  <img 
-                    style={{width: '200px', height: '200px', border: '1px solid green'}} 
-                    src={resumeData.personalDetails.image || ''} 
+          <div
+            id="collapseOne"
+            className="accordion-collapse collapse show"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionSixItems"
+          >
+            <div className="accordion-body bg-light-subtle py-4 px-3">
+              <form className="row g-4" onSubmit={handleSubmit}>
+
+                {/* Image Section */}
+                <div className="col-md-4 text-center">
+                  <img
+                    src={profileImage}
                     alt="Profile"
+                    className="img-thumbnail shadow-sm mb-3"
+                    style={{ width: '200px', height: '200px', objectFit: 'cover', borderRadius: '10px' }}
                   />
-                </div>
-                <div className='col-md-9 mx-2'>
-                  <label htmlFor="fileUpload" className="upload-label">
-                    Choose an image
-                  </label>
-                  <input 
-                    type="file" 
-                    id="fileUpload" 
-                    accept="image/*" 
-                    onChange={handleImageChange}
-                    disabled={!isEditing}
-                  />
-                </div>
-                
-                <div className="col-md-6">
-                  <label htmlFor="firstName" className="form-label">First Name</label>
-                  <input 
-                    type="text" 
-                    className="form-control" 
-                    id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    disabled={!isEditing}
-                    required
-                  />
-                </div>
-                
-                <div className="col-md-6">
-                  <label htmlFor="lastName" className="form-label">Surname</label>
-                  <input 
-                    type="text" 
-                    className="form-control" 
-                    id="lastName"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    disabled={!isEditing}
-                    required
-                  />
-                </div>
-                
-                {/* Continue with other fields in the same pattern */}
-                <div className="col-12">
-                  <label htmlFor="address" className="form-label">Address</label>
-                  <input 
-                    type="text" 
-                    className="form-control" 
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    disabled={!isEditing}
-                    placeholder="1234 Main St"
-                  />
-                </div>
-                
-                {/* Add all other fields similarly */}
-                
-                <div className="col-12">
-                  <h6>Add additional information to your resume</h6>
-                </div>
-                
-                <div className="col-12">
-                  <div className="d-flex justify-content-end">
-                    {isEditing ? (
-                      <button type="submit" className="btn btn-success m-2">
-                        Save
-                      </button>
-                    ) : (
-                      <button 
-                        type="button" 
-                        className="btn btn-danger m-2"
-                        onClick={handleEdit}
-                      >
-                        Edit
-                      </button>
-                    )}
+                  <div>
+                    <label htmlFor="fileUpload" className="btn btn-outline-primary btn-sm">
+                      📷 Upload Image
+                    </label>
+                    <input
+                      type="file"
+                      id="fileUpload"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      disabled={!isEditing}
+                      className="d-none"
+                    />
                   </div>
                 </div>
+
+                {/* Form Inputs */}
+                <div className="col-md-8">
+                  <div className="row g-3">
+                    <div className="col-md-6">
+                      <label htmlFor="firstName" className="form-label">First Name</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-sm"
+                        id="firstName"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        required
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="lastName" className="form-label">Last Name</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-sm"
+                        id="lastName"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        required
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="email" className="form-label">Email ID</label>
+                      <input
+                        type="email"
+                        className="form-control shadow-sm"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        required
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="phone" className="form-label">Phone Number</label>
+                      <input
+                        type="tel"
+                        className="form-control shadow-sm"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                        required
+                      />
+                    </div>
+                    <div className="col-12">
+                      <label htmlFor="address" className="form-label">Address</label>
+                      <textarea
+                        className="form-control shadow-sm"
+                        id="address"
+                        name="address"
+                        rows="2"
+                        value={formData.address}
+                        onChange={handleChange}
+                        disabled={!isEditing}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Buttons */}
+                <div className="col-12 d-flex justify-content-end gap-3 mt-4">
+                  {isEditing ? (
+                    <button type="submit" className="btn btn-success fw-semibold shadow-sm px-4 py-2">
+                      💾 Save
+                    </button>
+                  ) : (
+                    <button type="button" className="btn btn-outline-secondary fw-semibold shadow-sm px-4 py-2" onClick={handleEdit}>
+                      ✏️ Edit
+                    </button>
+                  )}
+                </div>
+
               </form>
             </div>
           </div>

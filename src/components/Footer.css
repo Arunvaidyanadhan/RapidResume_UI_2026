@@ -1,28 +1,37 @@
-.footer {
-    position: sticky;   
-     background-color: #000019;
-        color: #f8f6f6;
-        padding: 10px 0;
-        text-align: center;
-      }
-      
-      .footer-container {
-        max-width: 1200px;
-        margin: auto;
-      }
-      
-      .social-icons {
-        margin-top: 10px;
-      }
-      
-      .icon {
-        display: inline-block;
-        margin: 0 10px;
-        color: #eeeaea;
-        font-size: 15px;
-        transition: color 0.3s ease;
-      }
-      
-      .icon:hover {
-        color: #1da1f2; /* Twitter blue as example */
-      }
+footer {
+  background-color: #1b1f3b;
+  color: #ffffff;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.social-icons {
+  margin-top: 12px;
+}
+
+.icon {
+  display: inline-block;
+  margin: 0 8px;
+  color: #ccc;
+  font-size: 18px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.icon:hover {
+  color: #00acee; /* Brighter, modern blue */
+  transform: scale(1.2);
+}

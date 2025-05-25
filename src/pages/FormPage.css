@@ -1,0 +1,109 @@
+.formpage-bg {
+  background: linear-gradient(to right, #eef1f7, #f5f7fa);
+  min-height: 100vh;
+  padding: 2rem;
+}
+.section-selector {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.section-selector .form-check {
+  margin-right: 1rem;
+}
+.section-selector .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.section-selector .btn {
+  border-radius: 50px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 0 transparent;
+}
+
+.section-selector .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.section-selector .btn:active {
+  transform: scale(0.96);
+}
+
+.section-selector .btn.active {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4);
+}
+
+
+.formpage-container {
+  max-width: 960px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.06);
+}
+
+.formpage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.formpage-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Slide-out preview panel */
+.preview-slide-panel {
+  position: fixed;
+  top: 0;
+  right: -500px;
+  width: 500px;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+  transition: right 0.4s ease;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-slide-panel.open {
+  right: 0;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d6efd;
+  color: white;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.close-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.preview-body {
+  padding: 1rem;
+  overflow-y: auto;
+}

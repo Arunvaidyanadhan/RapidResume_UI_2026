@@ -1,0 +1,37 @@
+.carousel-bg {
+  min-height: 500px;
+  background: linear-gradient(90deg, #2c3e50 0%, #4B6CB7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.headline {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.lead-text {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-accent {
+  background-color: #FF6F61;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-accent:hover {
+  background-color: #e45a4d;
+  text-decoration: none;
+  color: white;
+}

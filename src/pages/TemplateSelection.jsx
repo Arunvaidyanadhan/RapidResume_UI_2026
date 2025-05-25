@@ -62,7 +62,7 @@ const TemplateSelection = () => {
             <div className="thumbnail-preview">
               <Component data={dummyData} />
             </div>
-            <p>{name.replace('template', 'Template ')}</p>
+<p className="template-title">{name.replace('template', 'Template ')}</p>
           </div>
         ))}
       </div>

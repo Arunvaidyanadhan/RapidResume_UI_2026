@@ -10,7 +10,7 @@ function FinallizeAccordion() {
      <div class="accordion" id="accordionSixItems">
      <div class="accordion-item">
       <h2 class="accordion-header" id="headingSix">
-        <button class="accordion-button fw-bolder fs-3  collapsed" type="button" data-bs-toggle="collapse"
+        <button class="accordion-button fw-bolder fs-5  collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
          Finallize
         </button>

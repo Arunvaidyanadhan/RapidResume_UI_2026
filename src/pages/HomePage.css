@@ -1,0 +1,67 @@
+.hero-section {
+  position: relative;
+  background: linear-gradient(to right, #1b1f3b, #283e51);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 2rem;
+}
+
+.hero-section .overlay {
+  background-color: rgba(27, 31, 59, 0.85);
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.btn-accent {
+  background: linear-gradient(to right, #0d6efd, #6610f2);
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  color: white;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.btn-accent:hover {
+  background: linear-gradient(to right, #084298, #520dc2);
+}
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.feature-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem;
+  max-width: 260px;
+  flex: 1 1 240px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1b1f3b;
+  margin-bottom: 0.5rem;
+}
+.feature-description {
+  color: #495057;
+  font-size: 0.95rem;
+}
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}

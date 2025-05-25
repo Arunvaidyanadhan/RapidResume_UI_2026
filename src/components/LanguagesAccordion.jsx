@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useResume } from '../context/resumecontext';
+import React, { useState } from 'react';
 import './AccordionForm.css';
 
-function SkillsAccordion() {
-  const { resumeData, updateSkills } = useResume();
-  const [skills, setSkills] = useState(resumeData.skills || []);
-  const [newSkill, setNewSkill] = useState('');
+function LanguagesAccordion() {
+  const [languages, setLanguages] = useState([]);
+  const [newLang, setNewLang] = useState('');
   const [isEditing, setIsEditing] = useState(null);
 
-  // Sync with context when resumeData.skills changes
-  useEffect(() => {
-    setSkills(resumeData.skills || []);
-  }, [resumeData.skills]);
-
-  // Push to context whenever local skills change
-  useEffect(() => {
-    updateSkills(skills);
-  }, [skills, updateSkills]);
-
   const handleAdd = () => {
-    if (newSkill.trim() !== '') {
-      setSkills([...skills, newSkill.trim()]);
-      setNewSkill('');
+    if (newLang.trim() !== '') {
+      setLanguages([...languages, newLang.trim()]);
+      setNewLang('');
     }
   };
 
@@ -30,54 +18,54 @@ function SkillsAccordion() {
   };
 
   const handleSave = (index, value) => {
-    const updated = [...skills];
-    updated[index] = value.trim();
-    setSkills(updated);
+    const updated = [...languages];
+    updated[index] = value;
+    setLanguages(updated);
     setIsEditing(null);
   };
 
   const handleDelete = (index) => {
-    setSkills(skills.filter((_, i) => i !== index));
+    setLanguages(languages.filter((_, i) => i !== index));
   };
 
   return (
     <div className="container mt-2">
-      <div className="accordion" id="skillsAccordion">
+      <div className="accordion" id="languagesAccordion">
         <div className="accordion-item">
-          <h2 className="accordion-header" id="headingSkills">
+          <h2 className="accordion-header" id="headingLanguages">
             <button
               className="accordion-button collapsed fw-bold fs-5"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseSkills"
+              data-bs-target="#collapseLanguages"
               aria-expanded="false"
-              aria-controls="collapseSkills"
+              aria-controls="collapseLanguages"
             >
-              Skills
+              Languages Known
             </button>
           </h2>
           <div
-            id="collapseSkills"
+            id="collapseLanguages"
             className="accordion-collapse collapse"
-            aria-labelledby="headingSkills"
-            data-bs-parent="#skillsAccordion"
+            aria-labelledby="headingLanguages"
+            data-bs-parent="#languagesAccordion"
           >
             <div className="accordion-body">
-              {skills.length === 0 && <p className="text-muted">No skills added yet.</p>}
+              {languages.length === 0 && <p className="text-muted">No languages added yet.</p>}
               <ul className="list-group mb-3">
-                {skills.map((skill, index) => (
+                {languages.map((lang, index) => (
                   <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                     {isEditing === index ? (
                       <input
                         type="text"
                         className="form-control me-2"
-                        defaultValue={skill}
+                        defaultValue={lang}
                         onBlur={(e) => handleSave(index, e.target.value)}
                         autoFocus
                       />
                     ) : (
                       <>
-                        {skill}
+                        {lang}
                         <span>
                           <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleEdit(index)}>✏️</button>
                           <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(index)}>🗑️</button>
@@ -91,9 +79,9 @@ function SkillsAccordion() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter new skill"
-                  value={newSkill}
-                  onChange={(e) => setNewSkill(e.target.value)}
+                  placeholder="Enter new language"
+                  value={newLang}
+                  onChange={(e) => setNewLang(e.target.value)}
                 />
                 <button className="btn btn-primary" onClick={handleAdd}>➕ Add</button>
               </div>
@@ -105,4 +93,4 @@ function SkillsAccordion() {
   );
 }
 
-export default SkillsAccordion;
+export default LanguagesAccordion;

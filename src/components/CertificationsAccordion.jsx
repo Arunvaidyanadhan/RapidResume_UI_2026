@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useResume } from '../context/resumecontext';
+import React, { useState } from 'react';
 import './AccordionForm.css';
 
-function SkillsAccordion() {
-  const { resumeData, updateSkills } = useResume();
-  const [skills, setSkills] = useState(resumeData.skills || []);
-  const [newSkill, setNewSkill] = useState('');
+function CertificationsAccordion() {
+  const [certifications, setCertifications] = useState([]);
+  const [newCert, setNewCert] = useState('');
   const [isEditing, setIsEditing] = useState(null);
 
-  // Sync with context when resumeData.skills changes
-  useEffect(() => {
-    setSkills(resumeData.skills || []);
-  }, [resumeData.skills]);
-
-  // Push to context whenever local skills change
-  useEffect(() => {
-    updateSkills(skills);
-  }, [skills, updateSkills]);
-
   const handleAdd = () => {
-    if (newSkill.trim() !== '') {
-      setSkills([...skills, newSkill.trim()]);
-      setNewSkill('');
+    if (newCert.trim() !== '') {
+      setCertifications([...certifications, newCert.trim()]);
+      setNewCert('');
     }
   };
 
@@ -30,54 +18,54 @@ function SkillsAccordion() {
   };
 
   const handleSave = (index, value) => {
-    const updated = [...skills];
-    updated[index] = value.trim();
-    setSkills(updated);
+    const updated = [...certifications];
+    updated[index] = value;
+    setCertifications(updated);
     setIsEditing(null);
   };
 
   const handleDelete = (index) => {
-    setSkills(skills.filter((_, i) => i !== index));
+    setCertifications(certifications.filter((_, i) => i !== index));
   };
 
   return (
     <div className="container mt-2">
-      <div className="accordion" id="skillsAccordion">
+      <div className="accordion" id="certificationsAccordion">
         <div className="accordion-item">
-          <h2 className="accordion-header" id="headingSkills">
+          <h2 className="accordion-header" id="headingCertifications">
             <button
               className="accordion-button collapsed fw-bold fs-5"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseSkills"
+              data-bs-target="#collapseCertifications"
               aria-expanded="false"
-              aria-controls="collapseSkills"
+              aria-controls="collapseCertifications"
             >
-              Skills
+              Certifications
             </button>
           </h2>
           <div
-            id="collapseSkills"
+            id="collapseCertifications"
             className="accordion-collapse collapse"
-            aria-labelledby="headingSkills"
-            data-bs-parent="#skillsAccordion"
+            aria-labelledby="headingCertifications"
+            data-bs-parent="#certificationsAccordion"
           >
             <div className="accordion-body">
-              {skills.length === 0 && <p className="text-muted">No skills added yet.</p>}
+              {certifications.length === 0 && <p className="text-muted">No certifications added yet.</p>}
               <ul className="list-group mb-3">
-                {skills.map((skill, index) => (
+                {certifications.map((cert, index) => (
                   <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                     {isEditing === index ? (
                       <input
                         type="text"
                         className="form-control me-2"
-                        defaultValue={skill}
+                        defaultValue={cert}
                         onBlur={(e) => handleSave(index, e.target.value)}
                         autoFocus
                       />
                     ) : (
                       <>
-                        {skill}
+                        {cert}
                         <span>
                           <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleEdit(index)}>✏️</button>
                           <button className="btn btn-sm btn-outline-danger" onClick={() => handleDelete(index)}>🗑️</button>
@@ -91,9 +79,9 @@ function SkillsAccordion() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter new skill"
-                  value={newSkill}
-                  onChange={(e) => setNewSkill(e.target.value)}
+                  placeholder="Enter certification title"
+                  value={newCert}
+                  onChange={(e) => setNewCert(e.target.value)}
                 />
                 <button className="btn btn-primary" onClick={handleAdd}>➕ Add</button>
               </div>
@@ -105,4 +93,4 @@ function SkillsAccordion() {
   );
 }
 
-export default SkillsAccordion;
+export default CertificationsAccordion;

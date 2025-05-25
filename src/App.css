@@ -12,6 +12,39 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.slide-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background-color: #f8f9fa;
+  box-shadow: -2px 0 15px rgba(0,0,0,0.15);
+  transition: right 0.3s ease-in-out;
+  z-index: 1050;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.slide-panel.open {
+  right: 0;
+}
+
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 1rem;
+}
+
+.close-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #212529;
+  cursor: pointer;
+}
 
 .App-header {
   background-color: #282c34;

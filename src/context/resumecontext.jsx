@@ -20,15 +20,16 @@ export function ResumeProvider({ children }) {
       drivingLicense: '',
       image: null,
     },
-    // Add other sections if needed: workExperience, education, skills, etc.
+    workExperience: [], 
+    skills: [],
+    //education shuld add
+
   });
 
-  // Load selectedTemplate from localStorage on initial render
   const [selectedTemplate, setSelectedTemplate] = useState(() => {
     return localStorage.getItem('selectedTemplate') || 'template1';
   });
 
-  // Save to localStorage whenever it changes
   useEffect(() => {
     if (selectedTemplate) {
       localStorage.setItem('selectedTemplate', selectedTemplate);
@@ -52,6 +53,23 @@ export function ResumeProvider({ children }) {
     }));
   };
 
+  const updateSkills = (skills) => {
+  setResumeData((prevData) => ({
+    ...prevData,
+    skills,
+  }));
+};
+
+
+  const updateWorkExperience = (experienceList) => {
+    setResumeData((prev) => ({
+      ...prev,
+      workExperience: experienceList,
+    }));
+  };
+
+ 
+
   return (
     <ResumeContext.Provider
       value={{
@@ -59,6 +77,8 @@ export function ResumeProvider({ children }) {
         setResumeData,
         updatePersonalDetails,
         updateImage,
+        updateWorkExperience,
+        updateSkills,
         selectedTemplate,
         setSelectedTemplate,
       }}
