@@ -22,7 +22,7 @@ export function ResumeProvider({ children }) {
     },
     workExperience: [], 
     skills: [],
-    //education shuld add
+  education: [], 
 
   });
 
@@ -67,6 +67,12 @@ export function ResumeProvider({ children }) {
       workExperience: experienceList,
     }));
   };
+  const updateEducation = (educationList) => {
+    setResumeData((prev) => ({
+      ...prev,
+      education: educationList,
+    }));
+  };
 
  
 
@@ -78,6 +84,7 @@ export function ResumeProvider({ children }) {
         updatePersonalDetails,
         updateImage,
         updateWorkExperience,
+         updateEducation,
         updateSkills,
         selectedTemplate,
         setSelectedTemplate,
