@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
 import './HomePage.css';
 
 function HomePage() {
@@ -27,18 +28,19 @@ function HomePage() {
   ];
 
   return (
-    <div className="hero-section text-white">
-      <div className="overlay container">
-        <h1 className="display-4 fw-bold text-center">Welcome to RapidResume.in</h1>
-        <p className="lead mb-4 text-center">Create a professional resume in just minutes. No login. No cost.</p>
-        <div className="text-center mb-5">
-          <Link to="/template" className="btn btn-accent btn-lg">Start Now</Link>
+    <div className="hero-section">
+      <div className="overlay">
+        <h1>Welcome to Rapid Resume</h1>
+        <p className="lead">Create a professional resume in just minutes. Stand out with style.</p>
+        <div className="cta-buttons">
+          <Link to="/template" className="btn btn-accent">Create Resume</Link>
+          <Link to="/template" className="btn btn-accent-secondary">View Templates</Link>
         </div>
 
         {/* Features inside Hero */}
-        <div className="features-container d-flex flex-wrap justify-content-center gap-4">
+        <div className="features-container">
           {features.map((feature, index) => (
-            <div className="feature-card bg-white text-dark" key={index}>
+            <div className="feature-card" key={index}>
               <div className="feature-icon">{feature.icon}</div>
               <h3 className="feature-title">{feature.title}</h3>
               <p className="feature-description">{feature.description}</p>

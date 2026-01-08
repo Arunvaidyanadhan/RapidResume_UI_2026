@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function CertificationsAccordion() {
-  const [certifications, setCertifications] = useState([]);
+  const { resumeData, updateCertifications } = useResume();
+  const [certifications, setCertifications] = useState(resumeData.certifications || []);
   const [newCert, setNewCert] = useState('');
   const [isEditing, setIsEditing] = useState(null);
+
+  // Sync with context when resumeData.certifications changes
+  useEffect(() => {
+    setCertifications(resumeData.certifications || []);
+  }, [resumeData.certifications]);
+
+  // Push to context whenever local certifications change
+  useEffect(() => {
+    updateCertifications(certifications);
+  }, [certifications, updateCertifications]);
 
   const handleAdd = () => {
     if (newCert.trim() !== '') {

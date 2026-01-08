@@ -25,11 +25,27 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Rapid Resume - Build Professional Resumes Instantly</title>
+    <meta name="description" content="Create professional, ATS-friendly resumes in minutes. No signup required. 100% free and privacy-focused.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f8fafc;">
+        <div style="text-align: center;">
+          <div style="width: 40px; height: 40px; border: 3px solid #e2e8f0; border-top-color: #4f46e5; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem;"></div>
+          <p style="color: #64748b; font-size: 0.9375rem;">Loading Rapid Resume...</p>
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

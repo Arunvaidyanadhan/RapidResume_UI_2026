@@ -161,11 +161,11 @@ const Template2 = ({ data }) => {
           education.map((edu, index) => (
             <div key={index} style={{ marginBottom: "1.2vmin" }}>
               <h5 style={{ fontSize: "1.9vmin", fontWeight: "600" }}>
-                {edu.degree}
+                {edu.degree} {edu.fieldOfStudy}
               </h5>
               <p style={{ fontSize: "1.6vmin", color: "#555" }}>
                 <small>
-                  {edu.institution}, {edu.startDate} –{" "}
+                  {edu.school}, {edu.startDate} –{" "}
                   {edu.endDate || "Present"}
                 </small>
               </p>

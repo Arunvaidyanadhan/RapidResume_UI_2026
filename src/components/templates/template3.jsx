@@ -1,123 +1,192 @@
-// Template3.jsx
 import React from 'react';
 import './template3.css';
 
-const Template3 = ({ data }) => (
-  <>
-  <div className=''>
-    <div className='row'>
+const Template3 = ({ data }) => {
+  const {
+    personalDetails,
+    skills = [],
+    languages = [],
+    workExperience = [],
+    education = [],
+  } = data;
 
-       <div className='col-lg-12 col-md-8 col-sm-8'>
-        <h1 style={{color:'rgb(137, 19, 19)'}} className='text-end px-sm-5 px-5' >S.V.ARUNKUMAR</h1>
-       </div>
-    </div>  
-    </div>
-    <header style={{border:'10px solid white',backgroundColor:'rgb(137, 19, 19)',color:'rgb(251, 248, 248)'}} className=' '>
-        <div className='row'>
-         <h5 className='col-lg-12 col-md-12 col-sm-12 text-center container-fluid p-2' style={{}} >Sales Marketing</h5>
-         </div>
-      </header >
-    <div class="row">
-  <div style={{backgroundColor: 'rgb(137, 19, 19)',fontSize: '1.9vmin',}} class="col-4 mx-2  min-vh-auto">
- <img src='https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' className='mt-4' style={{width:'200px',height:'200px',padding:'5px',position:'absolute',left:'-1px',top:'-20px',borderRadius:'50%',border:'2px solid white',backgroundColor:'white'}}/>
-    <h5 style={{padding:'10px',textAlign:'center',marginTop:'75px', borderBottom:'4px solid gray',color:'white'}} >Contact</h5>
+  // Compose full name
+  const fullName = personalDetails
+    ? `${personalDetails.firstName} ${personalDetails.lastName}`
+    : 'S.V.ARUNKUMAR';
 
-      <li style={{color:'white'}} class="list-group-item"><i class="fa-solid fa-phone mx-2 "></i><span class="">7550003221</span></li>
-      <li style={{color:'white'}} class="list-group-item"><i class="fa-solid fa-envelope mx-2 "></i><span class="">arun@gmail.com</span></li>
-      <li style={{color:'white'}} class="list-group-item"><i class="fa-solid fa-location-dot mx-2 "></i><span class="  text-align-start">64/81, karnan street,mogappair, </span></li>
-         <h6 style={{color:'white',padding:'10px'}} className=' text-center fs-5 fw-bold'>Skills</h6> 
-      <div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar  text-left pl-2 rounded" role="progressbar" style={{width: '95%',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">HTML</div>
-</div>  
-<div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar  text-left pl-2" role="progressbar" style={{width: '89%',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="89" aria-valuemin="0" aria-valuemax="100">CSS</div>
-</div> 
-<div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar  text-left pl-2" role="progressbar" style={{width: '87%',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">JavaScript</div>
-</div>       
-<div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar  text-left pl-2" role="progressbar" style={{width: '80%',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">WordPress</div>
-</div>  
-<div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar  text-left pl-2" role="progressbar" style={{width: '78%',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="78" aria-valuemin="0" aria-valuemax="100">Photoshop</div>
-</div>       
-<div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar text-left pl-2" role="progressbar" style={{width: '77%',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="77" aria-valuemin="0" aria-valuemax="100">PHP</div>
-</div>
-<div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar  text-left pl-2" role="progressbar" style={{width:'75',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Linux</div>
-</div> 
-<div class="progress mb-3" style={{height:'10px'}}>
-  <div class="progress-bar  text-left pl-2" role="progressbar" style={{width: '65%',backgroundColor:'rgb(235, 129, 150)'}} aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">SEO</div>
-</div>
+  // Contact info
+  const phone = personalDetails?.phone;
+  const email = personalDetails?.email;
+  const address = personalDetails
+    ? `${personalDetails.address}, ${personalDetails.city}, ${personalDetails.state}`
+    : '';
 
-          <div class="">
-            <h5 style={{marginTop:'10px',color:'white', textAlign:'center', borderBottom:'4px solid gray',padding:'10px'}}>Language</h5>
-            <ul>
-              <li className='text-light'>English</li>              
-              <li className='text-light'>Hindi</li>
-               <li className='text-light'>English</li>              
-              <li className='text-light'>Hindi</li>
-            </ul>
-          </div>
-         
-  </div>
-  <div class="col-7">
-    <h5>Experince</h5>
-    <div className='border '></div>
-    <div className='row'>
-      <div className='col'>2023-2025</div>
-       <div className='col'>Infosy,chennai</div>
-    </div>
-     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, </p>
-   
-    <div className='row'>
-      <div className='col'>2020-2023</div>
-       <div className='col'>IBM Chennai</div>
-    </div>
-     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, </p>
-  <div>
-      
-      <div className='border '></div>
-      <div className='container'>
-       <h5  style={{fontSize: '1.9vmin'}} className='fs-6 p-2'>Education</h5>
-       <div className="container  fw-bold "></div>
-      <div className='row'>
-        <div className='col '>
-          <p>2022-2024</p>
-          <p>Chennai-India</p>          
+  // Transform skills (strings => objects with default level)
+  const skillsWithLevel = skills.map((skill) => ({
+    name: skill,
+    level: 80, // default level %
+  }));
+
+  // Transform languages (objects => display string)
+  const languagesList = languages.map(
+    (lang) => `${lang.name} (${lang.level})`
+  );
+
+  // Transform workExperience => experience shape your template expects
+  const experience = workExperience.map((exp) => ({
+    period: `${exp.startDate} - ${exp.endDate}`,
+    company: exp.company,
+    description: exp.description,
+  }));
+
+  // Transform education to your expected shape
+  const educationList = education.map((edu) => ({
+    period: `${edu.startDate} - ${edu.endDate}`,
+    location: edu.location,
+    institution: edu.institution,
+    description: edu.grade,
+  }));
+
+  return (
+    <div className="">
+      {/* Header Section */}
+      <div className="row">
+        <div className="col-12">
+          <h1 className="text-end px-5" style={{ color: 'rgb(137, 19, 19)' }}>
+            {fullName}
+          </h1>
         </div>
-         <div className='col-8 '>
-          <h6 style={{fontSize: '1.9vmin'}} className='fs-6'>Studio Showde</h6>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, </p>
-         </div>
-         <div className='col '>
-          <p>2022-2024</p>
-          <p>Chennai-India</p>          
+      </div>
+
+      <header
+        style={{
+          border: '10px solid white',
+          backgroundColor: 'rgb(137, 19, 19)',
+          color: 'white',
+        }}
+      >
+        <div className="row">
+          <h5 className="col-12 text-center p-2">
+            {workExperience[0]?.jobTitle || 'Sales Marketing'}
+          </h5>
         </div>
-         <div className='col-8 '>
-          <h6 style={{fontSize: '1.9vmin'}} className='fs-6'>Studio Showde</h6>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, </p>
-         </div>
-         <div className='col '>
-          <p>2022-2024</p>
-          <p>Chennai-India</p>          
+      </header>
+
+      {/* Main Layout */}
+      <div className="row">
+        {/* Sidebar */}
+        <div
+          className="col-4 mx-2 min-vh-auto"
+          style={{ backgroundColor: 'rgb(137, 19, 19)', fontSize: '1.9vmin' }}
+        >
+          <img
+            src={
+              personalDetails?.image ||
+              'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+            }
+            alt="Profile"
+            className="mt-4"
+            style={{
+              width: '200px',
+              height: '200px',
+              padding: '5px',
+              position: 'absolute',
+              left: '-1px',
+              top: '-20px',
+              borderRadius: '50%',
+              border: '2px solid white',
+              backgroundColor: 'white',
+            }}
+          />
+
+          {/* Contact */}
+          <h5 className="text-center mt-5 pt-5 text-white border-bottom border-white pb-2">
+            Contact
+          </h5>
+          <ul className="list-group list-group-flush">
+            {phone && (
+              <li className="list-group-item bg-transparent text-white">
+                <i className="fa-solid fa-phone mx-2" /> {phone}
+              </li>
+            )}
+            {email && (
+              <li className="list-group-item bg-transparent text-white">
+                <i className="fa-solid fa-envelope mx-2" /> {email}
+              </li>
+            )}
+            {address && (
+              <li className="list-group-item bg-transparent text-white">
+                <i className="fa-solid fa-location-dot mx-2" /> {address}
+              </li>
+            )}
+          </ul>
+
+          {/* Skills */}
+          <h6 className="text-center text-white mt-3 fw-bold">Skills</h6>
+          {skillsWithLevel.map((skill, index) => (
+            <div className="progress mb-2" key={index} style={{ height: '10px' }}>
+              <div
+                className="progress-bar"
+                role="progressbar"
+                style={{
+                  width: `${skill.level}%`,
+                  backgroundColor: 'rgb(235, 129, 150)',
+                }}
+                aria-valuenow={skill.level}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {skill.name}
+              </div>
+            </div>
+          ))}
+
+          {/* Languages */}
+          <h5 className="text-center text-white border-bottom border-white mt-4 pb-2">
+            Languages
+          </h5>
+          <ul className="text-white ps-4">
+            {languagesList.map((lang, index) => (
+              <li key={index}>{lang}</li>
+            ))}
+          </ul>
         </div>
-         <div className='col-8 '>
-          <h6 style={{fontSize: '1.9vmin'}} className='fs-6'>Studio Showde</h6>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, </p>
-         </div>
+
+        {/* Right Content Area */}
+        <div className="col-7">
+          {/* Experience Section */}
+          <h5 className="mt-3">Experience</h5>
+          <hr />
+          {experience.map((exp, index) => (
+            <div key={index}>
+              <div className="row">
+                <div className="col">{exp.period}</div>
+                <div className="col">{exp.company}</div>
+              </div>
+              <p style={{ whiteSpace: 'pre-wrap' }}>{exp.description}</p>
+            </div>
+          ))}
+
+          {/* Education Section */}
+          <h5 className="mt-4">Education</h5>
+          <hr />
+          {educationList.map((edu, index) => (
+            <div className="row" key={index}>
+              <div className="col">
+                <p>{edu.period}</p>
+                <p>{edu.location}</p>
+              </div>
+              <div className="col-8">
+                <h6>{edu.institution}</h6>
+                <p>{edu.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-   
-   
-  </div>
-</div>
-  </div>
-  
-
-  </>
-
- );
+  );
+};
 
 export default Template3;

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function EducationAccordion() {
-  const [educations, setEducations] = useState([]);
+  const { resumeData, updateEducation } = useResume();
+  const [educations, setEducations] = useState(resumeData.education || []);
   const [newEdu, setNewEdu] = useState({
     school: '',
     degree: '',
@@ -14,9 +16,16 @@ function EducationAccordion() {
 
   const [isEditing, setIsEditing] = useState(null); // index or null
 
+  useEffect(() => {
+    setEducations(resumeData.education || []);
+  }, [resumeData.education]);
+
+  useEffect(() => {
+    updateEducation(educations);
+  }, [educations, updateEducation]);
+
   const handleChange = (e, index = null) => {
     const { name, value, type, checked } = e.target;
-
     if (index === null) {
       setNewEdu((prev) => ({
         ...prev,
@@ -63,34 +72,33 @@ function EducationAccordion() {
     <div className="container mt-2">
       <div className="accordion" id="accordionSixItems">
         <div className="accordion-item">
-          <h2 className="accordion-header" id="headingEdu">
+          <h2 className="accordion-header" id="headingEducation">
             <button
               className="accordion-button fw-bolder fs-5 collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseEdu"
+              data-bs-target="#collapseEducation"
               aria-expanded="false"
-              aria-controls="collapseEdu"
+              aria-controls="collapseEducation"
             >
               Education
             </button>
           </h2>
           <div
-            id="collapseEdu"
+            id="collapseEducation"
             className="accordion-collapse border border-secondary collapse"
-            aria-labelledby="headingEdu"
+            aria-labelledby="headingEducation"
             data-bs-parent="#accordionSixItems"
           >
             <div className="accordion-body">
-              {/* Existing Educations */}
               {educations.length === 0 && (
                 <p className="text-muted">No education details added yet.</p>
               )}
               {educations.map((edu, index) => (
                 <div key={index} className="border rounded p-3 mb-3 shadow-sm">
                   <div className="row g-3">
-                    {[
-                      { label: 'School/College', name: 'school' },
+                    {[ 
+                      { label: 'School / University', name: 'school' },
                       { label: 'Degree', name: 'degree' },
                       { label: 'Field of Study', name: 'fieldOfStudy' },
                     ].map(({ label, name }) => (
@@ -136,12 +144,12 @@ function EducationAccordion() {
                         type="checkbox"
                         className="form-check-input"
                         name="current"
-                        id={`currentEdu-${index}`}
+                        id={`edu-current-${index}`}
                         checked={edu.current}
                         onChange={(e) => handleChange(e, index)}
                         disabled={isEditing !== index}
                       />
-                      <label className="form-check-label ms-2" htmlFor={`currentEdu-${index}`}>
+                      <label className="form-check-label ms-2" htmlFor={`edu-current-${index}`}>
                         I am currently studying here
                       </label>
                     </div>
@@ -176,19 +184,18 @@ function EducationAccordion() {
                 </div>
               ))}
 
-              {/* Add New Education */}
+              {/* Add New Education Form */}
               <div className="border rounded p-3 shadow-sm bg-light">
                 <h6 className="fw-bold">Add New Education</h6>
                 <div className="row g-3">
                   <div className="col-md-4">
-                    <label className="form-label">School/College</label>
+                    <label className="form-label">School / University</label>
                     <input
                       type="text"
                       className="form-control"
                       name="school"
                       value={newEdu.school}
                       onChange={handleChange}
-                      required
                     />
                   </div>
                   <div className="col-md-4">
@@ -199,7 +206,6 @@ function EducationAccordion() {
                       name="degree"
                       value={newEdu.degree}
                       onChange={handleChange}
-                      required
                     />
                   </div>
                   <div className="col-md-4">
@@ -235,28 +241,31 @@ function EducationAccordion() {
                   </div>
                   <div className="col-md-3 form-check pt-4">
                     <input
-                      className="form-check-input"
                       type="checkbox"
+                      className="form-check-input"
                       name="current"
-                      id="newEduCurrent"
+                      id="edu-current-new"
                       checked={newEdu.current}
                       onChange={handleChange}
                     />
-                    <label className="form-check-label ms-2" htmlFor="newEduCurrent">
+                    <label className="form-check-label ms-2" htmlFor="edu-current-new">
                       I am currently studying here
                     </label>
                   </div>
                 </div>
-                <div className="d-flex justify-content-end mt-3">
-                  <button type="button" className="btn btn-primary px-4" onClick={handleAdd}>
-                    ➕ Add Education
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className="btn btn-primary mt-3"
+                  onClick={handleAdd}
+                  disabled={!newEdu.school || !newEdu.degree}
+                >
+                  + Add Education
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   );
 }

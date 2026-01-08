@@ -23,21 +23,30 @@ function PreviewSection() {
         return <Template1 data={resumeData} />;
     }
   }, [selectedTemplate, resumeData]);
+const handleDownloadPDF = () => {
+  const input = document.getElementById("resume-preview");
+  if (!input) return;
 
-  const handleDownloadPDF = () => {
-    const input = document.getElementById("resume-preview");
-    if (!input) return;
+  html2canvas(input, {
+    scale: 2,
+    useCORS: true,
+    scrollY: -window.scrollY,
+    backgroundColor: null,
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
 
-    html2canvas(input, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
 
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("resume.pdf");
-    });
-  };
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    pdf.save("resume.pdf");
+  });
+};
+
 
   return (
     <div className="sticky">

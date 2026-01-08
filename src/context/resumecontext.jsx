@@ -22,12 +22,14 @@ export function ResumeProvider({ children }) {
     },
     workExperience: [], 
     skills: [],
-  education: [], 
-
+    education: [],
+    projects: [],
+    certifications: [],
+    summary: '',
   });
 
   const [selectedTemplate, setSelectedTemplate] = useState(() => {
-    return localStorage.getItem('selectedTemplate') || 'template1';
+    return localStorage.getItem('selectedTemplate') || 'modern';
   });
 
   useEffect(() => {
@@ -74,7 +76,60 @@ export function ResumeProvider({ children }) {
     }));
   };
 
- 
+  const updateProjects = (projectsList) => {
+    setResumeData((prev) => ({
+      ...prev,
+      projects: projectsList,
+    }));
+  };
+
+  const updateCertifications = (certificationsList) => {
+    setResumeData((prev) => ({
+      ...prev,
+      certifications: certificationsList,
+    }));
+  };
+
+  const updateSummary = (summary) => {
+    setResumeData((prev) => ({
+      ...prev,
+      summary: summary,
+    }));
+  };
+
+  // Clear section data when section is removed
+  const clearSectionData = (sectionValue) => {
+    setResumeData((prev) => {
+      const newData = { ...prev };
+      
+      switch (sectionValue) {
+        case 'projects':
+          newData.projects = [];
+          break;
+        case 'certifications':
+          newData.certifications = [];
+          break;
+        case 'summary':
+          newData.summary = '';
+          break;
+        case 'work':
+          newData.workExperience = [];
+          break;
+        case 'education':
+          newData.education = [];
+          break;
+        case 'skills':
+          newData.skills = [];
+          break;
+        // Note: personal details, languages, awards, etc. are not cleared
+        // as they might be used by other sections
+        default:
+          break;
+      }
+      
+      return newData;
+    });
+  };
 
   return (
     <ResumeContext.Provider
@@ -84,8 +139,12 @@ export function ResumeProvider({ children }) {
         updatePersonalDetails,
         updateImage,
         updateWorkExperience,
-         updateEducation,
+        updateEducation,
         updateSkills,
+        updateProjects,
+        updateCertifications,
+        updateSummary,
+        clearSectionData,
         selectedTemplate,
         setSelectedTemplate,
       }}

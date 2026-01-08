@@ -4,7 +4,7 @@ import './AccordionForm.css';
 
 function WorkHistoryAccordion() {
   const { resumeData, updateWorkExperience } = useResume();
-  const [experiences, setExperiences] = useState(resumeData.workHistory || []);
+  const [experiences, setExperiences] = useState(resumeData.workExperience || []);
   const [newExp, setNewExp] = useState({
     jobTitle: '',
     employer: '',
@@ -13,14 +13,15 @@ function WorkHistoryAccordion() {
     current: false,
     startDate: '',
     endDate: '',
+    description: '',
   });
 
   const [isEditing, setIsEditing] = useState(null); // index or null
 
   // Sync experiences with context when resumeData.workHistory changes
   useEffect(() => {
-    setExperiences(resumeData.workHistory || []);
-  }, [resumeData.workHistory]);
+    setExperiences(resumeData.workExperience || []);
+  }, [resumeData.workExperience]);
 
   // Whenever experiences change locally, update context
   useEffect(() => {
@@ -56,6 +57,7 @@ function WorkHistoryAccordion() {
         current: false,
         startDate: '',
         endDate: '',
+        description: '',
       });
     }
   };
@@ -174,6 +176,18 @@ function WorkHistoryAccordion() {
                         I Currently Work Here
                       </label>
                     </div>
+                    <div className="col-12">
+                      <label className="form-label">Description</label>
+                      <textarea
+                        className="form-control"
+                        name="description"
+                        rows="3"
+                        value={exp.description || ''}
+                        onChange={(e) => handleChange(e, index)}
+                        disabled={isEditing !== index}
+                        placeholder="Describe your responsibilities and achievements..."
+                      />
+                    </div>
                   </div>
 
                   <div className="d-flex justify-content-end mt-3">
@@ -287,6 +301,17 @@ function WorkHistoryAccordion() {
                     <label className="form-check-label ms-2" htmlFor="current-new">
                       I Currently Work Here
                     </label>
+                  </div>
+                  <div className="col-12">
+                    <label className="form-label">Description</label>
+                    <textarea
+                      className="form-control"
+                      name="description"
+                      rows="3"
+                      value={newExp.description}
+                      onChange={handleChange}
+                      placeholder="Describe your responsibilities and achievements..."
+                    />
                   </div>
                 </div>
                 <button

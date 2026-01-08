@@ -1,72 +1,111 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../context/resumecontext';
-
-import Template1 from '../components/templates/template1';
-import Template2 from '../components/templates/template2';
-// import PDFTemplate2 from '../components/pdfTemplates/pdfTemplate2';
-
-import Template3 from '../components/templates/template3';
-import Template4 from '../components/templates/template4';
-import Template5 from '../components/templates/template5';
-import Template6 from '../components/templates/template6';
-import Template7 from '../components/templates/template7';
-import Template8 from '../components/templates/template8';
-import Template9 from '../components/templates/template9';
-import Template10 from '../components/templates/template10';
-import Template11 from '../components/templates/template11';
-import Template12 from '../components/templates/template12';
-import Template13 from '../components/templates/template13';
-
-import dummyData from '../components/templates/dummyData';
+import Breadcrumb from '../components/Breadcrumb';
+import LoadingSpinner from '../components/LoadingSpinner';
+import TemplateCard from '../components/TemplateCard';
+import { fetchTemplates } from '../utils/api';
 import './TemplateSelection.css';
 
-const templates = [
-  { name: 'template1', Component: Template1 },
-  { name: 'template2', Component: Template2},
-  { name: 'template3', Component: Template3 },
-  { name: 'template4', Component: Template4 },
-  { name: 'template5', Component: Template5 },
-  { name: 'template6', Component: Template6 },
-  { name: 'template7', Component: Template7 },
-  { name: 'template8', Component: Template8 },
-  { name: 'template9', Component: Template9 },
-  { name: 'template10', Component: Template10 },
-  { name: 'template11', Component: Template11 },
-  { name: 'template12', Component: Template12 },
-  { name: 'template13', Component: Template13 },
-];
-
 const TemplateSelection = () => {
-  const { setSelectedTemplate } = useResume(); // correctly using context
+  const { setSelectedTemplate, selectedTemplate } = useResume();
   const navigate = useNavigate();
+  const [templates, setTemplates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [loadingTemplate, setLoadingTemplate] = useState(null);
 
-  const handleSelect = (templateName) => {
-        console.log(templateName,'template name template name')
+  useEffect(() => {
+    const loadTemplates = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const fetchedTemplates = await fetchTemplates();
+        setTemplates(fetchedTemplates);
+      } catch (err) {
+        console.error('Failed to load templates:', err);
+        setError(err.message || 'Failed to load templates. Please ensure the backend is running.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    setSelectedTemplate(templateName);
+    loadTemplates();
+  }, []);
 
-    navigate('/form');
+  const handleSelect = (templateId) => {
+    setLoadingTemplate(templateId);
+    setSelectedTemplate(templateId);
+    
+    // Small delay for better UX
+    setTimeout(() => {
+      navigate('/form');
+    }, 300);
   };
 
-  return (
-    <div className="template-selection">
-      <h2>Select a Resume Template</h2>
-      <div className="template-thumbnails row">
-        {templates.map(({ name, Component }) => (
-          <div
-            key={name}
-            className="thumbnail-card col-md-4 h-auto"
-            onClick={() => handleSelect(name)}
-          >
-            <div className="thumbnail-preview">
-              <Component data={dummyData} />
-            </div>
-<p className="template-title">{name.replace('template', 'Template ')}</p>
+  if (loading) {
+    return (
+      <>
+        <Breadcrumb />
+        <div className="template-selection">
+          <div className="template-loading">
+            <LoadingSpinner size="large" text="Loading templates..." />
           </div>
-        ))}
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Breadcrumb />
+        <div className="template-selection">
+          <div className="template-error">
+            <div className="error-icon">⚠️</div>
+            <h3>Unable to Load Templates</h3>
+            <p>{error}</p>
+            <button 
+              className="retry-button"
+              onClick={() => window.location.reload()}
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Breadcrumb />
+      <div className="template-selection">
+        <div className="template-header">
+          <h2>Select a Resume Template</h2>
+          <p className="template-subtitle">Choose from our professional, ATS-friendly templates</p>
+        </div>
+        {templates.length === 0 ? (
+          <div className="template-empty">
+            <p>No templates available at the moment.</p>
+          </div>
+        ) : (
+          <div className="template-thumbnails">
+            {templates.map((template) => (
+              <TemplateCard
+                key={template.id}
+                templateId={template.id}
+                templateName={template.name}
+                description={template.description}
+                preview={template.preview}
+                onSelect={() => handleSelect(template.id)}
+                isSelected={selectedTemplate === template.id}
+              />
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

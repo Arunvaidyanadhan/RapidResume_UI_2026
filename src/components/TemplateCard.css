@@ -1,0 +1,198 @@
+.template-card-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.template-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 450px;
+  background: var(--surface-hover);
+  border-radius: var(--radius-md);
+}
+
+.thumbnail-card {
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  cursor: pointer;
+  background: var(--surface);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.thumbnail-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.thumbnail-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-color);
+}
+
+.thumbnail-card:hover::before {
+  transform: scaleX(1);
+}
+
+.thumbnail-preview {
+  width: 100%;
+  height: auto;
+  min-height: 450px;
+  transform: scale(0.65);
+  transform-origin: top center;
+  pointer-events: none;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-hover);
+  position: relative;
+}
+
+.template-preview-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.template-preview-image.loaded {
+  opacity: 1;
+}
+
+.template-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 450px;
+  color: var(--text-tertiary);
+  padding: 2rem;
+  background: var(--surface-hover);
+  border-radius: var(--radius-md);
+}
+
+.template-placeholder-icon {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.template-placeholder-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.template-placeholder-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.template-placeholder-subtext {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.template-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--primary-color);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  border-radius: var(--radius-xl);
+  margin: 1.5rem;
+}
+
+.thumbnail-card:hover .template-overlay {
+  opacity: 0.9;
+}
+
+.template-select-btn {
+  background: var(--text-inverse);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.template-select-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.template-info {
+  margin-top: 1rem;
+}
+
+.template-title {
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  transition: color 0.3s ease;
+}
+
+.template-description {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.thumbnail-card:hover .template-title {
+  color: var(--primary-color);
+}
+
+/* Selected template styles */
+.template-card-wrapper.template-selected .thumbnail-card {
+  border-color: var(--primary-color);
+  border-width: 3px;
+  box-shadow: 0 0 0 3px var(--primary-color), var(--shadow-xl);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1), var(--shadow-xl);
+}
+
+[data-theme="dark"] .template-card-wrapper.template-selected .thumbnail-card {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2), var(--shadow-xl);
+}
+
+.template-card-wrapper.template-selected .thumbnail-card::before {
+  transform: scaleX(1);
+}
+
+.template-card-wrapper.template-selected .template-title {
+  color: var(--primary-color);
+  font-weight: 700;
+}

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function ProjectsAccordion() {
-  const [projects, setProjects] = useState([]);
+  const { resumeData, updateProjects } = useResume();
+  const [projects, setProjects] = useState(resumeData.projects || []);
   const [newProject, setNewProject] = useState({
     name: '',
     role: '',
@@ -12,6 +14,16 @@ function ProjectsAccordion() {
   });
 
   const [isEditing, setIsEditing] = useState(null); // index
+
+  // Sync with context when resumeData.projects changes
+  useEffect(() => {
+    setProjects(resumeData.projects || []);
+  }, [resumeData.projects]);
+
+  // Push to context whenever local projects change
+  useEffect(() => {
+    updateProjects(projects);
+  }, [projects, updateProjects]);
 
   const handleChange = (e, index = null) => {
     const { name, value } = e.target;

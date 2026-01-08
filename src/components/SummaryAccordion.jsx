@@ -1,36 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function SummaryAccordion() {
-  
+  const { resumeData, updateSummary } = useResume();
+  const [summary, setSummary] = useState(resumeData.summary || '');
+  const [isEditing, setIsEditing] = useState(true);
+
+  // Sync with context when resumeData.summary changes
+  useEffect(() => {
+    setSummary(resumeData.summary || '');
+  }, [resumeData.summary]);
+
+  const handleChange = (e) => {
+    setSummary(e.target.value);
+  };
+
+  const handleSave = () => {
+    updateSummary(summary);
+    setIsEditing(false);
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
   return (
     <>
-    <div class="container mt-2">
-     <div class="accordion" id="accordionSixItems">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingFive">
-        <button class="accordion-button fw-bolder fs-5 collapsed" type="button" data-bs-toggle="collapse"
+    <div className="container mt-2">
+     <div className="accordion" id="accordionSixItems">
+    <div className="accordion-item">
+      <h2 className="accordion-header" id="headingFive">
+        <button className="accordion-button fw-bolder fs-5 collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
        Summary
         </button>
       </h2>
-      <div id="collapseFive" class="accordion-collapse  border  border-secondary collapse" aria-labelledby="headingFive"
+      <div id="collapseFive" className="accordion-collapse  border  border-secondary collapse" aria-labelledby="headingFive"
            data-bs-parent="#accordionSixItems">
-        <div class="accordion-body">
-        <div class="mb-3">
-          <h5>Custom Section </h5>
-  <label for="exampleFormControlInput1" class="form-label fs-6">Section Name</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
-</div>
-        <div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label fs-6">Brief Decription</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-</div>
+        <div className="accordion-body">
+        <div className="mb-3">
+          <label htmlFor="summaryTextarea" className="form-label fs-6">Professional Summary</label>
+          <textarea 
+            className="form-control" 
+            id="summaryTextarea" 
+            rows="5"
+            value={summary}
+            onChange={handleChange}
+            disabled={!isEditing}
+            placeholder="Write a brief professional summary highlighting your key skills, experience, and career objectives..."
+          ></textarea>
+        </div>
 
-          <div class="d-flex justify-content-end ">
-              <button className="btn btn-success m-2">Add</button>
-              <button className="btn btn-danger m-2">Save</button>
-              <button className="btn btn-warning m-2">Edit</button>
+          <div className="d-flex justify-content-end ">
+            {isEditing ? (
+              <button className="btn btn-success m-2" onClick={handleSave}>Save</button>
+            ) : (
+              <button className="btn btn-warning m-2" onClick={handleEdit}>Edit</button>
+            )}
           </div>
         </div>
       </div>
