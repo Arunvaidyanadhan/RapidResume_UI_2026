@@ -1,4 +1,3 @@
-// Template2.jsx
 import React from 'react';
 import './template8.css';
 
@@ -9,6 +8,7 @@ const Template8 = ({ data }) => {
     skills = [],
     workExperience = [],
     education = [],
+    projects = [],
   } = data || {};
 
   const fullName = `${personalDetails.firstName || ''} ${personalDetails.lastName || ''}`.trim();
@@ -18,84 +18,129 @@ const Template8 = ({ data }) => {
     .filter(Boolean)
     .join(', ');
 
-  return (
-    <>
-      <header
-        style={{ backgroundColor: 'rgba(86, 49, 57, 0.7)', height: '200px', color: 'white', padding: '10px', display: 'flex' }}
-        className=""
+  const title = personalDetails.title || '';
+
+  const contactParts = [
+    personalDetails.email,
+    personalDetails.phone,
+    addressLine,
+    personalDetails.linkedin,
+    personalDetails.website,
+  ].filter(Boolean);
+
+  const Section = ({ title: sectionTitle, children }) => (
+    <section style={{ marginTop: 14 }}>
+      <div
+        style={{
+          margin: '0 0 8px',
+          fontSize: 12,
+          fontWeight: 800,
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          borderBottom: '1px solid #d9d9d9',
+          paddingBottom: 4,
+        }}
       >
-        <div className="col">
-          <h4 className="mb-1">{displayName}</h4>
-          <img
-            alt="Profile"
-            src={
-              personalDetails.image ||
-              'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-            }
-            className=""
-            style={{ width: '200px', height: '200px', borderRadius: '50%', zIndex: '2', position: 'absolute', right: '280px', top: '90px', border: '20px solid white', padding: '10px', objectFit: 'cover' }}
-          />
-        </div>
-        <div className="col">
-          <ul>
-            {personalDetails.phone ? (
-              <li className="list-group-item"><i className="fa-solid fa-mobile-screen mx-2"></i>{personalDetails.phone}</li>
-            ) : null}
-            {personalDetails.email ? (
-              <li className="list-group-item"><i className="fa-solid fa-envelope mx-2"></i>{personalDetails.email}</li>
-            ) : null}
-            {addressLine ? (
-              <li className="list-group-item"><i className="fa-solid fa-house-user mx-2"></i>{addressLine}</li>
-            ) : null}
-          </ul>
-        </div>
+        {sectionTitle}
+      </div>
+      {children}
+    </section>
+  );
+
+  const Tag = ({ children }) => (
+    <span
+      style={{
+        display: 'inline-flex',
+        border: '1px solid #d9d9d9',
+        borderRadius: 999,
+        padding: '3px 7px',
+        fontSize: 11,
+        marginRight: 6,
+        marginBottom: 6,
+        background: '#fff',
+      }}
+    >
+      {children}
+    </span>
+  );
+
+  return (
+    <div className="rr-template8-root" style={{ padding: 18, fontFamily: 'Arial, sans-serif', color: '#111', fontSize: 12, lineHeight: 1.45 }}>
+      <header style={{ marginBottom: 10 }}>
+        <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, letterSpacing: '-0.01em' }}>{displayName}</h1>
+        {title ? <div style={{ marginTop: 4, fontSize: 12, fontWeight: 700, color: '#333' }}>{title}</div> : null}
+        {contactParts.length ? (
+          <div style={{ marginTop: 6, fontSize: 11, color: '#444' }}>{contactParts.join(' · ')}</div>
+        ) : null}
       </header>
 
       {summary ? (
-        <div className="resume-section mt-5">
-          <div className="section-title">Summary</div>
-          <p style={{ whiteSpace: 'pre-wrap' }}>{summary}</p>
-        </div>
-      ) : null}
-
-      {skills.length > 0 ? (
-        <div className="resume-section">
-          <div style={{ fontSize: '1.9vmin' }} className="section-title">Skills</div>
-          <ul className="list-inline">
-            {skills.map((s, i) => (
-              <li key={i} className="list-inline-item badge bg-primary">{typeof s === 'string' ? s : (s?.name || '')}</li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-
-      {workExperience.length > 0 ? (
-        <div className="resume-section">
-          <div style={{ fontSize: '1.9vmin' }} className="section-title">Experience</div>
-          {workExperience.map((exp, idx) => (
-            <div key={idx}>
-              <h5 style={{ fontSize: '1.9vmin' }}>{exp.jobTitle} - {exp.employer}</h5>
-              <p><small>{exp.startDate} – {exp.current ? 'Present' : exp.endDate}</small></p>
-              {exp.description ? (
-                <p style={{ whiteSpace: 'pre-wrap' }}>{exp.description}</p>
-              ) : null}
-            </div>
-          ))}
-        </div>
+        <Section title="Summary">
+          <div style={{ color: '#555', whiteSpace: 'pre-wrap' }}>{summary}</div>
+        </Section>
       ) : null}
 
       {education.length > 0 ? (
-        <div className="resume-section">
-          <div style={{ fontSize: '1.9vmin' }} className="section-title">Education</div>
+        <Section title="Education">
           {education.map((edu, idx) => (
-            <div key={idx}>
-              <h5 style={{ fontSize: '1.9vmin' }}>{edu.degree} {edu.fieldOfStudy}</h5>
-              <p><small>{edu.school}, {edu.startDate} – {edu.current ? 'Present' : edu.endDate}</small></p>
+            <div key={idx} style={{ marginBottom: 10, breakInside: 'avoid' }}>
+              <div style={{ fontWeight: 800 }}>
+                {edu.degree}
+                {edu.fieldOfStudy ? ` — ${edu.fieldOfStudy}` : ''}
+              </div>
+              <div style={{ marginTop: 2, fontSize: 11, color: '#444' }}>
+                {edu.school}
+                {edu.startDate ? ` · ${edu.startDate}` : ''}
+                {edu.endDate ? ` – ${edu.endDate}` : ''}
+              </div>
             </div>
           ))}
-        </div>
+        </Section>
       ) : null}
-    </>
+
+      {projects.length > 0 ? (
+        <Section title="Projects">
+          {projects.map((p, idx) => (
+            <div key={idx} style={{ marginBottom: 10, breakInside: 'avoid' }}>
+              <div style={{ fontWeight: 800 }}>{p.name}</div>
+              {p.link ? <div style={{ marginTop: 2, fontSize: 11, color: '#444' }}>{p.link}</div> : null}
+              {p.description ? <div style={{ marginTop: 4, color: '#555', whiteSpace: 'pre-wrap' }}>{p.description}</div> : null}
+            </div>
+          ))}
+        </Section>
+      ) : null}
+
+      {skills.length > 0 ? (
+        <Section title="Skills">
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {skills.map((s, i) => (
+              <Tag key={i}>{typeof s === 'string' ? s : (s?.name || '')}</Tag>
+            ))}
+          </div>
+        </Section>
+      ) : null}
+
+      {workExperience.length > 0 ? (
+        <Section title="Experience">
+          {workExperience.map((exp, idx) => (
+            <div key={idx} style={{ marginBottom: 10, breakInside: 'avoid' }}>
+              <div style={{ fontWeight: 800 }}>
+                {(exp.jobTitle || '').trim()}
+                {exp.employer ? ` — ${exp.employer}` : ''}
+              </div>
+              <div style={{ marginTop: 2, fontSize: 11, color: '#444' }}>
+                {exp.startDate ? exp.startDate : ''}
+                {(exp.startDate || exp.endDate || exp.current) ? ' – ' : ''}
+                {exp.current ? 'Present' : (exp.endDate || '')}
+              </div>
+              {exp.description ? (
+                <div style={{ marginTop: 4, color: '#555', whiteSpace: 'pre-wrap' }}>{exp.description}</div>
+              ) : null}
+            </div>
+          ))}
+        </Section>
+      ) : null}
+    </div>
   );
 };
 

@@ -10,6 +10,7 @@ const SaveButton = ({
   variant = 'primary',
   fullWidth = false,
   className = '',
+  type = 'button',
 }) => {
   const isDisabled = disabled || isLoading;
 
@@ -19,6 +20,7 @@ const SaveButton = ({
       onClick={onClick}
       disabled={isDisabled}
       aria-busy={isLoading}
+      type={type}
     >
       {isLoading ? (
         <>

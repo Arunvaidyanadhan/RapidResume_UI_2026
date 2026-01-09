@@ -1,5 +1,8 @@
-body{margin-top:20px;}
-.resume .resume-title {
+.rr-template8-root {
+  margin-top: 0;
+}
+
+.rr-template8-root .resume .resume-title {
   font-size: 15px;
   font-weight: 400;
   margin-top: 20px;
@@ -7,14 +10,14 @@ body{margin-top:20px;}
   color: #222222;
 }
 
-.resume .resume-item {
+.rr-template8-root .resume .resume-item {
   padding: 0 0 5px 5px;
   margin-top: -2px;
   border-left: 2px solid #34b7a7;
   position: relative;
 }
 
-.resume .resume-item h4 {
+.rr-template8-root .resume .resume-item h4 {
     
   line-height: 5px;
   font-size: 15px;
@@ -24,7 +27,7 @@ body{margin-top:20px;}
   margin-bottom: 10px;
 }
 
-.resume .resume-item h5 {
+.rr-template8-root .resume .resume-item h5 {
   font-size: 5px;
   background: #effbf9;
   padding: 10px 10px;
@@ -34,19 +37,19 @@ body{margin-top:20px;}
   color: #34b7a7;
 }
 
-.resume .resume-item ul {
+.rr-template8-root .resume .resume-item ul {
   padding-left: 20px;
 }
 
-.resume .resume-item ul li {
+.rr-template8-root .resume .resume-item ul li {
   padding-bottom: 5px;
 }
 
-.resume .resume-item:last-child {
+.rr-template8-root .resume .resume-item:last-child {
   padding-bottom: 0;
 }
 
-.resume .resume-item::before {
+.rr-template8-root .resume .resume-item::before {
   content: "";
   position: absolute;
   width: 14px;

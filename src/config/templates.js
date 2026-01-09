@@ -17,7 +17,10 @@ const Template3 = lazy(() => import('../components/templates/template3'));
 const Template4 = lazy(() => import('../components/templates/template4'));
 const Template5 = lazy(() => import('../components/templates/template5'));
 const Template6 = lazy(() => import('../components/templates/template6'));
+const Template7 = lazy(() => import('../components/templates/template7'));
 const Template8 = lazy(() => import('../components/templates/template8'));
+const Template9 = lazy(() => import('../components/templates/template9'));
+const AtsMinimal = lazy(() => import('../components/templates/atsMinimal'));
 
 /**
  * Template Registry
@@ -73,6 +76,38 @@ export const TEMPLATE_REGISTRY = [
     backendTemplate: 'template-6.hbs',
     Component: Template6,
     category: 'professional',
+  },
+  {
+    id: 'template-7',
+    displayName: 'Simple ATS',
+    description: 'Ultra-clean single-column layout for fast scanning',
+    backendTemplate: 'template-7.hbs',
+    Component: Template7,
+    category: 'minimal',
+  },
+  {
+    id: 'template-8',
+    displayName: 'Fresher Focus',
+    description: 'Education and projects first. Great for students and freshers',
+    backendTemplate: 'template-8.hbs',
+    Component: Template8,
+    category: 'minimal',
+  },
+  {
+    id: 'template-9',
+    displayName: 'Project Spotlight',
+    description: 'Project-first layout for portfolios and hands-on roles',
+    backendTemplate: 'template-9.hbs',
+    Component: Template9,
+    category: 'minimal',
+  },
+  {
+    id: 'ats-minimal',
+    displayName: 'Minimal ATS',
+    description: 'Strict ATS-safe typography and spacing with clean section rules',
+    backendTemplate: 'ats-minimal.hbs',
+    Component: AtsMinimal,
+    category: 'minimal',
   },
   {
     id: 'complete',

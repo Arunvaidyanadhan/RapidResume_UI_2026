@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Template7 = ({ data }) => {
+const AtsMinimal = ({ data }) => {
   const {
     personalDetails = {},
     summary = '',
     skills = [],
     workExperience = [],
-    education = [],
     projects = [],
+    education = [],
     certifications = [],
   } = data || {};
 
@@ -28,11 +28,15 @@ const Template7 = ({ data }) => {
       .split('\n')
       .map((l) => l.replace(/^\s*[•\-]\s?/, '').trim())
       .filter(Boolean);
+
     if (!lines.length) return null;
+
     return (
       <ul style={{ margin: '6px 0 0', paddingLeft: 16 }}>
         {lines.map((line, idx) => (
-          <li key={idx} style={{ marginBottom: 3 }}>{line}</li>
+          <li key={idx} style={{ marginBottom: 3 }}>
+            {line}
+          </li>
         ))}
       </ul>
     );
@@ -67,7 +71,6 @@ const Template7 = ({ data }) => {
         fontSize: 11,
         marginRight: 6,
         marginBottom: 6,
-        background: '#fff',
       }}
     >
       {children}
@@ -86,7 +89,7 @@ const Template7 = ({ data }) => {
 
       {summary ? (
         <Section title="Summary">
-          <div style={{ color: '#555', whiteSpace: 'pre-wrap' }}>{summary}</div>
+          <div style={{ color: '#555' }}>{summary}</div>
         </Section>
       ) : null}
 
@@ -125,7 +128,7 @@ const Template7 = ({ data }) => {
             <div key={idx} style={{ marginBottom: 10, breakInside: 'avoid' }}>
               <div style={{ fontWeight: 800 }}>{p.name}</div>
               {p.link ? <div style={{ marginTop: 2, fontSize: 11, color: '#444' }}>{p.link}</div> : null}
-              {p.description ? <div style={{ marginTop: 4, color: '#555', whiteSpace: 'pre-wrap' }}>{p.description}</div> : null}
+              {p.description ? <div style={{ marginTop: 4, color: '#555' }}>{p.description}</div> : null}
             </div>
           ))}
         </Section>
@@ -166,4 +169,4 @@ const Template7 = ({ data }) => {
   );
 };
 
-export default Template7;
+export default AtsMinimal;
