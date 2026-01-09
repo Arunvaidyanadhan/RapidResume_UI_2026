@@ -44,8 +44,32 @@
   box-shadow: var(--shadow-md);
 }
 
+.save-button-secondary {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.save-button-secondary:hover:not(:disabled) {
+  background: var(--surface-elevated);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.save-button-secondary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
 .save-button-full {
   width: 100%;
+}
+
+.save-button-incomplete {
+  opacity: 0.92;
+  border: 1px solid rgba(245, 158, 11, 0.6);
 }
 
 .save-button:disabled {
@@ -68,18 +92,6 @@
 /* Loading state */
 .save-button[aria-busy="true"] {
   pointer-events: none;
-}
-
-/* Sticky positioning for form page */
-.save-button-sticky {
-  position: sticky;
-  bottom: 0;
-  z-index: 100;
-  margin-top: 2rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  background: var(--surface);
-  border-top: 1px solid var(--border-color);
 }
 
 @media (max-width: 768px) {

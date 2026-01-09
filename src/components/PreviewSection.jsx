@@ -1,86 +1,82 @@
-import React, { useMemo } from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import { useResume } from "../context/resumecontext";
 import "./PreviewSection.css";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import { getTemplateById, canGeneratePDF } from "../config/templates";
+import { downloadBlob, generatePDF } from "../utils/api";
 
-import Template1 from "./templates/template1";
-import Template2 from "./templates/template2";
-import Template3 from "./templates/template3";
-
-function PreviewSection() {
-  const { resumeData = {}, selectedTemplate = "template1" } = useResume();
+function PreviewSection({ hideTitle = false, showDownload = true, compact = false }) {
+  const { resumeData = {}, selectedTemplate = "modern" } = useResume();
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState(null);
 
   const renderedTemplate = useMemo(() => {
-    switch (selectedTemplate) {
-      case "template1":
-        return <Template1 data={resumeData} />;
-      case "template2":
-        return <Template2 data={resumeData} />;
-      case "template3":
-        return <Template3 data={resumeData} />;
-      default:
-        return <Template1 data={resumeData} />;
-    }
+    const template = getTemplateById(selectedTemplate) || getTemplateById("modern");
+    if (!template || !template.Component) return null;
+    const TemplateComponent = template.Component;
+    return <TemplateComponent data={resumeData} />;
   }, [selectedTemplate, resumeData]);
-const handleDownloadPDF = () => {
-  const input = document.getElementById("resume-preview");
-  if (!input) return;
 
-  html2canvas(input, {
-    scale: 2,
-    useCORS: true,
-    scrollY: -window.scrollY,
-    backgroundColor: null,
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("p", "mm", "a4");
+  const handleDownloadPDF = async () => {
+    setDownloadError(null);
 
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    if (!canGeneratePDF(selectedTemplate)) {
+      setDownloadError("This template doesn't support PDF generation yet. Please select a different template.");
+      return;
+    }
 
-    const imgWidth = pageWidth;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const firstName = resumeData?.personalDetails?.firstName || "resume";
+    const lastName = resumeData?.personalDetails?.lastName || "";
+    const fileName = `resume-${firstName}${lastName ? `-${lastName}` : ""}.pdf`;
 
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-    pdf.save("resume.pdf");
-  });
-};
-
+    try {
+      setIsDownloading(true);
+      const pdfBlob = await generatePDF(resumeData, selectedTemplate);
+      downloadBlob(pdfBlob, fileName);
+    } catch (err) {
+      setDownloadError(err?.message || "Failed to generate PDF. Please try again.");
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   return (
-    <div className="sticky">
-      <h5 className="mt-5">Preview</h5>
+    <div className={compact ? "preview-root compact" : "preview-root"}>
+      {!hideTitle && <h5 className="mt-3">Preview</h5>}
       <div
         className="preview-container container mt-3 overflow-hidden border"
-        id="resume-preview" // 👈 ADD this ID for html2canvas to target
+        id="resume-preview"
       >
         {!resumeData || Object.keys(resumeData).length === 0 ? (
           <p>No resume data to preview.</p>
         ) : (
-          renderedTemplate
+          <Suspense fallback={<p>Loading template...</p>}>
+            {renderedTemplate}
+          </Suspense>
         )}
       </div>
 
-      <div className="d-flex justify-content-center">
-        <div className="p-2">
-          <button
-            type="button"
-            className="btn btn-primary me-2"
-            onClick={() => window.print()}
-          >
-            Print Preview
-          </button>
-
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={handleDownloadPDF}
-          >
-            Download PDF
-          </button>
+      {showDownload && (
+        <div className="d-flex justify-content-center">
+          <div className="p-2">
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={handleDownloadPDF}
+              disabled={isDownloading}
+            >
+              {isDownloading ? "Generating..." : "Download PDF"}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+
+      {downloadError && (
+        <div className="container mt-2">
+          <div className="alert alert-danger" role="alert">
+            {downloadError}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

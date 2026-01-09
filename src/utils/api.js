@@ -12,8 +12,6 @@ export async function fetchTemplates() {
     const response = await axios.get(`${API_BASE_URL}/templates`);
     return response.data.templates || [];
   } catch (error) {
-    console.error('Error fetching templates:', error);
-    
     let errorMessage = 'Failed to fetch templates. Please try again.';
     
     if (error.response) {
@@ -55,8 +53,6 @@ export async function generatePDF(resumeData, templateId) {
 
     return response.data;
   } catch (error) {
-    console.error('Error generating PDF:', error);
-    
     // Handle different error response formats
     let errorMessage = 'Failed to generate PDF. Please try again.';
     

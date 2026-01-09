@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ResumeProvider } from './context/resumecontext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -14,10 +14,9 @@ const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
 const FormPage = lazy(() => import('./pages/FormPage'));
 const TemplateSelection = lazy(() => import('./pages/TemplateSelection.jsx'));
+const ThankYou = lazy(() => import('./pages/ThankYou'));
 
 function App() {
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [showAboutPanel, setShowAboutPanel] = useState(false);
   return (
     <ThemeProvider>
       <ResumeProvider>
@@ -28,63 +27,33 @@ function App() {
                 <Link className="navbar-brand brand-text" to="/">Rapid Resume</Link>
                 <div className="d-flex gap-3 align-items-center">
                   <ThemeToggle />
-                  <button className="btn btn-accent-outline fw-semibold" onClick={() => setShowAboutPanel(true)}>
+                  <Link className="btn btn-accent-outline fw-semibold" to="/about">
                     About
-                  </button>
+                  </Link>
                 </div>
               </div>
             </nav>
 
-
-
-
-          <div className="flex-grow-1">
-            <ErrorBoundary>
-              <Suspense fallback={
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-                  <LoadingSpinner size="large" text="Loading..." />
-                </div>
-              }>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/template" element={
-                    <TemplateSelection
-                      selectedTemplate={selectedTemplate}
-                      setSelectedTemplate={setSelectedTemplate}
-                    />
-                  } />
-                  <Route path="/form" element={<FormPage />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/about" element={<About />} />
-                </Routes>
-              </Suspense>
-            </ErrorBoundary>
-          </div>
-
-          <FooterComponent />
-
-          {/* Right Slide About Panel */}
-          <div className={`slide-panel ${showAboutPanel ? 'open' : ''}`}>
-            <div className="slide-header">
-              <h5>About Us</h5>
-              <button onClick={() => setShowAboutPanel(false)} className="close-btn">&times;</button>
+            <div className="flex-grow-1">
+              <ErrorBoundary>
+                <Suspense fallback={
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+                    <LoadingSpinner size="large" text="Loading..." />
+                  </div>
+                }>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/template" element={<TemplateSelection />} />
+                    <Route path="/form" element={<FormPage />} />
+                    <Route path="/thank-you" element={<ThankYou />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/about" element={<About />} />
+                  </Routes>
+                </Suspense>
+              </ErrorBoundary>
             </div>
-           <div className="slide-content">
-  <p>
-    Welcome to <strong>RapidResume.in</strong> — your fast and hassle-free resume builder. Create a professional resume effortlessly with no signup, no login, and completely free.
-  </p>
-  <p>
-    We value your privacy — your data stays local and is never stored on our servers.
-  </p>
-  <p>
-    Build your resume in just three simple steps and download it instantly in multiple formats.
-  </p>
-  <p>
-    Have questions or feedback? We'd love to hear from you! Reach out anytime at <a href="mailto:arunvaidyanadhan@gmail.com">arunvaidyanadhan@gmail.com</a>.
-  </p>
-</div>
 
-          </div>
+            <FooterComponent />
           </div>
         </Router>
       </ResumeProvider>

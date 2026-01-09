@@ -46,13 +46,11 @@ const Template1 = ({ data }) => {
       </div>
 
       {/* Experience */}
-      <div className="container">
-        <h5 className="fs-6 p-2" style={{ fontSize: '1.9vmin' }}>Experience</h5>
-        <div className="container border-bottom border-danger fw-bold mb-2"></div>
-        {workExperience.length === 0 ? (
-          <p className="text-muted fst-italic">No work experience added.</p>
-        ) : (
-          workExperience.map((exp, idx) => (
+      {workExperience.length > 0 && (
+        <div className="container">
+          <h5 className="fs-6 p-2" style={{ fontSize: '1.9vmin' }}>Experience</h5>
+          <div className="container border-bottom border-danger fw-bold mb-2"></div>
+          {workExperience.map((exp, idx) => (
             <div className="row" key={idx}>
               <div className="col-4 p-2">
                 <p>{exp.startDate} – {exp.current ? "Present" : exp.endDate}</p>
@@ -67,9 +65,9 @@ const Template1 = ({ data }) => {
                 </ul>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Education */}
       <div className="container mt-3">

@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import LoadingSpinner from '../components/LoadingSpinner';
 import TemplateCard from '../components/TemplateCard';
 import { fetchTemplates } from '../utils/api';
+import { TEMPLATE_REGISTRY } from '../config/templates';
 import './TemplateSelection.css';
 
 const TemplateSelection = () => {
@@ -12,19 +13,25 @@ const TemplateSelection = () => {
   const navigate = useNavigate();
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [loadingTemplate, setLoadingTemplate] = useState(null);
+  const [notice, setNotice] = useState(null);
 
   useEffect(() => {
     const loadTemplates = async () => {
       try {
         setLoading(true);
-        setError(null);
+        setNotice(null);
         const fetchedTemplates = await fetchTemplates();
         setTemplates(fetchedTemplates);
       } catch (err) {
-        console.error('Failed to load templates:', err);
-        setError(err.message || 'Failed to load templates. Please ensure the backend is running.');
+        setNotice('Showing built-in templates (backend unavailable).');
+        setTemplates(
+          TEMPLATE_REGISTRY.map((t) => ({
+            id: t.id,
+            name: t.displayName,
+            description: t.description,
+            preview: '',
+          }))
+        );
       } finally {
         setLoading(false);
       }
@@ -34,13 +41,8 @@ const TemplateSelection = () => {
   }, []);
 
   const handleSelect = (templateId) => {
-    setLoadingTemplate(templateId);
     setSelectedTemplate(templateId);
-    
-    // Small delay for better UX
-    setTimeout(() => {
-      navigate('/form');
-    }, 300);
+    navigate('/form');
   };
 
   if (loading) {
@@ -56,27 +58,6 @@ const TemplateSelection = () => {
     );
   }
 
-  if (error) {
-    return (
-      <>
-        <Breadcrumb />
-        <div className="template-selection">
-          <div className="template-error">
-            <div className="error-icon">⚠️</div>
-            <h3>Unable to Load Templates</h3>
-            <p>{error}</p>
-            <button 
-              className="retry-button"
-              onClick={() => window.location.reload()}
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  }
-
   return (
     <>
       <Breadcrumb />
@@ -85,6 +66,11 @@ const TemplateSelection = () => {
           <h2>Select a Resume Template</h2>
           <p className="template-subtitle">Choose from our professional, ATS-friendly templates</p>
         </div>
+        {notice && (
+          <div className="template-notice" role="status">
+            {notice}
+          </div>
+        )}
         {templates.length === 0 ? (
           <div className="template-empty">
             <p>No templates available at the moment.</p>

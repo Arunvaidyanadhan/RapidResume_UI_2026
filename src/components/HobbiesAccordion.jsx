@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function HobbiesAccordion() {
-  const [hobbies, setHobbies] = useState([]);
+  const { resumeData, updateHobbies } = useResume();
+  const [hobbies, setHobbies] = useState(resumeData.hobbies || []);
   const [newHobby, setNewHobby] = useState('');
   const [isEditing, setIsEditing] = useState(null);
+
+  useEffect(() => {
+    setHobbies(resumeData.hobbies || []);
+  }, [resumeData.hobbies]);
+
+  useEffect(() => {
+    updateHobbies(hobbies);
+  }, [hobbies, updateHobbies]);
 
   const handleAdd = () => {
     if (newHobby.trim() !== '') {

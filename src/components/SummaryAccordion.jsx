@@ -5,7 +5,6 @@ import './AccordionForm.css';
 function SummaryAccordion() {
   const { resumeData, updateSummary } = useResume();
   const [summary, setSummary] = useState(resumeData.summary || '');
-  const [isEditing, setIsEditing] = useState(true);
 
   // Sync with context when resumeData.summary changes
   useEffect(() => {
@@ -13,16 +12,9 @@ function SummaryAccordion() {
   }, [resumeData.summary]);
 
   const handleChange = (e) => {
-    setSummary(e.target.value);
-  };
-
-  const handleSave = () => {
-    updateSummary(summary);
-    setIsEditing(false);
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
+    const next = e.target.value;
+    setSummary(next);
+    updateSummary(next);
   };
 
   return (
@@ -47,18 +39,9 @@ function SummaryAccordion() {
             rows="5"
             value={summary}
             onChange={handleChange}
-            disabled={!isEditing}
             placeholder="Write a brief professional summary highlighting your key skills, experience, and career objectives..."
           ></textarea>
         </div>
-
-          <div className="d-flex justify-content-end ">
-            {isEditing ? (
-              <button className="btn btn-success m-2" onClick={handleSave}>Save</button>
-            ) : (
-              <button className="btn btn-warning m-2" onClick={handleEdit}>Edit</button>
-            )}
-          </div>
         </div>
       </div>
     </div>

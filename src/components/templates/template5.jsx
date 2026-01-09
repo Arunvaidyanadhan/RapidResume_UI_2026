@@ -2,6 +2,16 @@ import React from 'react';
 import './template1.css';
 
 const Template5 = ({ data }) => {
+  const {
+    personalDetails = {},
+    summary = '',
+    skills = [],
+    workExperience = [],
+    education = [],
+  } = data || {};
+
+  const { firstName = '', lastName = '', email = '', phone = '', linkedin = '', image = null } = personalDetails;
+
   return (
     <>
       <div className="resume-header text-center rounded">
@@ -9,51 +19,56 @@ const Template5 = ({ data }) => {
           <div className="col-4 p-2">
             <img
               style={{ width: '150px', height: '150px', padding: '10px', position: 'absolute', top: '5px', left: '20px' }}
-              src={data.photo || "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"}
+              src={
+                image ||
+                "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+              }
               alt="profile"
             />
           </div>
           <div className="col-8 text-start">
-            <h1>{data.name || "John Doe"}</h1>
-            <p className="lead">{data.jobTitle || "Full Stack Web Developer"}</p>
+            <h1>{firstName} {lastName}</h1>
+            <p className="lead">{summary}</p>
             <p>
-              Email: {data.email} | Phone: {data.phone} | LinkedIn: {data.linkedin}
+              Email: {email} | Phone: {phone} | LinkedIn: {linkedin}
             </p>
           </div>
         </div>
       </div>
 
       {/* Experience Section */}
-      <div className="container">
-        <h5 style={{ fontSize: '1.9vmin' }} className="fs-6 p-2">Experience</h5>
-        <div className="container border-bottom border-danger fw-bold"></div>
-        {data.experience?.map((exp, idx) => (
-          <div className="row" key={idx}>
-            <div className="col p-2">
-              <p>{exp.duration}</p>
-              <p>{exp.location}</p>
+      {workExperience.length > 0 && (
+        <div className="container">
+          <h5 style={{ fontSize: '1.9vmin' }} className="fs-6 p-2">Experience</h5>
+          <div className="container border-bottom border-danger fw-bold"></div>
+          {workExperience.map((exp, idx) => (
+            <div className="row" key={idx}>
+              <div className="col p-2">
+                <p>{exp.startDate} – {exp.current ? 'Present' : exp.endDate}</p>
+                <p>{exp.location || ''}</p>
+              </div>
+              <div className="col-8 p-2">
+                <h5 style={{ fontSize: '1.9vmin' }} className="fs-6">{exp.jobTitle} - {exp.employer}</h5>
+                {exp.description ? <p>{exp.description}</p> : null}
+              </div>
             </div>
-            <div className="col-8 p-2">
-              <h5 style={{ fontSize: '1.9vmin' }} className="fs-6">{exp.company}</h5>
-              <p>{exp.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Education Section */}
       <div className="container">
         <h5 style={{ fontSize: '1.9vmin' }} className="fs-6 p-2">Education</h5>
         <div className="container border-bottom border-danger fw-bold"></div>
-        {data.education?.map((edu, idx) => (
+        {education.map((edu, idx) => (
           <div className="row" key={idx}>
             <div className="col p-2">
-              <p>{edu.duration}</p>
-              <p>{edu.location}</p>
+              <p>{edu.startDate} – {edu.current ? 'Present' : edu.endDate}</p>
+              <p>{edu.location || ''}</p>
             </div>
             <div className="col-8 p-2">
-              <h5 style={{ fontSize: '1.9vmin' }} className="fs-6">{edu.institution}</h5>
-              <p>{edu.description}</p>
+              <h5 style={{ fontSize: '1.9vmin' }} className="fs-6">{edu.degree} {edu.fieldOfStudy}</h5>
+              <p>{edu.school}</p>
             </div>
           </div>
         ))}

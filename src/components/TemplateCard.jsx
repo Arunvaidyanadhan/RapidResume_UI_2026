@@ -7,11 +7,12 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 const TemplateCard = memo(({ templateId, templateName, description, preview, onSelect, isSelected = false }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  
+
   // Construct full preview image URL
-  const previewUrl = preview.startsWith('http') 
-    ? preview 
-    : `${API_BASE_URL}${preview}`;
+  const hasPreview = typeof preview === 'string' && preview.trim().length > 0;
+  const previewUrl = hasPreview
+    ? (preview.startsWith('http') ? preview : `${API_BASE_URL}${preview}`)
+    : null;
 
   const handleImageLoad = () => {
     setImageLoaded(true);
@@ -25,7 +26,17 @@ const TemplateCard = memo(({ templateId, templateName, description, preview, onS
   return (
     <div
       className={`template-card-wrapper ${isSelected ? 'template-selected' : ''}`}
+      data-template-id={templateId}
       onClick={onSelect}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
     >
       <div className="thumbnail-card">
         <div className="thumbnail-preview">
@@ -34,7 +45,7 @@ const TemplateCard = memo(({ templateId, templateName, description, preview, onS
               <LoadingSpinner size="small" text="" />
             </div>
           )}
-          {imageError ? (
+          {!hasPreview || imageError ? (
             <div className="template-placeholder">
               <div className="template-placeholder-icon">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,8 +62,8 @@ const TemplateCard = memo(({ templateId, templateName, description, preview, onS
           ) : (
             <img
               src={previewUrl}
-              alt={`${templateName} template preview`}
-              className={`template-preview-image ${imageLoaded ? 'loaded' : ''}`}
+              alt={templateName}
+              className="template-preview"
               onLoad={handleImageLoad}
               onError={handleImageError}
             />

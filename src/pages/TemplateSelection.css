@@ -3,6 +3,7 @@
   max-width: 1400px;
   margin: 0 auto;
   min-height: calc(100vh - 200px);
+  background: radial-gradient(1200px 600px at 50% -200px, rgba(99, 102, 241, 0.10), transparent 60%);
 }
 
 .template-header {
@@ -40,8 +41,9 @@
 
 .template-thumbnails {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
+  align-items: stretch;
   justify-items: center;
 }
 
@@ -100,6 +102,17 @@
   text-align: center;
   padding: 4rem 2rem;
   color: var(--text-secondary);
+}
+
+.template-notice {
+  max-width: 980px;
+  margin: 0 auto 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--text-primary);
+  font-size: 0.95rem;
 }
 
 /* Template card styles moved to TemplateCard.css */

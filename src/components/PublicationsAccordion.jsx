@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function PublicationsAccordion() {
-  const [publications, setPublications] = useState([]);
+  const { resumeData, updatePublications } = useResume();
+  const [publications, setPublications] = useState(resumeData.publications || []);
   const [newPublication, setNewPublication] = useState('');
   const [isEditing, setIsEditing] = useState(null);
+
+  useEffect(() => {
+    setPublications(resumeData.publications || []);
+  }, [resumeData.publications]);
+
+  useEffect(() => {
+    updatePublications(publications);
+  }, [publications, updatePublications]);
 
   const handleAdd = () => {
     if (newPublication.trim() !== '') {

@@ -17,13 +17,7 @@ const Template3 = lazy(() => import('../components/templates/template3'));
 const Template4 = lazy(() => import('../components/templates/template4'));
 const Template5 = lazy(() => import('../components/templates/template5'));
 const Template6 = lazy(() => import('../components/templates/template6'));
-const Template7 = lazy(() => import('../components/templates/template7'));
 const Template8 = lazy(() => import('../components/templates/template8'));
-const Template9 = lazy(() => import('../components/templates/template9'));
-const Template10 = lazy(() => import('../components/templates/template10'));
-const Template11 = lazy(() => import('../components/templates/template11'));
-const Template12 = lazy(() => import('../components/templates/template12'));
-const Template13 = lazy(() => import('../components/templates/template13'));
 
 /**
  * Template Registry
@@ -87,55 +81,6 @@ export const TEMPLATE_REGISTRY = [
     backendTemplate: 'complete.hbs',
     Component: Template8,
     category: 'professional',
-  },
-  // Templates without backend support (UI only)
-  {
-    id: 'template7',
-    displayName: 'Template 7',
-    description: 'Coming soon',
-    backendTemplate: null,
-    Component: Template7,
-    category: 'preview',
-  },
-  {
-    id: 'template9',
-    displayName: 'Template 9',
-    description: 'Coming soon',
-    backendTemplate: null,
-    Component: Template9,
-    category: 'preview',
-  },
-  {
-    id: 'template10',
-    displayName: 'Template 10',
-    description: 'Coming soon',
-    backendTemplate: null,
-    Component: Template10,
-    category: 'preview',
-  },
-  {
-    id: 'template11',
-    displayName: 'Template 11',
-    description: 'Coming soon',
-    backendTemplate: null,
-    Component: Template11,
-    category: 'preview',
-  },
-  {
-    id: 'template12',
-    displayName: 'Template 12',
-    description: 'Coming soon',
-    backendTemplate: null,
-    Component: Template12,
-    category: 'preview',
-  },
-  {
-    id: 'template13',
-    displayName: 'Template 13',
-    description: 'Coming soon',
-    backendTemplate: null,
-    Component: Template13,
-    category: 'preview',
   },
 ];
 

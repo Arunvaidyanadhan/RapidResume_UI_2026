@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function LanguagesAccordion() {
-  const [languages, setLanguages] = useState([]);
+  const { resumeData, updateLanguages } = useResume();
+  const [languages, setLanguages] = useState(resumeData.languages || []);
   const [newLang, setNewLang] = useState('');
   const [isEditing, setIsEditing] = useState(null);
+
+  useEffect(() => {
+    setLanguages(resumeData.languages || []);
+  }, [resumeData.languages]);
+
+  useEffect(() => {
+    updateLanguages(languages);
+  }, [languages, updateLanguages]);
 
   const handleAdd = () => {
     if (newLang.trim() !== '') {

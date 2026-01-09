@@ -73,26 +73,20 @@ const Template2 = ({ data }) => {
       </div>
 
       {/* Experience */}
-      <div className="resume-section mb-4">
-        <div
-          className="section-title"
-          style={{
-            fontSize: "1.9vmin",
-            fontWeight: "700",
-            marginBottom: "0.8rem",
-          }}
-        >
-          Experience
-        </div>
-
-        {workExperience.length === 0 ? (
-          <p
-            style={{ fontSize: "1.6vmin", fontStyle: "italic", color: "#666" }}
+      {workExperience.length > 0 && (
+        <div className="resume-section mb-4">
+          <div
+            className="section-title"
+            style={{
+              fontSize: "1.9vmin",
+              fontWeight: "700",
+              marginBottom: "0.8rem",
+            }}
           >
-            No work experience added yet.
-          </p>
-        ) : (
-          workExperience.map((exp, index) => (
+            Experience
+          </div>
+
+          {workExperience.map((exp, index) => (
             <div key={index} style={{ marginBottom: "1.5vmin" }}>
               <h5 style={{ fontSize: "1.9vmin", fontWeight: "600" }}>
                 {exp.jobTitle} - {exp.employer}{" "}
@@ -134,9 +128,9 @@ const Template2 = ({ data }) => {
                 </ul>
               )}
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Education */}
       <div className="resume-section">

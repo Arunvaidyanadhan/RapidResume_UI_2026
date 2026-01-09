@@ -35,8 +35,8 @@ const Template3 = ({ data }) => {
 
   // Transform workExperience => experience shape your template expects
   const experience = workExperience.map((exp) => ({
-    period: `${exp.startDate} - ${exp.endDate}`,
-    company: exp.company,
+    period: `${exp.startDate || ''} - ${exp.current ? 'Present' : (exp.endDate || '')}`,
+    company: exp.employer || '',
     description: exp.description,
   }));
 
@@ -156,17 +156,23 @@ const Template3 = ({ data }) => {
         {/* Right Content Area */}
         <div className="col-7">
           {/* Experience Section */}
-          <h5 className="mt-3">Experience</h5>
-          <hr />
-          {experience.map((exp, index) => (
-            <div key={index}>
-              <div className="row">
-                <div className="col">{exp.period}</div>
-                <div className="col">{exp.company}</div>
-              </div>
-              <p style={{ whiteSpace: 'pre-wrap' }}>{exp.description}</p>
-            </div>
-          ))}
+          {workExperience.length > 0 && (
+            <>
+              <h5 className="mt-3">Experience</h5>
+              <hr />
+              {experience.map((exp, index) => (
+                <div key={index}>
+                  <div className="row">
+                    <div className="col">{exp.period}</div>
+                    <div className="col">{exp.company}</div>
+                  </div>
+                  {exp.description && (
+                    <p style={{ whiteSpace: 'pre-wrap' }}>{exp.description}</p>
+                  )}
+                </div>
+              ))}
+            </>
+          )}
 
           {/* Education Section */}
           <h5 className="mt-4">Education</h5>

@@ -15,13 +15,11 @@ const Template4 = ({ data }) => {
 
   const jobTitle = workExperience[0]?.jobTitle || 'Freelance Web Developer';
 
-  const summary =
-    personalDetails?.summary ||
-    'Suspendisse eleifend interdum orci non pharetra.';
+  const summary = data?.summary || 'Suspendisse eleifend interdum orci non pharetra.';
 
-  const phone = personalDetails?.phone || '+12 3456 7890';
-  const email = personalDetails?.email || 'lcollins@email.com';
-  const website = personalDetails?.website || 'www.lauracollins.com';
+  const phone = personalDetails?.phone || '';
+  const email = personalDetails?.email || '';
+  const website = personalDetails?.website || '';
   const image =
     personalDetails?.image || 'https://i.pravatar.cc/175?img=32';
 
@@ -53,15 +51,15 @@ const Template4 = ({ data }) => {
           <div className="row">
             <div className="col pb-md-0">
               <i className="fa-solid fa-envelope mx-2" />
-              <a href="#" className="text-white">{email}</a>
+              {email ? <a href={`mailto:${email}`} className="text-white">{email}</a> : <span className="text-white">&nbsp;</span>}
             </div>
             <div className="col text-md-center pb-md-0">
               <i className="fa-solid fa-globe mx-2" />
-              <a href="#" className="text-white">{website}</a>
+              {website ? <a href={website} className="text-white">{website}</a> : <span className="text-white">&nbsp;</span>}
             </div>
             <div className="col text-md-right">
               <i className="fa-solid fa-mobile-screen mx-2" />
-              <a href="#" className="text-white">{phone}</a>
+              {phone ? <a href={`tel:${phone}`} className="text-white">{phone}</a> : <span className="text-white">&nbsp;</span>}
             </div>
           </div>
         </div>
@@ -84,39 +82,41 @@ const Template4 = ({ data }) => {
           {education.map((edu, index) => (
             <div className="col-6" key={index}>
               <div className="d-flex justify-content-between">
-                <h6>{edu.institution}</h6>
-                <h6>{edu.startDate} - {edu.endDate}</h6>
+                <h6>{edu.school || ''}</h6>
+                <h6>{edu.startDate || ''} - {edu.current ? 'Present' : (edu.endDate || '')}</h6>
               </div>
               <div className="d-flex justify-content-between">
                 <h6 style={{ fontSize: '1.9vmin' }}>{edu.degree || edu.fieldOfStudy}</h6>
                 <h6 style={{ fontSize: '1.9vmin' }}>{edu.grade || 'N/A'}</h6>
               </div>
-              <p>{edu.description}</p>
+              {edu.description ? <p>{edu.description}</p> : null}
             </div>
           ))}
         </div>
       </div>
 
       {/* Work Experience */}
-      <div className="container">
-        <h5 className="p-1" style={{ fontSize: '1.9vmin', backgroundColor: 'rgb(120, 117, 117)', color: 'white' }}>
-          Career History
-        </h5>
-        <div className="row">
-          {workExperience.map((exp, index) => (
-            <div className="col-6" key={index}>
-              <div className="d-flex justify-content-between">
-                <h6>{exp.company}</h6>
-                <h6>{exp.startDate} - {exp.endDate}</h6>
+      {workExperience.length > 0 && (
+        <div className="container">
+          <h5 className="p-1" style={{ fontSize: '1.9vmin', backgroundColor: 'rgb(120, 117, 117)', color: 'white' }}>
+            Career History
+          </h5>
+          <div className="row">
+            {workExperience.map((exp, index) => (
+              <div className="col-6" key={index}>
+                <div className="d-flex justify-content-between">
+                  <h6>{exp.employer || ''}</h6>
+                  <h6>{exp.startDate || ''} - {exp.current ? 'Present' : (exp.endDate || '')}</h6>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <h6>{exp.jobTitle || ''}</h6>
+                </div>
+                {exp.description ? <p>{exp.description}</p> : null}
               </div>
-              <div className="d-flex justify-content-between">
-                <h6>{exp.jobTitle}</h6>
-              </div>
-              <p>{exp.description}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Skills & Reference */}
       <div className="container">

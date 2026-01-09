@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function AwardsAccordion() {
-  const [awards, setAwards] = useState([]);
+  const { resumeData, updateAwards } = useResume();
+  const [awards, setAwards] = useState(resumeData.awards || []);
   const [newAward, setNewAward] = useState('');
   const [isEditing, setIsEditing] = useState(null);
+
+  useEffect(() => {
+    setAwards(resumeData.awards || []);
+  }, [resumeData.awards]);
+
+  useEffect(() => {
+    updateAwards(awards);
+  }, [awards, updateAwards]);
 
   const handleAdd = () => {
     if (newAward.trim() !== '') {

@@ -21,7 +21,7 @@ export default function ImageUpload() {
       await axios.post('http://localhost:5000/upload', formData);
       alert('Passport photo uploaded successfully');
     } catch (err) {
-      console.error(err);
+      void err;
       alert('Upload failed');
     }
   };

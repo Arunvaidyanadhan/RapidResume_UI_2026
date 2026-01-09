@@ -48,7 +48,6 @@ function FinallizeAccordion() {
       const pdfBlob = await generatePDF(resumeData, selectedTemplate);
       downloadBlob(pdfBlob, `resume-${resumeData.personalDetails.firstName}-${resumeData.personalDetails.lastName}.pdf`);
     } catch (err) {
-      console.error('PDF generation error:', err);
       setError(err.message || 'Failed to generate PDF. Please check your connection and try again.');
     } finally {
       setIsGenerating(false);

@@ -23,11 +23,15 @@
 }
 
 .preview-container {
-  width: 794px; /* A4 width at 96dpi */
+  width: min(794px, 100%); /* A4 width at 96dpi, shrink in drawer */
   padding: 20px;
   margin: 0 auto;
   background-color: white;
   box-shadow: none;
+}
+
+.preview-root.compact .preview-container {
+  margin-top: 0.75rem !important;
 }
 
 @media screen {

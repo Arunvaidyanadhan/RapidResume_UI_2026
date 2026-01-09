@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function VolunteerAccordion() {
-  const [volunteerList, setVolunteerList] = useState([]);
+  const { resumeData, updateVolunteer } = useResume();
+  const [volunteerList, setVolunteerList] = useState(resumeData.volunteer || []);
   const [newEntry, setNewEntry] = useState({ org: '', role: '', description: '' });
   const [isEditing, setIsEditing] = useState(null);
+
+  useEffect(() => {
+    setVolunteerList(resumeData.volunteer || []);
+  }, [resumeData.volunteer]);
+
+  useEffect(() => {
+    updateVolunteer(volunteerList);
+  }, [volunteerList, updateVolunteer]);
 
   const handleAdd = () => {
     if (newEntry.org.trim() && newEntry.role.trim() && newEntry.description.trim()) {

@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 
 function ReferencesAccordion() {
-  const [references, setReferences] = useState([]);
+  const { resumeData, updateReferences } = useResume();
+  const [references, setReferences] = useState(resumeData.references || []);
   const [newName, setNewName] = useState('');
   const [newContact, setNewContact] = useState('');
   const [isEditing, setIsEditing] = useState(null);
+
+  useEffect(() => {
+    setReferences(resumeData.references || []);
+  }, [resumeData.references]);
+
+  useEffect(() => {
+    updateReferences(references);
+  }, [references, updateReferences]);
 
   const handleAdd = () => {
     if (newName.trim() !== '' && newContact.trim() !== '') {

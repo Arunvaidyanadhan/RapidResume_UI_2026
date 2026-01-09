@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useResume } from '../context/resumecontext';
 import './AccordionForm.css';
 import './ImageUpload.css';
@@ -6,29 +6,25 @@ import './ImageUpload.css';
 function PersonalDetailAccordion() {
   const { resumeData, updatePersonalDetails, updateImage } = useResume();
   const [formData, setFormData] = useState(resumeData.personalDetails);
-  const [isEditing, setIsEditing] = useState(true);
+
+  useEffect(() => {
+    setFormData(resumeData.personalDetails);
+  }, [resumeData.personalDetails]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => {
+      const next = { ...prev, [name]: value };
+      updatePersonalDetails(next);
+      return next;
+    });
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       updateImage(file);
-      setFormData(prev => ({ ...prev, image: URL.createObjectURL(file) }));
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updatePersonalDetails(formData);
-    setIsEditing(false);
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
   };
 
   const profileImage = formData.image || 'https://via.placeholder.com/200?text=Upload+Photo';
@@ -56,7 +52,7 @@ function PersonalDetailAccordion() {
             data-bs-parent="#accordionSixItems"
           >
             <div className="accordion-body bg-light-subtle py-4 px-3">
-              <form className="row g-4" onSubmit={handleSubmit}>
+              <form className="row g-4">
 
                 {/* Image Section */}
                 <div className="col-md-4 text-center">
@@ -75,7 +71,6 @@ function PersonalDetailAccordion() {
                       id="fileUpload"
                       accept="image/*"
                       onChange={handleImageChange}
-                      disabled={!isEditing}
                       className="d-none"
                     />
                   </div>
@@ -93,7 +88,6 @@ function PersonalDetailAccordion() {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
-                        disabled={!isEditing}
                         required
                       />
                     </div>
@@ -106,7 +100,6 @@ function PersonalDetailAccordion() {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleChange}
-                        disabled={!isEditing}
                         required
                       />
                     </div>
@@ -119,7 +112,6 @@ function PersonalDetailAccordion() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        disabled={!isEditing}
                         required
                       />
                     </div>
@@ -132,7 +124,6 @@ function PersonalDetailAccordion() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        disabled={!isEditing}
                         required
                       />
                     </div>
@@ -145,23 +136,9 @@ function PersonalDetailAccordion() {
                         rows="2"
                         value={formData.address}
                         onChange={handleChange}
-                        disabled={!isEditing}
                       />
                     </div>
                   </div>
-                </div>
-
-                {/* Buttons */}
-                <div className="col-12 d-flex justify-content-end gap-3 mt-4">
-                  {isEditing ? (
-                    <button type="submit" className="btn btn-success fw-semibold shadow-sm px-4 py-2">
-                      💾 Save
-                    </button>
-                  ) : (
-                    <button type="button" className="btn btn-outline-secondary fw-semibold shadow-sm px-4 py-2" onClick={handleEdit}>
-                      ✏️ Edit
-                    </button>
-                  )}
                 </div>
 
               </form>
