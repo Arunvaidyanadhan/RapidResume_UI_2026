@@ -1,16 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 function FooterComponent() {
   return (
-    <footer className="footer bg-dark text-white py-4 mt-auto">
+    <footer className="footer mt-auto">
       <div className="container text-center">
-        <p className="mb-2">&copy; 2025 RapidResume. All rights reserved.</p>
-        <div className="d-flex justify-content-center gap-3">
-          <a href="#" className="icon" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-          <a href="#" className="icon" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-          <a href="#" className="icon" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-          <a href="#" className="icon" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
+        <p className="mb-2">&copy; 2026 Rapid Resume</p>
+        <div className="d-flex justify-content-center gap-3 flex-wrap">
+          <Link to="/template" className="footer-link">View templates</Link>
+          <Link to="/contact" className="footer-link">Contact</Link>
+          <a className="footer-link" href="mailto:arunvaidyanadhan@gmail.com">Feedback</a>
         </div>
       </div>
     </footer>

@@ -9,7 +9,9 @@ const Breadcrumb = () => {
   const getPageName = (path) => {
     const names = {
       template: 'Templates',
+      headings: 'Sections',
       form: 'Build Resume',
+      'thank-you': 'Done',
     };
     return names[path] || path.charAt(0).toUpperCase() + path.slice(1);
   };

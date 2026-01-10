@@ -4,23 +4,9 @@
  * This file defines all available resume templates.
  * Both frontend and backend should reference this structure.
  * 
- * Frontend: Uses id and displayName for UI, Component for preview
+ * Frontend: Uses id and displayName for UI
  * Backend: Uses backendTemplate to map to actual .hbs file
  */
-
-// Lazy load template components for better performance
-import { lazy } from 'react';
-
-const Template1 = lazy(() => import('../components/templates/template1'));
-const Template2 = lazy(() => import('../components/templates/template2'));
-const Template3 = lazy(() => import('../components/templates/template3'));
-const Template4 = lazy(() => import('../components/templates/template4'));
-const Template5 = lazy(() => import('../components/templates/template5'));
-const Template6 = lazy(() => import('../components/templates/template6'));
-const Template7 = lazy(() => import('../components/templates/template7'));
-const Template8 = lazy(() => import('../components/templates/template8'));
-const Template9 = lazy(() => import('../components/templates/template9'));
-const AtsMinimal = lazy(() => import('../components/templates/atsMinimal'));
 
 /**
  * Template Registry
@@ -34,7 +20,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Modern',
     description: 'Clean and professional design',
     backendTemplate: 'modern.hbs',
-    Component: Template1,
     category: 'professional',
   },
   {
@@ -42,7 +27,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Classic',
     description: 'Traditional resume layout',
     backendTemplate: 'template-2.hbs',
-    Component: Template2,
     category: 'professional',
   },
   {
@@ -50,7 +34,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Executive',
     description: 'Bold and impactful design',
     backendTemplate: 'template-3.hbs',
-    Component: Template3,
     category: 'executive',
   },
   {
@@ -58,7 +41,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Creative',
     description: 'Modern with creative flair',
     backendTemplate: 'template-4.hbs',
-    Component: Template4,
     category: 'creative',
   },
   {
@@ -66,7 +48,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Minimalist',
     description: 'Simple and elegant',
     backendTemplate: 'template-5.hbs',
-    Component: Template5,
     category: 'minimal',
   },
   {
@@ -74,7 +55,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Professional',
     description: 'ATS-friendly format',
     backendTemplate: 'template-6.hbs',
-    Component: Template6,
     category: 'professional',
   },
   {
@@ -82,7 +62,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Simple ATS',
     description: 'Ultra-clean single-column layout for fast scanning',
     backendTemplate: 'template-7.hbs',
-    Component: Template7,
     category: 'minimal',
   },
   {
@@ -90,7 +69,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Fresher Focus',
     description: 'Education and projects first. Great for students and freshers',
     backendTemplate: 'template-8.hbs',
-    Component: Template8,
     category: 'minimal',
   },
   {
@@ -98,7 +76,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Project Spotlight',
     description: 'Project-first layout for portfolios and hands-on roles',
     backendTemplate: 'template-9.hbs',
-    Component: Template9,
     category: 'minimal',
   },
   {
@@ -106,7 +83,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Minimal ATS',
     description: 'Strict ATS-safe typography and spacing with clean section rules',
     backendTemplate: 'ats-minimal.hbs',
-    Component: AtsMinimal,
     category: 'minimal',
   },
   {
@@ -114,7 +90,6 @@ export const TEMPLATE_REGISTRY = [
     displayName: 'Complete',
     description: 'Comprehensive layout',
     backendTemplate: 'complete.hbs',
-    Component: Template8,
     category: 'professional',
   },
 ];

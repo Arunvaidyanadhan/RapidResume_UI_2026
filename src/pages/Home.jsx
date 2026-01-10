@@ -1,6 +1,5 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import LoadingSpinner from '../components/LoadingSpinner';
 import './HomePage.css';
 
 function HomePage() {
@@ -13,7 +12,7 @@ function HomePage() {
     {
       icon: '🔐',
       title: 'Privacy First',
-      description: 'Your data stays in your browser only. No servers involved.',
+      description: 'Your draft is saved in your browser. It’s sent only when generating your PDF.',
     },
     {
       icon: '💸',
@@ -31,7 +30,9 @@ function HomePage() {
     <div className="hero-section">
       <div className="overlay">
         <h1>Welcome to Rapid Resume</h1>
-        <p className="lead">Create a professional resume in just minutes. Stand out with style.</p>
+        <p className="lead">
+          Create a clean, professional resume in minutes. Free to use, privacy-first (saved in your browser), and no signup required.
+        </p>
         <div className="cta-buttons">
           <Link to="/template" className="btn btn-accent">Create Resume</Link>
           <Link to="/template" className="btn btn-accent-secondary">View Templates</Link>

@@ -27,7 +27,8 @@
   padding: 20px;
   margin: 0 auto;
   background-color: white;
-  box-shadow: none;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(79, 70, 229, 0.14);
 }
 
 .preview-root.compact .preview-container {
@@ -36,9 +37,17 @@
 
 @media screen {
   .preview-container {
-    box-shadow: 6px 6px 12px #737373, -6px -6px 12px #ffffff;
+    box-shadow: var(--shadow-md);
   }
 }
+
+ .preview-iframe {
+  display: block;
+ }
+
+ .preview-empty {
+  padding: 1rem;
+ }
 
 @media print {
   .preview-container {

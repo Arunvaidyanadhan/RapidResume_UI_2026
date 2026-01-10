@@ -28,9 +28,17 @@ export default function ThankYou() {
     <div className="container" style={{ maxWidth: 840, padding: '3rem 1rem' }}>
       <div className="card shadow-sm" style={{ borderRadius: 16 }}>
         <div className="card-body" style={{ padding: '2rem' }}>
-          <h2 style={{ marginBottom: 8 }}>Your resume is ready</h2>
+          <div
+            style={{
+              height: 6,
+              borderRadius: 999,
+              background: 'linear-gradient(90deg, rgba(79,70,229,1), rgba(99,102,241,1))',
+              marginBottom: 18,
+            }}
+          />
+          <h2 style={{ marginBottom: 8 }}>Success — your resume is ready</h2>
           <p className="text-muted" style={{ marginBottom: 20 }}>
-            Thanks for using Rapid Resume. Your PDF download should have started automatically.
+            Your PDF download should have started. If it didn’t, check your browser’s downloads.
           </p>
 
           {fileName ? (
@@ -44,9 +52,12 @@ export default function ThankYou() {
           )}
 
           <div className="d-flex flex-wrap gap-2" style={{ justifyContent: 'flex-end' }}>
-            <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/', { replace: true })}>
-              Go to Home
+            <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/template', { replace: true })}>
+              View Templates
             </button>
+            <a className="btn btn-outline-secondary" href="mailto:arunvaidyanadhan@gmail.com">
+              Feedback / Contact
+            </a>
             <button type="button" className="btn btn-primary" onClick={handleCreateAnother}>
               Create Another Resume
             </button>
@@ -55,7 +66,7 @@ export default function ThankYou() {
           <hr style={{ margin: '1.5rem 0' }} />
 
           <p className="text-muted" style={{ margin: 0 }}>
-            Tip: If you didn’t get a download prompt, check your browser’s downloads.
+            Tip: You can return anytime — your progress is saved locally in your browser.
           </p>
         </div>
       </div>

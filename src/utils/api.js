@@ -1,7 +1,102 @@
 import axios from 'axios';
 import { transformResumeData } from './dataTransformer';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const CONFIGURED_API_BASE_URL = (process.env.REACT_APP_API_URL || '').trim();
+
+function getLocalApiBaseUrl() {
+  if (typeof window === 'undefined') return 'http://localhost:3001';
+  const host = window.location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return 'http://localhost:3001';
+  return `http://${host}:3001`;
+}
+
+let activeApiBaseUrl = (() => {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    const isPrivateIp =
+      /^10\./.test(host) ||
+      /^192\.168\./.test(host) ||
+      /^172\.(1[6-9]|2\d|3[0-1])\./.test(host);
+    if (host === 'localhost' || host === '127.0.0.1' || isPrivateIp) return getLocalApiBaseUrl();
+  }
+
+  if (CONFIGURED_API_BASE_URL) return CONFIGURED_API_BASE_URL;
+
+  return getLocalApiBaseUrl();
+})();
+
+export function getApiBaseUrl() {
+  return activeApiBaseUrl;
+}
+
+function getFallbackApiBaseUrl(primary) {
+  const localBase = getLocalApiBaseUrl();
+  if (primary === localBase) return CONFIGURED_API_BASE_URL || '';
+  return localBase;
+}
+
+async function parseBlobError(blob) {
+  try {
+    const text = await blob.text();
+    try {
+      const asJson = JSON.parse(text);
+      return asJson?.message || asJson?.error || text;
+    } catch {
+      return text;
+    }
+  } catch {
+    return '';
+  }
+}
+
+async function getErrorMessage(error, fallbackHint = '') {
+  let errorMessage = 'Request failed. Please try again.';
+
+  if (error?.response) {
+    const data = error.response.data;
+
+    if (data instanceof Blob) {
+      const decoded = await parseBlobError(data);
+      errorMessage = decoded || `Server error: ${error.response.status}`;
+    } else if (typeof data === 'string') {
+      errorMessage = data;
+    } else if (data?.message) {
+      errorMessage = data.message;
+    } else if (data?.error) {
+      errorMessage = data.error;
+    } else {
+      errorMessage = `Server error: ${error.response.status}`;
+    }
+  } else if (error?.request) {
+    errorMessage = fallbackHint || 'Unable to connect to the server. Please ensure the backend is running.';
+  } else {
+    errorMessage = error?.message || errorMessage;
+  }
+
+  return errorMessage;
+}
+
+async function withApiFallback(requestFn) {
+  const primary = activeApiBaseUrl;
+  try {
+    return await requestFn(primary);
+  } catch (error) {
+    // Only retry on network-like failures (no response). CORS failures also land here.
+    if (!error?.response) {
+      const fallback = getFallbackApiBaseUrl(primary);
+      if (fallback && fallback !== primary) {
+        try {
+          const result = await requestFn(fallback);
+          activeApiBaseUrl = fallback;
+          return result;
+        } catch (secondError) {
+          throw secondError;
+        }
+      }
+    }
+    throw error;
+  }
+}
 
 /**
  * Fetch all available templates from backend
@@ -9,23 +104,10 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
  */
 export async function fetchTemplates() {
   try {
-    const response = await axios.get(`${API_BASE_URL}/templates`);
+    const response = await withApiFallback((base) => axios.get(`${base}/templates`));
     return response.data.templates || [];
   } catch (error) {
-    let errorMessage = 'Failed to fetch templates. Please try again.';
-    
-    if (error.response) {
-      if (error.response.data?.message) {
-        errorMessage = error.response.data.message;
-      } else {
-        errorMessage = `Server error: ${error.response.status}`;
-      }
-    } else if (error.request) {
-      errorMessage = 'Unable to connect to the server. Please ensure the backend is running.';
-    } else {
-      errorMessage = error.message || errorMessage;
-    }
-    
+    const errorMessage = await getErrorMessage(error, 'Unable to connect to the server. Please ensure the backend is running.');
     throw new Error(errorMessage);
   }
 }
@@ -40,43 +122,22 @@ export async function generatePDF(resumeData, templateId) {
   try {
     const transformedData = transformResumeData(resumeData);
     
-    const response = await axios.post(
-      `${API_BASE_URL}/generate-pdf/${templateId}`,
-      transformedData,
-      {
-        responseType: 'blob',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
+    const response = await withApiFallback((base) =>
+      axios.post(
+        `${base}/generate-pdf/${templateId}`,
+        transformedData,
+        {
+          responseType: 'blob',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
     );
 
     return response.data;
   } catch (error) {
-    // Handle different error response formats
-    let errorMessage = 'Failed to generate PDF. Please try again.';
-    
-    if (error.response) {
-      // Backend returned an error response
-      if (error.response.data) {
-        if (typeof error.response.data === 'string') {
-          errorMessage = error.response.data;
-        } else if (error.response.data.message) {
-          errorMessage = error.response.data.message;
-        } else if (error.response.data.error) {
-          errorMessage = error.response.data.error;
-        }
-      } else {
-        errorMessage = `Server error: ${error.response.status}`;
-      }
-    } else if (error.request) {
-      // Request was made but no response received
-      errorMessage = 'Unable to connect to the server. Please ensure the backend is running.';
-    } else {
-      // Error in request setup
-      errorMessage = error.message || errorMessage;
-    }
-    
+    const errorMessage = await getErrorMessage(error, 'Unable to connect to the server. Please ensure the backend is running.');
     throw new Error(errorMessage);
   }
 }

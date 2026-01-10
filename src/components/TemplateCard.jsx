@@ -1,17 +1,17 @@
 import React, { memo, useState } from 'react';
 import LoadingSpinner from './LoadingSpinner';
+import { getApiBaseUrl } from '../utils/api';
 import './TemplateCard.css';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 const TemplateCard = memo(({ templateId, templateName, description, preview, onSelect, isSelected = false }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   // Construct full preview image URL
+  const apiBaseUrl = getApiBaseUrl();
   const hasPreview = typeof preview === 'string' && preview.trim().length > 0;
   const previewUrl = hasPreview
-    ? (preview.startsWith('http') ? preview : `${API_BASE_URL}${preview}`)
+    ? (preview.startsWith('http') ? preview : `${apiBaseUrl}${preview}`)
     : null;
 
   const handleImageLoad = () => {
