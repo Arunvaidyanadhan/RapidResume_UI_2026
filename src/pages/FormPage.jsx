@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState, useCallback } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import SaveButton from "../components/SaveButton";
@@ -22,6 +22,8 @@ import PublicationsAccordion from "../components/PublicationsAccordion.jsx";
 import ReferencesAccordion from "../components/ReferenceAccordian.jsx";
 import VolunteerAccordion from "../components/VolunteerAccordion.jsx";
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 /* ------------------ SECTION CONFIG ------------------ */
 
 const sectionOptions = [
@@ -40,66 +42,51 @@ const sectionOptions = [
   { label: "References", value: "references", icon: "📞", component: <ReferencesAccordion /> },
 ];
 const STORAGE_KEY = "rapid_resume_draft";
-const FORM_PROGRESS_KEY = "rapid_resume_form_progress";
 
 function FormPageContent() {
   const navigate = useNavigate();
-  const { resumeData, clearSectionData, selectedTemplate } = useResume();
+  const {
+    resumeData,
+    selectedTemplate,
+    selectedHeadings,
+    currentStepIndex,
+    setCurrentStepIndex,
+    updateCustomSection,
+  } = useResume();
 
-  const requiredSections = sectionOptions.filter(s => s.required).map(s => s.value);
-
-  const [selectedSections, setSelectedSections] = useState(requiredSections);
-  const [activeSection, setActiveSection] = useState(requiredSections[0]);
   const [showPreview, setShowPreview] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(FORM_PROGRESS_KEY);
-    if (!stored) return;
-    try {
-      const parsed = JSON.parse(stored);
-      if (parsed && Array.isArray(parsed.selectedSections) && typeof parsed.activeSection === 'string') {
-        const nextSelected = parsed.selectedSections.filter((v) => sectionOptions.some((s) => s.value === v));
-        const ensuredRequired = Array.from(new Set([...requiredSections, ...nextSelected]));
-        setSelectedSections(ensuredRequired);
-        setActiveSection(ensuredRequired.includes(parsed.activeSection) ? parsed.activeSection : ensuredRequired[0]);
-      }
-    } catch {
-      // ignore
+    if (!selectedTemplate) {
+      navigate('/template');
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!selectedHeadings || selectedHeadings.length === 0) {
+      navigate('/headings');
+      return;
+    }
+  }, [selectedTemplate, selectedHeadings, navigate]);
+
+  const orderedSectionIds = useMemo(() => {
+    const ids = (selectedHeadings || []).map((h) => h.id).filter(Boolean);
+    // de-dupe while preserving order
+    return ids.filter((id, idx) => ids.indexOf(id) === idx);
+  }, [selectedHeadings]);
+
+  const safeStepIndex = useMemo(() => {
+    if (!orderedSectionIds.length) return 0;
+    if (!Number.isFinite(currentStepIndex)) return 0;
+    return Math.min(Math.max(currentStepIndex, 0), orderedSectionIds.length - 1);
+  }, [currentStepIndex, orderedSectionIds]);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(
-        FORM_PROGRESS_KEY,
-        JSON.stringify({ selectedSections, activeSection })
-      );
-    } catch {
-      // ignore
+    if (safeStepIndex !== currentStepIndex) {
+      setCurrentStepIndex(safeStepIndex);
     }
-  }, [selectedSections, activeSection]);
+  }, [safeStepIndex, currentStepIndex, setCurrentStepIndex]);
 
-  /* Toggle section */
-  const toggleSection = (value) => {
-    if (requiredSections.includes(value)) return;
-
-    const isSelected = selectedSections.includes(value);
-
-    if (isSelected) {
-      const remaining = selectedSections.filter(v => v !== value);
-      setSelectedSections(remaining);
-      clearSectionData(value);
-
-      if (activeSection === value) {
-        setActiveSection(remaining[0] || requiredSections[0]);
-      }
-    } else {
-      setSelectedSections(prev => [...prev, value]);
-      setActiveSection(value);
-    }
-  };
+  const activeSection = orderedSectionIds[safeStepIndex];
 
   /* Validation */
   const canSave = useMemo(() => {
@@ -108,69 +95,33 @@ function FormPageContent() {
   }, [resumeData]);
 
   const canDownload = useMemo(() => {
-    const hasPersonal = canSave;
-    const hasEducation = Array.isArray(resumeData.education) && resumeData.education.length > 0;
-    const hasSkills = Array.isArray(resumeData.skills) && resumeData.skills.length > 0;
-    return hasPersonal && hasEducation && hasSkills;
-  }, [resumeData, canSave]);
-
-  const hasEducation = Array.isArray(resumeData.education) && resumeData.education.length > 0;
-  const hasSkills = Array.isArray(resumeData.skills) && resumeData.skills.length > 0;
-
-  const isSectionComplete = useCallback((value) => {
-    switch (value) {
-      case 'personal':
-        return !!canSave;
-      case 'education':
-        return hasEducation;
-      case 'skills':
-        return hasSkills;
-      case 'summary':
-        return !!resumeData.summary;
-      case 'work':
-        return Array.isArray(resumeData.workExperience) && resumeData.workExperience.length > 0;
-      case 'projects':
-        return Array.isArray(resumeData.projects) && resumeData.projects.length > 0;
-      case 'certifications':
-        return Array.isArray(resumeData.certifications) && resumeData.certifications.length > 0;
-      case 'languages':
-        return Array.isArray(resumeData.languages) && resumeData.languages.length > 0;
-      case 'awards':
-        return Array.isArray(resumeData.awards) && resumeData.awards.length > 0;
-      case 'volunteer':
-        return Array.isArray(resumeData.volunteer) && resumeData.volunteer.length > 0;
-      case 'hobbies':
-        return Array.isArray(resumeData.hobbies) && resumeData.hobbies.length > 0;
-      case 'publications':
-        return Array.isArray(resumeData.publications) && resumeData.publications.length > 0;
-      case 'references':
-        return Array.isArray(resumeData.references) && resumeData.references.length > 0;
-      default:
-        return false;
-    }
-  }, [canSave, hasEducation, hasSkills, resumeData]);
-
-  /* Progress */
-  const completedCount = useMemo(() => {
-    return selectedSections.reduce((acc, value) => acc + (isSectionComplete(value) ? 1 : 0), 0);
-  }, [selectedSections, isSectionComplete]);
+    return !!canSave;
+  }, [canSave]);
 
   const progress = useMemo(() => {
-    if (!selectedSections.length) return 0;
-    return Math.min(100, Math.max(0, Math.round((completedCount / selectedSections.length) * 100)));
-  }, [completedCount, selectedSections]);
+    if (!orderedSectionIds.length) return 0;
+    // strict per spec: (currentIndex + 1) / total
+    const p = ((safeStepIndex + 1) / orderedSectionIds.length) * 100;
+    return Math.min(100, Math.max(0, Math.round(p)));
+  }, [safeStepIndex, orderedSectionIds]);
 
   /* Active section config */
-  const activeSectionConfig = sectionOptions.find(
-    s => s.value === activeSection
-  );
+  const activeSectionConfig = useMemo(() => {
+    if (!activeSection) return null;
+    if (activeSection.startsWith('custom_')) return null;
+    return sectionOptions.find((s) => s.value === activeSection) || null;
+  }, [activeSection]);
 
-  const activeSectionIndex = useMemo(() => {
-    const idx = selectedSections.indexOf(activeSection);
-    return idx >= 0 ? idx : 0;
-  }, [selectedSections, activeSection]);
+  const activeSectionIndex = safeStepIndex;
 
-  const activeSectionLabel = activeSectionConfig?.label || 'Section';
+  const activeSectionLabel = useMemo(() => {
+    if (!activeSection) return 'Section';
+    if (activeSection.startsWith('custom_')) {
+      const heading = (selectedHeadings || []).find((h) => h.id === activeSection);
+      return heading?.label || 'Custom Section';
+    }
+    return activeSectionConfig?.label || 'Section';
+  }, [activeSection, activeSectionConfig, selectedHeadings]);
 
   // Save entire resume to localStorage
   const saveToLocalStorage = () => {
@@ -181,14 +132,7 @@ function FormPageContent() {
     }
   };
 
-  // Get next section
-  const getNextSection = () => {
-    const currentIndex = selectedSections.indexOf(activeSection);
-    return selectedSections[currentIndex + 1];
-  };
-
-  // Check if last section
-  const isLastSection = selectedSections.indexOf(activeSection) === selectedSections.length - 1;
+  const isLastSection = activeSectionIndex === orderedSectionIds.length - 1;
 
   // Scroll helper
   const scrollToTopOfForm = () => {
@@ -198,27 +142,32 @@ function FormPageContent() {
   const handleSaveAndNext = () => {
     saveToLocalStorage();
 
-    const nextSection = getNextSection();
-    if (nextSection) {
-      setActiveSection(nextSection);
+    const nextIndex = activeSectionIndex + 1;
+    if (nextIndex <= orderedSectionIds.length - 1) {
+      setCurrentStepIndex(nextIndex);
       scrollToTopOfForm();
     }
+  };
+
+  const handleBack = () => {
+    if (activeSectionIndex <= 0) {
+      navigate('/headings');
+      return;
+    }
+    setCurrentStepIndex(activeSectionIndex - 1);
+    scrollToTopOfForm();
   };
 
   const downloadRequirementsText = useMemo(() => {
     const missing = [];
     if (!canSave) missing.push('Personal details');
-    if (!hasEducation) missing.push('Education (add at least 1)');
-    if (!hasSkills) missing.push('Skills (add at least 1)');
     return missing.length > 0 ? `Missing: ${missing.join(' • ')}` : '';
-  }, [canSave, hasEducation, hasSkills]);
+  }, [canSave]);
 
 
   const handleFinishAndDownload = async () => {
     const missing = [];
     if (!canSave) missing.push('Personal Details (First name, Last name, Email, Phone)');
-    if (!Array.isArray(resumeData.education) || resumeData.education.length === 0) missing.push('Education (add at least one)');
-    if (!Array.isArray(resumeData.skills) || resumeData.skills.length === 0) missing.push('Skills (add at least one)');
 
     if (missing.length > 0) {
       alert(`Please complete the following before downloading:\n\n- ${missing.join('\n- ')}`);
@@ -241,6 +190,9 @@ function FormPageContent() {
       setIsDownloading(true);
       const pdfBlob = await generatePDF(resumeData, selectedTemplate);
       downloadBlob(pdfBlob, fileName);
+      setShowPreview(false);
+      // Give the browser a moment to start the download before route change.
+      await wait(250);
       navigate("/thank-you", { replace: true, state: { fileName } });
     } catch (err) {
       alert(err?.message || "Failed to generate PDF. Please try again.");
@@ -256,141 +208,99 @@ function FormPageContent() {
       <div className="formpage-bg">
       <div className="formpage-container">
         {/* Header */}
-        <div className="formpage-header">
-          <div className="header-top">
-            <h2 className="header-title">Build Your Resume</h2>
-            <button className="btn-preview" onClick={() => setShowPreview(true)} type="button">
-              Preview
-            </button>
-          </div>
+      <div className="formpage-header">
+  {/* Left: Back Button */}
+  <div className="header-left">
+    <button
+      type="button"
+      className="btn btn-outline-secondary btn-sm"
+      onClick={handleBack}
+    >
+      Back
+    </button>
+  </div>
 
-          <div className="header-subtext">
-            Section {activeSectionIndex + 1}/{selectedSections.length}: {activeSectionLabel}
-          </div>
+  {/* Center: Progress */}
+  <div className="header-center">
+    <div className="progress-indicator text-center">
+      <div className="progress-bar-wrapper">
+        <div className="progress-bar" style={{ width: `${progress}%` }} />
+        <div
+          className="progress-marker"
+          style={{
+            left:
+              orderedSectionIds.length > 1
+                ? `${Math.round((activeSectionIndex / (orderedSectionIds.length - 1)) * 100)}%`
+                : '0%',
+          }}
+        />
+      </div>
+      <div className="progress-text">
+        {progress}% ({activeSectionIndex + 1}/{orderedSectionIds.length})
+      </div>
+    </div>
+  </div>
 
-          <div className="progress-indicator">
-            <div className="progress-bar-wrapper">
-              <div className="progress-bar" style={{ width: `${progress}%` }} />
-              <div
-                className="progress-marker"
-                style={{
-                  left:
-                    selectedSections.length > 1
-                      ? `${Math.round((activeSectionIndex / (selectedSections.length - 1)) * 100)}%`
-                      : '0%',
-                }}
-              />
-            </div>
-            <div className="progress-text">
-              {progress}% ({completedCount}/{selectedSections.length})
-            </div>
-          </div>
-        </div>
+  {/* Right: Preview Button */}
+  <div className="header-right">
+    <button
+      className="btn-preview"
+      onClick={() => setShowPreview(true)}
+      type="button"
+    >
+      Preview
+    </button>
+  </div>
+</div>
+
+
 
         <div className="formpage-layout">
-          {/* Sidebar */}
-          <aside className="section-selector">
-            <div className="section-selector-header">
-              <h5>Sections</h5>
-              <span className="section-count">{selectedSections.length}/{sectionOptions.length}</span>
-            </div>
-
-            <div className="section-list">
-              {sectionOptions.map((section) => {
-                const isSelected = selectedSections.includes(section.value);
-                const isActive = activeSection === section.value;
-                const completed = isSectionComplete(section.value);
-
-                return (
-                  <div
-                    key={section.value}
-                    className={`section-item ${isSelected ? "selected" : ""} ${isActive ? "active" : ""}`}
-                    onClick={() => isSelected && setActiveSection(section.value)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (!isSelected) return;
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setActiveSection(section.value);
-                      }
-                    }}
-                  >
-                    <input
-                      className="section-checkbox"
-                      type="checkbox"
-                      checked={isSelected}
-                      disabled={section.required}
-                      onClick={(e) => e.stopPropagation()}
-                      onChange={() => toggleSection(section.value)}
-                    />
-
-                    <div className="section-item-content">
-                      <div className="section-label">
-                        <span className="section-icon">{section.icon}</span>
-                        <span className="section-name">{section.label}</span>
-                      </div>
-                      {section.required ? <span className="required-badge">Required</span> : null}
-                    </div>
-
-                    {completed ? <span className="section-check">✓</span> : null}
-                  </div>
-                );
-              })}
-            </div>
-          </aside>
-
           {/* Main Content – SINGLE SECTION */}
-          <main className="formpage-accordion">
-            {activeSectionConfig && (
+          <main className="formpage-accordion" style={{ width: '100%' }}>
+            {activeSection && activeSection.startsWith('custom_') ? (
               <div className="form-section-wrapper active">
-                {activeSectionConfig.component}
-
-                
-              </div>
-            )}
-
-            <div className="form-actions">
-              <div className="form-actions-row">
-                {!isLastSection ? (
-                  <>
-                    <SaveButton
-                      onClick={handleFinishAndDownload}
-                      isLoading={isDownloading}
-                      variant="secondary"
-                      disabled={isDownloading}
-                      className={!canDownload ? 'save-button-incomplete' : ''}
-                    >
-                      Finish & Download
-                    </SaveButton>
-                    <SaveButton onClick={handleSaveAndNext} variant="primary">
-                      Save & Next
-                    </SaveButton>
-                  </>
-                ) : (
-                  <>
-                    <SaveButton onClick={handleSaveAndNext} variant="secondary">
-                      Save
-                    </SaveButton>
-                    <SaveButton
-                      onClick={handleFinishAndDownload}
-                      isLoading={isDownloading}
-                      variant="primary"
-                      disabled={isDownloading}
-                      className={!canDownload ? 'save-button-incomplete' : ''}
-                    >
-                      Finish & Download
-                    </SaveButton>
-                  </>
-                )}
-              </div>
-
-              {!canDownload && (
-                <div className="form-actions-hint">
-                  {downloadRequirementsText}
+                <div className="card p-3">
+                  <label className="form-label fw-semibold">{activeSectionLabel}</label>
+                  <textarea
+                    className="form-control"
+                    rows={10}
+                    value={resumeData?.customSections?.[activeSection]?.content || ''}
+                    onChange={(e) => updateCustomSection(activeSection, activeSectionLabel, e.target.value)}
+                    placeholder="Add content for this custom section"
+                  />
                 </div>
-              )}
-            </div>
+              </div>
+            ) : activeSectionConfig ? (
+              <div className="form-section-wrapper active">{activeSectionConfig.component}</div>
+            ) : null}
+
+       <div className="form-actions">
+  <div className="form-actions-row">
+    {!isLastSection ? (
+      <SaveButton onClick={handleSaveAndNext} variant="primary">
+        Save & Next
+      </SaveButton>
+    ) : (
+      <SaveButton
+        onClick={handleFinishAndDownload}
+        isLoading={isDownloading}
+        variant="primary"
+        disabled={isDownloading}
+        className={!canDownload ? 'save-button-incomplete' : ''}
+      >
+        Finish & Download
+      </SaveButton>
+    )}
+  </div>
+
+  {!canDownload && (
+    <div className="form-actions-hint">
+      {downloadRequirementsText}
+    </div>
+  )}
+</div>
+
 
 
           </main>

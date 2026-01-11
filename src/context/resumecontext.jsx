@@ -4,6 +4,9 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const ResumeContext = createContext();
 
 const STORAGE_KEY = 'rapid_resume_draft';
+const HEADINGS_KEY = 'rapid_resume_selected_headings';
+const CUSTOM_HEADINGS_KEY = 'rapid_resume_custom_headings';
+const STEP_INDEX_KEY = 'rapid_resume_current_step_index';
 
 const getDefaultResumeData = () => ({
   personalDetails: {
@@ -33,6 +36,7 @@ const getDefaultResumeData = () => ({
   references: [],
   volunteer: [],
   summary: '',
+  customSections: {},
 });
 
 const safeParseJson = (value) => {
@@ -61,7 +65,22 @@ export function ResumeProvider({ children }) {
   });
 
   const [selectedTemplate, setSelectedTemplate] = useState(() => {
-    return localStorage.getItem('selectedTemplate') || 'modern';
+    return localStorage.getItem('selectedTemplate') || '';
+  });
+
+  const [selectedHeadings, setSelectedHeadings] = useState(() => {
+    const stored = safeParseJson(localStorage.getItem(HEADINGS_KEY));
+    return Array.isArray(stored) ? stored : [];
+  });
+
+  const [customHeadings, setCustomHeadings] = useState(() => {
+    const stored = safeParseJson(localStorage.getItem(CUSTOM_HEADINGS_KEY));
+    return Array.isArray(stored) ? stored : [];
+  });
+
+  const [currentStepIndex, setCurrentStepIndex] = useState(() => {
+    const stored = safeParseJson(localStorage.getItem(STEP_INDEX_KEY));
+    return Number.isFinite(stored) ? stored : 0;
   });
 
   useEffect(() => {
@@ -69,6 +88,30 @@ export function ResumeProvider({ children }) {
       localStorage.setItem('selectedTemplate', selectedTemplate);
     }
   }, [selectedTemplate]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(HEADINGS_KEY, JSON.stringify(selectedHeadings));
+    } catch {
+      // ignore
+    }
+  }, [selectedHeadings]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(CUSTOM_HEADINGS_KEY, JSON.stringify(customHeadings));
+    } catch {
+      // ignore
+    }
+  }, [customHeadings]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STEP_INDEX_KEY, JSON.stringify(currentStepIndex));
+    } catch {
+      // ignore
+    }
+  }, [currentStepIndex]);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -190,6 +233,19 @@ export function ResumeProvider({ children }) {
     }));
   };
 
+  const updateCustomSection = (sectionId, title, content) => {
+    setResumeData((prev) => ({
+      ...prev,
+      customSections: {
+        ...(prev.customSections || {}),
+        [sectionId]: {
+          title,
+          content,
+        },
+      },
+    }));
+  };
+
   // Clear section data when section is removed
   const clearSectionData = (sectionValue) => {
     setResumeData((prev) => {
@@ -232,9 +288,12 @@ export function ResumeProvider({ children }) {
         case 'volunteer':
           newData.volunteer = [];
           break;
-        // Note: personal details, languages, awards, etc. are not cleared
-        // as they might be used by other sections
         default:
+          if (sectionValue && typeof sectionValue === 'string' && sectionValue.startsWith('custom_')) {
+            const nextCustom = { ...(newData.customSections || {}) };
+            delete nextCustom[sectionValue];
+            newData.customSections = nextCustom;
+          }
           break;
       }
 
@@ -245,7 +304,18 @@ export function ResumeProvider({ children }) {
   const resetResume = () => {
     const defaults = getDefaultResumeData();
     setResumeData(defaults);
-    setSelectedTemplate('modern');
+    setSelectedTemplate('');
+    setSelectedHeadings([]);
+    setCustomHeadings([]);
+    setCurrentStepIndex(0);
+    try {
+      localStorage.removeItem('selectedTemplate');
+      localStorage.removeItem(HEADINGS_KEY);
+      localStorage.removeItem(CUSTOM_HEADINGS_KEY);
+      localStorage.removeItem(STEP_INDEX_KEY);
+    } catch {
+      // ignore
+    }
   };
 
   return (
@@ -271,6 +341,13 @@ export function ResumeProvider({ children }) {
         resetResume,
         selectedTemplate,
         setSelectedTemplate,
+        selectedHeadings,
+        setSelectedHeadings,
+        customHeadings,
+        setCustomHeadings,
+        currentStepIndex,
+        setCurrentStepIndex,
+        updateCustomSection,
       }}
     >
       {children}

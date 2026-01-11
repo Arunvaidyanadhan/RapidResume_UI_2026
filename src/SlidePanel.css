@@ -88,9 +88,9 @@
 }
 /* Navbar Styling */
 .custom-navbar {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #5456d6 0%, #6d43d6 100%);
   border-bottom: none;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.16);
 }
 
 .brand-text {
@@ -111,7 +111,7 @@
 .btn-accent-outline {
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
   border-radius: 0.5rem;
   padding: 0.5rem 1.25rem;
   font-weight: 600;
@@ -120,7 +120,7 @@
 }
 
 .btn-accent-outline:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.5);
   color: #ffffff;
   transform: translateY(-1px);

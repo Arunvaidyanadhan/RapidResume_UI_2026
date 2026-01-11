@@ -1,15 +1,15 @@
 .accordion-item {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #ffffff, #f3f4ff);
+  border: 1px solid var(--border-color);
   border-radius: 0.75rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.08);
   margin-bottom: 1.5rem;
   overflow: hidden;
 }
 
 .accordion-button {
-  background-color: #f8fafc;
-  color: #1e293b;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(243, 244, 255, 0.9));
+  color: var(--text-primary);
   font-size: 1.125rem;
   font-weight: 600;
   padding: 1.25rem 1.5rem;
@@ -18,7 +18,7 @@
 }
 
 .accordion-button:not(.collapsed) {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #5456d6 0%, #6d43d6 100%);
   color: white;
   box-shadow: none;
 }
@@ -29,16 +29,16 @@
 }
 
 .accordion-button:hover {
-  background-color: #f1f5f9;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(241, 243, 255, 0.95));
 }
 
 .accordion-button:not(.collapsed):hover {
-  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+  background: linear-gradient(135deg, #4b4fd0 0%, #6238cf 100%);
 }
 
 .accordion-body {
   padding: 2rem;
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .form-label {
@@ -71,8 +71,9 @@
 }
 
 .btn-outline-secondary {
-  border-color: #cbd5e1;
-  color: #64748b;
+  border-color: rgba(79, 70, 229, 0.22);
+  color: var(--text-primary);
+  background: rgba(79, 70, 229, 0.06);
   font-weight: 600;
   transition: all 0.2s ease;
   border-radius: 0.5rem;
@@ -80,9 +81,11 @@
 }
 
 .btn-outline-secondary:hover {
-  background-color: #f1f5f9;
-  border-color: #94a3b8;
-  color: #475569;
+  background: rgba(79, 70, 229, 0.10);
+  border-color: rgba(79, 70, 229, 0.35);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .accordion-button::after {

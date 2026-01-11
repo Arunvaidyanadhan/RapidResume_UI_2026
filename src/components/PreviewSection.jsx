@@ -1,26 +1,64 @@
-import React, { Suspense, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useResume } from "../context/resumecontext";
 import "./PreviewSection.css";
-import { getTemplateById, canGeneratePDF } from "../config/templates";
+import { canGeneratePDF } from "../config/templates";
 import { downloadBlob, generatePDF } from "../utils/api";
 
 function PreviewSection({ hideTitle = false, showDownload = true, compact = false }) {
-  const { resumeData = {}, selectedTemplate = "modern" } = useResume();
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [downloadError, setDownloadError] = useState(null);
+  const { resumeData = {}, selectedTemplate } = useResume();
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [previewError, setPreviewError] = useState(null);
+  const [pdfUrl, setPdfUrl] = useState(null);
 
-  const renderedTemplate = useMemo(() => {
-    const template = getTemplateById(selectedTemplate) || getTemplateById("modern");
-    if (!template || !template.Component) return null;
-    const TemplateComponent = template.Component;
-    return <TemplateComponent data={resumeData} />;
-  }, [selectedTemplate, resumeData]);
+  const canPreview = useMemo(() => {
+    return !!resumeData && Object.keys(resumeData).length > 0 && !!selectedTemplate && canGeneratePDF(selectedTemplate);
+  }, [resumeData, selectedTemplate]);
 
-  const handleDownloadPDF = async () => {
-    setDownloadError(null);
+  useEffect(() => {
+    return () => {
+      if (pdfUrl) {
+        try {
+          window.URL.revokeObjectURL(pdfUrl);
+        } catch {
+          // ignore
+        }
+      }
+    };
+  }, [pdfUrl]);
+
+  const generatePreview = async () => {
+    setPreviewError(null);
 
     if (!canGeneratePDF(selectedTemplate)) {
-      setDownloadError("This template doesn't support PDF generation yet. Please select a different template.");
+      setPreviewError("This template doesn't support PDF generation yet. Please select a different template.");
+      return;
+    }
+
+    try {
+      setIsGenerating(true);
+      const pdfBlob = await generatePDF(resumeData, selectedTemplate);
+      if (pdfUrl) {
+        try {
+          window.URL.revokeObjectURL(pdfUrl);
+        } catch {
+          // ignore
+        }
+      }
+      const nextUrl = window.URL.createObjectURL(pdfBlob);
+      setPdfUrl(nextUrl);
+    } catch (err) {
+      setPreviewError(err?.message || "Failed to generate preview. Please try again.");
+      setPdfUrl(null);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    setPreviewError(null);
+
+    if (!canGeneratePDF(selectedTemplate)) {
+      setPreviewError("This template doesn't support PDF generation yet. Please select a different template.");
       return;
     }
 
@@ -29,13 +67,13 @@ function PreviewSection({ hideTitle = false, showDownload = true, compact = fals
     const fileName = `resume-${firstName}${lastName ? `-${lastName}` : ""}.pdf`;
 
     try {
-      setIsDownloading(true);
+      setIsGenerating(true);
       const pdfBlob = await generatePDF(resumeData, selectedTemplate);
       downloadBlob(pdfBlob, fileName);
     } catch (err) {
-      setDownloadError(err?.message || "Failed to generate PDF. Please try again.");
+      setPreviewError(err?.message || "Failed to generate PDF. Please try again.");
     } finally {
-      setIsDownloading(false);
+      setIsGenerating(false);
     }
   };
 
@@ -48,10 +86,29 @@ function PreviewSection({ hideTitle = false, showDownload = true, compact = fals
       >
         {!resumeData || Object.keys(resumeData).length === 0 ? (
           <p>No resume data to preview.</p>
+        ) : !selectedTemplate ? (
+          <p>Please select a template to preview.</p>
+        ) : !canGeneratePDF(selectedTemplate) ? (
+          <p>This template doesn't support PDF preview.</p>
+        ) : pdfUrl ? (
+          <iframe
+            title="Resume preview"
+            className="preview-iframe"
+            src={pdfUrl}
+            style={{ width: "100%", height: 720, border: "none" }}
+          />
         ) : (
-          <Suspense fallback={<p>Loading template...</p>}>
-            {renderedTemplate}
-          </Suspense>
+          <div className="preview-empty">
+            <p className="mb-2">Generate a live preview to see exactly what will be downloaded.</p>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={generatePreview}
+              disabled={isGenerating || !canPreview}
+            >
+              {isGenerating ? "Generating..." : "Generate Preview"}
+            </button>
+          </div>
         )}
       </div>
 
@@ -62,18 +119,18 @@ function PreviewSection({ hideTitle = false, showDownload = true, compact = fals
               type="button"
               className="btn btn-success"
               onClick={handleDownloadPDF}
-              disabled={isDownloading}
+              disabled={isGenerating}
             >
-              {isDownloading ? "Generating..." : "Download PDF"}
+              {isGenerating ? "Generating..." : "Download PDF"}
             </button>
           </div>
         </div>
       )}
 
-      {downloadError && (
+      {previewError && (
         <div className="container mt-2">
           <div className="alert alert-danger" role="alert">
-            {downloadError}
+            {previewError}
           </div>
         </div>
       )}

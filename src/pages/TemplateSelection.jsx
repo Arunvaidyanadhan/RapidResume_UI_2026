@@ -42,7 +42,11 @@ const TemplateSelection = () => {
 
   const handleSelect = (templateId) => {
     setSelectedTemplate(templateId);
-    navigate('/form');
+
+    // small delay for micro-animation to feel natural
+    setTimeout(() => {
+      navigate('/headings');
+    }, 180);
   };
 
   if (loading) {
@@ -64,13 +68,17 @@ const TemplateSelection = () => {
       <div className="template-selection">
         <div className="template-header">
           <h2>Select a Resume Template</h2>
-          <p className="template-subtitle">Choose from our professional, ATS-friendly templates</p>
+          <p className="template-subtitle">
+            Click a template to start building your resume
+          </p>
         </div>
+
         {notice && (
           <div className="template-notice" role="status">
             {notice}
           </div>
         )}
+
         {templates.length === 0 ? (
           <div className="template-empty">
             <p>No templates available at the moment.</p>

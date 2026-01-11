@@ -3,8 +3,14 @@
   max-width: 1400px;
   margin: 0 auto;
   min-height: calc(100vh - 200px);
-  background: radial-gradient(1200px 600px at 50% -200px, rgba(99, 102, 241, 0.10), transparent 60%);
+  background: radial-gradient(
+    1200px 600px at 50% -200px,
+    rgba(99, 102, 241, 0.10),
+    transparent 60%
+  );
 }
+
+/* ---------- Header ---------- */
 
 .template-header {
   text-align: center;
@@ -12,12 +18,12 @@
 }
 
 .template-selection h2 {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 0.75rem;
   position: relative;
-  padding-bottom: 1rem;
+  padding-bottom: 0.75rem;
 }
 
 .template-selection h2::after {
@@ -26,81 +32,49 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 72px;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--primary-light)
+  );
   border-radius: 2px;
 }
 
 .template-subtitle {
   color: var(--text-secondary);
-  font-size: 1.125rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0;
+  font-size: 1.1rem;
+  margin: 0;
 }
+
+/* ---------- Grid ---------- */
 
 .template-thumbnails {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
+
+  /* UX FIX */
   align-items: stretch;
-  justify-items: center;
+  justify-items: stretch;
 }
+
+/* ---------- Loading / States ---------- */
 
 .template-loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
+  min-height: 420px;
 }
 
+.template-empty,
 .template-error {
   text-align: center;
   padding: 4rem 2rem;
   max-width: 600px;
   margin: 0 auto;
-}
-
-.error-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.template-error h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.template-error p {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-}
-
-.retry-button {
-  background: var(--primary-color);
-  color: var(--text-inverse);
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.retry-button:hover {
-  background: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.template-empty {
-  text-align: center;
-  padding: 4rem 2rem;
   color: var(--text-secondary);
 }
 
@@ -108,31 +82,115 @@
   max-width: 980px;
   margin: 0 auto 1.5rem;
   padding: 0.75rem 1rem;
-  border-radius: var(--radius-md);
+  border-radius: 0.75rem;
   border: 1px solid rgba(99, 102, 241, 0.25);
   background: rgba(99, 102, 241, 0.08);
   color: var(--text-primary);
   font-size: 0.95rem;
 }
 
-/* Template card styles moved to TemplateCard.css */
+/* ---------- Mobile ---------- */
 
 @media (max-width: 768px) {
   .template-selection {
     padding: 2rem 1rem;
   }
-  
+
   .template-selection h2 {
     font-size: 2rem;
-    margin-bottom: 2rem;
   }
-  
+
   .template-thumbnails {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
-  .thumbnail-card {
-    max-width: 100%;
-  }
+}
+.template-card {
+  height: 320px; /* ⬇ smaller card */
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+  border-radius: 0.85rem;
+  padding: 0.75rem;
+
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* Hover */
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(2, 6, 23, 0.12);
+}
+
+/* Selected */
+.template-card.selected {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22);
+}
+
+/* ---------------- Preview (DOMINANT) ---------------- */
+
+.template-preview {
+  height: 300px; /* ⬆ BIG preview */
+  border-radius: 0.65rem;
+  background: #f8fafc;
+  margin-bottom: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+/* Optional subtle zoom on hover */
+.template-card:hover .template-preview img {
+  transform: scale(1.03);
+}
+
+.template-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+/* ---------------- Text (MINIMIZED) ---------------- */
+
+.template-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0.25rem 0 0.15rem;
+}
+
+.template-description {
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.35;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* ⬅ 1 line only */
+}
+
+/* ---------------- Footer ---------------- */
+
+.template-card-footer {
+  margin-top: auto;
+  padding-top: 0.25rem;
+  text-align: center;
+}
+
+.template-selected-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-color);
 }
