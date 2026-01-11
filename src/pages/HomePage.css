@@ -1,8 +1,10 @@
 .hero-section {
   position: relative;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
+min-height: calc(100vh - 72px); /* account for navbar height */
   display: flex;
+  align-items: flex-start;
+  padding-top: 1.5rem;
   align-items: center;
   justify-content: center;
   color: white;
@@ -24,8 +26,8 @@
 .hero-section .overlay {
   position: relative;
   z-index: 1;
-  padding: 4rem 2rem;
-  max-width: 1200px;
+padding: 0rem 0rem 0rem;  
+max-width: 1200px;
   width: 100%;
   text-align: center;
 }

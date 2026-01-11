@@ -14,11 +14,6 @@ const TemplateSelection = () => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState(null);
-  const [localSelectedTemplate, setLocalSelectedTemplate] = useState(selectedTemplate || '');
-
-  useEffect(() => {
-    setLocalSelectedTemplate(selectedTemplate || '');
-  }, [selectedTemplate]);
 
   useEffect(() => {
     const loadTemplates = async () => {
@@ -46,14 +41,12 @@ const TemplateSelection = () => {
   }, []);
 
   const handleSelect = (templateId) => {
-    setLocalSelectedTemplate(templateId);
     setSelectedTemplate(templateId);
-  };
 
-  const handleNext = () => {
-    const nextTemplate = localSelectedTemplate || selectedTemplate;
-    if (!nextTemplate) return;
-    navigate('/headings');
+    // small delay for micro-animation to feel natural
+    setTimeout(() => {
+      navigate('/headings');
+    }, 180);
   };
 
   if (loading) {
@@ -75,44 +68,35 @@ const TemplateSelection = () => {
       <div className="template-selection">
         <div className="template-header">
           <h2>Select a Resume Template</h2>
-          <p className="template-subtitle">Choose from our professional, ATS-friendly templates</p>
+          <p className="template-subtitle">
+            Click a template to start building your resume
+          </p>
         </div>
+
         {notice && (
           <div className="template-notice" role="status">
             {notice}
           </div>
         )}
+
         {templates.length === 0 ? (
           <div className="template-empty">
             <p>No templates available at the moment.</p>
           </div>
         ) : (
-          <>
-            <div className="template-thumbnails">
-              {templates.map((template) => (
-                <TemplateCard
-                  key={template.id}
-                  templateId={template.id}
-                  templateName={template.name}
-                  description={template.description}
-                  preview={template.preview}
-                  onSelect={() => handleSelect(template.id)}
-                  isSelected={(localSelectedTemplate || selectedTemplate) === template.id}
-                />
-              ))}
-            </div>
-
-            <div className="d-flex justify-content-center mt-4">
-              <button
-                type="button"
-                className="btn btn-primary px-4"
-                onClick={handleNext}
-                disabled={!(localSelectedTemplate || selectedTemplate)}
-              >
-                Next
-              </button>
-            </div>
-          </>
+          <div className="template-thumbnails">
+            {templates.map((template) => (
+              <TemplateCard
+                key={template.id}
+                templateId={template.id}
+                templateName={template.name}
+                description={template.description}
+                preview={template.preview}
+                onSelect={() => handleSelect(template.id)}
+                isSelected={selectedTemplate === template.id}
+              />
+            ))}
+          </div>
         )}
       </div>
     </>

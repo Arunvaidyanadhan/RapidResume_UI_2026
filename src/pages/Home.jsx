@@ -29,10 +29,17 @@ function HomePage() {
   return (
     <div className="hero-section">
       <div className="overlay">
-        <h1>Welcome to Rapid Resume</h1>
-        <p className="lead">
-          Create a clean, professional resume in minutes. Free to use, privacy-first (saved in your browser), and no signup required.
-        </p>
+ <div className="hero-heading">
+    <p className="lead">Tell your story well</p>
+
+  <h1>Build resumes that get you hired</h1>
+</div>
+
+
+<p className="lead">
+  Create a clean, professional resume in minutes. Free to use, privacy-first (saved in your browser), and no signup required.
+</p>
+
         <div className="cta-buttons">
           <Link to="/template" className="btn btn-accent">Create Resume</Link>
           <Link to="/template" className="btn btn-accent-secondary">View Templates</Link>

@@ -22,6 +22,8 @@ import PublicationsAccordion from "../components/PublicationsAccordion.jsx";
 import ReferencesAccordion from "../components/ReferenceAccordian.jsx";
 import VolunteerAccordion from "../components/VolunteerAccordion.jsx";
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 /* ------------------ SECTION CONFIG ------------------ */
 
 const sectionOptions = [
@@ -188,6 +190,9 @@ function FormPageContent() {
       setIsDownloading(true);
       const pdfBlob = await generatePDF(resumeData, selectedTemplate);
       downloadBlob(pdfBlob, fileName);
+      setShowPreview(false);
+      // Give the browser a moment to start the download before route change.
+      await wait(250);
       navigate("/thank-you", { replace: true, state: { fileName } });
     } catch (err) {
       alert(err?.message || "Failed to generate PDF. Please try again.");
@@ -203,41 +208,52 @@ function FormPageContent() {
       <div className="formpage-bg">
       <div className="formpage-container">
         {/* Header */}
-        <div className="formpage-header">
-          <div className="header-top">
-            <div className="d-flex align-items-center gap-2">
-              <button type="button" className="btn btn-outline-secondary btn-sm" onClick={handleBack}>
-                Back
-              </button>
-              <h2 className="header-title mb-0">{activeSectionLabel}</h2>
-            </div>
-            <button className="btn-preview" onClick={() => setShowPreview(true)} type="button">
-              Preview
-            </button>
-          </div>
+      <div className="formpage-header">
+  {/* Left: Back Button */}
+  <div className="header-left">
+    <button
+      type="button"
+      className="btn btn-outline-secondary btn-sm"
+      onClick={handleBack}
+    >
+      Back
+    </button>
+  </div>
 
-          <div className="header-subtext">
-            Step {activeSectionIndex + 1}/{orderedSectionIds.length}
-          </div>
+  {/* Center: Progress */}
+  <div className="header-center">
+    <div className="progress-indicator text-center">
+      <div className="progress-bar-wrapper">
+        <div className="progress-bar" style={{ width: `${progress}%` }} />
+        <div
+          className="progress-marker"
+          style={{
+            left:
+              orderedSectionIds.length > 1
+                ? `${Math.round((activeSectionIndex / (orderedSectionIds.length - 1)) * 100)}%`
+                : '0%',
+          }}
+        />
+      </div>
+      <div className="progress-text">
+        {progress}% ({activeSectionIndex + 1}/{orderedSectionIds.length})
+      </div>
+    </div>
+  </div>
 
-          <div className="progress-indicator">
-            <div className="progress-bar-wrapper">
-              <div className="progress-bar" style={{ width: `${progress}%` }} />
-              <div
-                className="progress-marker"
-                style={{
-                  left:
-                    orderedSectionIds.length > 1
-                      ? `${Math.round((activeSectionIndex / (orderedSectionIds.length - 1)) * 100)}%`
-                      : '0%',
-                }}
-              />
-            </div>
-            <div className="progress-text">
-              {progress}% ({activeSectionIndex + 1}/{orderedSectionIds.length})
-            </div>
-          </div>
-        </div>
+  {/* Right: Preview Button */}
+  <div className="header-right">
+    <button
+      className="btn-preview"
+      onClick={() => setShowPreview(true)}
+      type="button"
+    >
+      Preview
+    </button>
+  </div>
+</div>
+
+
 
         <div className="formpage-layout">
           {/* Main Content – SINGLE SECTION */}
@@ -259,31 +275,32 @@ function FormPageContent() {
               <div className="form-section-wrapper active">{activeSectionConfig.component}</div>
             ) : null}
 
-            <div className="form-actions">
-              <div className="form-actions-row">
-                {!isLastSection ? (
-                  <SaveButton onClick={handleSaveAndNext} variant="secondary">
-                    Save & Next
-                  </SaveButton>
-                ) : (
-                  <SaveButton
-                    onClick={handleFinishAndDownload}
-                    isLoading={isDownloading}
-                    variant="primary"
-                    disabled={isDownloading}
-                    className={!canDownload ? 'save-button-incomplete' : ''}
-                  >
-                    Finish & Download
-                  </SaveButton>
-                )}
-              </div>
+       <div className="form-actions">
+  <div className="form-actions-row">
+    {!isLastSection ? (
+      <SaveButton onClick={handleSaveAndNext} variant="primary">
+        Save & Next
+      </SaveButton>
+    ) : (
+      <SaveButton
+        onClick={handleFinishAndDownload}
+        isLoading={isDownloading}
+        variant="primary"
+        disabled={isDownloading}
+        className={!canDownload ? 'save-button-incomplete' : ''}
+      >
+        Finish & Download
+      </SaveButton>
+    )}
+  </div>
 
-              {!canDownload && (
-                <div className="form-actions-hint">
-                  {downloadRequirementsText}
-                </div>
-              )}
-            </div>
+  {!canDownload && (
+    <div className="form-actions-hint">
+      {downloadRequirementsText}
+    </div>
+  )}
+</div>
+
 
 
           </main>

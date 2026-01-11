@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Footer.css';
 
 function FooterComponent() {
   return (
-    <footer className="footer mt-auto">
-      <div className="container text-center">
-        <p className="mb-2">&copy; 2026 Rapid Resume</p>
-        <div className="d-flex justify-content-center gap-3 flex-wrap">
-          <Link to="/template" className="footer-link">View templates</Link>
-          <Link to="/contact" className="footer-link">Contact</Link>
-          <a className="footer-link" href="mailto:arunvaidyanadhan@gmail.com">Feedback</a>
-        </div>
+    <footer className="footer">
+      <div className="footer-container">
+        <span className="footer-brand">Rapid Resume</span>
+        <span className="footer-divider">•</span>
+        <span className="footer-tagline">
+          Tell your story well
+        </span>
+        <span className="footer-divider">•</span>
+        <span className="footer-copy">
+          © 2026
+        </span>
       </div>
     </footer>
   );

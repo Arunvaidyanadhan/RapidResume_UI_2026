@@ -5,6 +5,7 @@ import FooterComponent from './components/FooterComponent';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
 import './SlidePanel.css';
+import './App.css';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -22,25 +23,26 @@ function App() {
     <ResumeProvider>
       <Router>
         <div className="d-flex flex-column min-vh-100">
-          <nav className="navbar custom-navbar shadow-sm px-4 py-3">
-            <div className="container-fluid d-flex justify-content-between align-items-center">
-              <div className="d-flex align-items-baseline gap-3">
-                <Link className="navbar-brand brand-text" to="/">Rapid Resume</Link>
-                <span className="text-muted" style={{ fontSize: 14, fontWeight: 600 }}>
-                  Tell your story well
-                </span>
-              </div>
-              <div className="d-flex gap-3 align-items-center">
-                <button
-                  type="button"
-                  className="btn btn-accent-outline fw-semibold"
-                  onClick={() => setShowAboutPanel(true)}
-                >
-                  About
-                </button>
-              </div>
-            </div>
-          </nav>
+         <nav className="navbar custom-navbar shadow-sm px-3 px-md-4 py-3">
+  <div className="container-fluid rr-navbar__inner">
+    <div className="rr-navbar__brand">
+      <Link className="navbar-brand brand-text" to="/">
+        Rapid Resume
+      </Link>
+    </div>
+
+    <div className="rr-navbar__actions">
+      <button
+        type="button"
+        className="btn btn-accent-outline fw-semibold"
+        onClick={() => setShowAboutPanel(true)}
+      >
+        About
+      </button>
+    </div>
+  </div>
+</nav>
+
 
           <div className="flex-grow-1">
             <ErrorBoundary>
@@ -66,7 +68,7 @@ function App() {
 
           <div className={`slide-panel ${showAboutPanel ? 'open' : ''}`}>
             <div className="slide-header">
-              <h5>About Rapid Resume</h5>
+              <h5>About Us</h5>
               <button
                 type="button"
                 onClick={() => setShowAboutPanel(false)}
@@ -85,7 +87,7 @@ function App() {
                 Your progress is saved securely in your browser, so you can refresh the page or return later without losing your work.
               </p>
               <p>
-                We actively welcome feedback and community contributions. If you have suggestions, identify limitations, or would like to contribute new resume templates or improvements, feel free to reach out at arunvaidyanadhan@gmail.com
+                We actively welcome feedback and community contributions. If you have suggestions, identify limitations, or would like to contribute new resume templates or improvements, feel free to reach out at <b>arunvaidyanadhan@gmail.com</b>
 .
               </p>
               <p>

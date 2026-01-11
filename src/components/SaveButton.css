@@ -45,17 +45,17 @@
 }
 
 .save-button-secondary {
-  background: var(--surface-hover);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(243, 244, 255, 0.95));
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(79, 70, 229, 0.22);
   box-shadow: var(--shadow-sm);
 }
 
 .save-button-secondary:hover:not(:disabled) {
-  background: var(--surface-elevated);
-  border-color: var(--border-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(241, 243, 255, 1));
+  border-color: rgba(79, 70, 229, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(99, 102, 241, 0.14);
 }
 
 .save-button-secondary:active:not(:disabled) {
