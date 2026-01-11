@@ -57,34 +57,8 @@ export const TEMPLATE_REGISTRY = [
     backendTemplate: 'template-6.hbs',
     category: 'professional',
   },
-  {
-    id: 'template-7',
-    displayName: 'Simple ATS',
-    description: 'Ultra-clean single-column layout for fast scanning',
-    backendTemplate: 'template-7.hbs',
-    category: 'minimal',
-  },
-  {
-    id: 'template-8',
-    displayName: 'Fresher Focus',
-    description: 'Education and projects first. Great for students and freshers',
-    backendTemplate: 'template-8.hbs',
-    category: 'minimal',
-  },
-  {
-    id: 'template-9',
-    displayName: 'Project Spotlight',
-    description: 'Project-first layout for portfolios and hands-on roles',
-    backendTemplate: 'template-9.hbs',
-    category: 'minimal',
-  },
-  {
-    id: 'ats-minimal',
-    displayName: 'Minimal ATS',
-    description: 'Strict ATS-safe typography and spacing with clean section rules',
-    backendTemplate: 'ats-minimal.hbs',
-    category: 'minimal',
-  },
+
+
   {
     id: 'complete',
     displayName: 'Complete',
