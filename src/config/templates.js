@@ -16,55 +16,39 @@
  */
 export const TEMPLATE_REGISTRY = [
   {
+    id: 'classic',
+    displayName: 'Classic',
+    description: 'Clean ATS-focused single-column layout',
+    backendTemplate: 'classic.hbs',
+    category: 'professional',
+  },
+  {
     id: 'modern',
     displayName: 'Modern',
-    description: 'Clean and professional design',
-    backendTemplate: 'modern.hbs',
+    description: 'Balanced two-column professional layout',
+    backendTemplate: 'modern-pro.hbs',
     category: 'professional',
   },
   {
-    id: 'template-2',
-    displayName: 'Classic',
-    description: 'Traditional resume layout',
-    backendTemplate: 'template-2.hbs',
-    category: 'professional',
-  },
-  {
-    id: 'template-3',
     displayName: 'Executive',
-    description: 'Bold and impactful design',
-    backendTemplate: 'template-3.hbs',
+    id: 'executive',
+    description: 'Leadership-oriented layout with premium hierarchy',
+    backendTemplate: 'executive.hbs',
     category: 'executive',
   },
   {
-    id: 'template-4',
-    displayName: 'Creative',
-    description: 'Modern with creative flair',
-    backendTemplate: 'template-4.hbs',
-    category: 'creative',
-  },
-  {
-    id: 'template-5',
     displayName: 'Minimalist',
-    description: 'Simple and elegant',
-    backendTemplate: 'template-5.hbs',
+    id: 'minimal',
+    description: 'Editorial white-space-first layout',
+    backendTemplate: 'minimal.hbs',
     category: 'minimal',
   },
   {
-    id: 'template-6',
-    displayName: 'Professional',
-    description: 'ATS-friendly format',
-    backendTemplate: 'template-6.hbs',
-    category: 'professional',
-  },
-
-
-  {
-    id: 'complete',
-    displayName: 'Complete',
-    description: 'Comprehensive layout',
-    backendTemplate: 'complete.hbs',
-    category: 'professional',
+    displayName: 'Creative',
+    id: 'creative',
+    description: 'Distinctive layout with tasteful visual contrast',
+    backendTemplate: 'creative.hbs',
+    category: 'creative',
   },
 ];
 

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmy_app=self.webpackChunkmy_app||[]).push([[237],{5237:(e,a,n)=>{n.r(a),n.d(a,{default:()=>s});n(5043);var c=n(579);function s(){return(0,c.jsx)("div",{className:"container mt-4",children:(0,c.jsx)("h2",{children:"Contact Page"})})}}}]);
+//# sourceMappingURL=237.2294bbfb.chunk.js.map

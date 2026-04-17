@@ -21,55 +21,66 @@ export default function ThankYou() {
     }
 
     resetResume();
-    navigate('/template', { replace: true });
+    navigate('/templates', { replace: true });
   };
 
   return (
-    <div className="container" style={{ maxWidth: 840, padding: '3rem 1rem' }}>
-      <div className="card shadow-sm" style={{ borderRadius: 16 }}>
-        <div className="card-body" style={{ padding: '2rem' }}>
-          <div
-            style={{
-              height: 6,
-              borderRadius: 999,
-              background: 'linear-gradient(90deg, rgba(79,70,229,1), rgba(99,102,241,1))',
-              marginBottom: 18,
-            }}
-          />
-          <h2 style={{ marginBottom: 8 }}>Success — your resume is ready</h2>
-          <p className="text-muted" style={{ marginBottom: 20 }}>
-            Your PDF download should have started. If it didn’t, check your browser’s downloads.
+    <>
+      <div className="thankyou-wrap">
+        <div className="thankyou-card">
+          <div className="thankyou-icon">✅</div>
+          <h2 style={{ fontSize: 28, marginBottom: 12 }}>Success — your resume is ready</h2>
+          <p className="text-secondary" style={{ fontSize: 15, lineHeight: 1.65, marginBottom: 24 }}>
+            Your PDF download should have started. If it didn't, check your browser's downloads.
           </p>
 
           {fileName ? (
-            <div className="alert alert-success" role="alert" style={{ marginBottom: 20 }}>
+            <div style={{ 
+              background: 'var(--accent-light)', 
+              border: '1px solid var(--accent)', 
+              borderRadius: 'var(--radius-sm)', 
+              padding: 12, 
+              marginBottom: 24, 
+              fontSize: 13, 
+              color: 'var(--accent)' 
+            }}>
               Downloaded: <strong>{fileName}</strong>
             </div>
           ) : (
-            <div className="alert alert-success" role="alert" style={{ marginBottom: 20 }}>
+            <div style={{ 
+              background: 'var(--accent-light)', 
+              border: '1px solid var(--accent)', 
+              borderRadius: 'var(--radius-sm)', 
+              padding: 12, 
+              marginBottom: 24, 
+              fontSize: 13, 
+              color: 'var(--accent)' 
+            }}>
               Download complete.
             </div>
           )}
 
-          <div className="d-flex flex-wrap gap-2" style={{ justifyContent: 'flex-end' }}>
-            <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/template', { replace: true })}>
-              View Templates
-            </button>
-            <a className="btn btn-outline-secondary" href="mailto:arunvaidyanadhan@gmail.com">
-              Feedback / Contact
-            </a>
-            <button type="button" className="btn btn-primary" onClick={handleCreateAnother}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+            <button className="btn-primary btn-lg" onClick={handleCreateAnother}>
               Create Another Resume
             </button>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <button className="btn-outline" onClick={() => navigate('/templates', { replace: true })}>
+                View Templates
+              </button>
+              <a className="btn-outline" href="mailto:arunvaidyanadhan@gmail.com">
+                Feedback / Contact
+              </a>
+            </div>
           </div>
 
-          <hr style={{ margin: '1.5rem 0' }} />
+          <hr className="divider" style={{ margin: '24px 0' }} />
 
-          <p className="text-muted" style={{ margin: 0 }}>
-            Tip: You can return anytime — your progress is saved locally in your browser.
+          <p className="text-muted text-sm" style={{ margin: 0 }}>
+            Tip: Your progress is saved locally in your browser, so you can return anytime to make edits.
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }

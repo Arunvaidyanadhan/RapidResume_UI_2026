@@ -1,7 +1,13 @@
 import axios from 'axios';
-import { transformResumeData } from './dataTransformer';
 
 const CONFIGURED_API_BASE_URL = (process.env.REACT_APP_API_URL || '').trim();
+const LEGACY_TEMPLATE_CANDIDATES = {
+  classic: ['template-2'],
+  modern: ['modern-pro'],
+  executive: ['template-3'],
+  minimal: ['template-5', 'ats-minimal'],
+  creative: ['template-4', 'creative-print'],
+};
 
 function getLocalApiBaseUrl() {
   if (typeof window === 'undefined') return 'http://localhost:3001';
@@ -76,6 +82,33 @@ async function getErrorMessage(error, fallbackHint = '') {
   return errorMessage;
 }
 
+function extractAvailableTemplates(message) {
+  const match = typeof message === 'string' ? message.match(/Available templates:\s*(.+)$/i) : null;
+  if (!match) return [];
+  return match[1]
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function getCompatibleTemplateId(requestedTemplateId, availableTemplates = []) {
+  const candidates = LEGACY_TEMPLATE_CANDIDATES[requestedTemplateId] || [];
+  return candidates.find((candidate) => availableTemplates.includes(candidate)) || null;
+}
+
+function makePdfRequest(base, resolvedTemplateId, resumeData) {
+  return axios.post(
+    `${base}/generate-pdf/${resolvedTemplateId}`,
+    resumeData,
+    {
+      responseType: 'blob',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+}
+
 async function withApiFallback(requestFn) {
   const primary = activeApiBaseUrl;
   try {
@@ -120,24 +153,25 @@ export async function fetchTemplates() {
  */
 export async function generatePDF(resumeData, templateId) {
   try {
-    const transformedData = transformResumeData(resumeData);
-    
-    const response = await withApiFallback((base) =>
-      axios.post(
-        `${base}/generate-pdf/${templateId}`,
-        transformedData,
-        {
-          responseType: 'blob',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
-    );
+    const response = await withApiFallback((base) => makePdfRequest(base, templateId, resumeData));
 
     return response.data;
   } catch (error) {
-    const errorMessage = await getErrorMessage(error, 'Unable to connect to the server. Please ensure the backend is running.');
+    const primaryMessage = await getErrorMessage(error);
+    const availableTemplates = extractAvailableTemplates(primaryMessage);
+    const compatibleTemplateId = getCompatibleTemplateId(templateId, availableTemplates);
+
+    if (compatibleTemplateId) {
+      try {
+        const retryResponse = await withApiFallback((base) => makePdfRequest(base, compatibleTemplateId, resumeData));
+        return retryResponse.data;
+      } catch (retryError) {
+        const retryMessage = await getErrorMessage(retryError, 'Unable to connect to the server. Please ensure the backend is running.');
+        throw new Error(retryMessage);
+      }
+    }
+
+    const errorMessage = primaryMessage || await getErrorMessage(error, 'Unable to connect to the server. Please ensure the backend is running.');
     throw new Error(errorMessage);
   }
 }
