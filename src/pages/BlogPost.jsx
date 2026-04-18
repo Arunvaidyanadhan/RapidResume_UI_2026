@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogPosts';
-import { AdSenseInArticle, AdSenseBanner } from '../components/AdSense';
+import { AdSenseInArticle } from '../components/AdSense';
 import '../components/AdSense/AdSense.css';
 
 const BlogPost = () => {
