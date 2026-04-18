@@ -1,0 +1,71 @@
+/* AdSense Container Styles */
+.adsense-container {
+  margin: 2rem 0;
+  text-align: center;
+  min-height: 90px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adsense-sidebar {
+  margin: 1rem 0;
+  min-height: 250px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adsense-inarticle {
+  margin: 1.5rem 0;
+  text-align: center;
+  min-height: 200px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive AdSense */
+@media (max-width: 768px) {
+  .adsense-container {
+    margin: 1rem 0;
+    min-height: 50px;
+  }
+  
+  .adsense-sidebar {
+    min-height: 200px;
+  }
+  
+  .adsense-inarticle {
+    min-height: 150px;
+  }
+}
+
+/* AdSense loading state */
+.adsense-container:empty,
+.adsense-sidebar:empty,
+.adsense-inarticle:empty {
+  background: #f1f5f9;
+  border: 1px dashed #cbd5e1;
+}
+
+.adsense-container:empty::after,
+.adsense-sidebar:empty::after,
+.adsense-inarticle:empty::after {
+  content: "Advertisement";
+  color: #94a3b8;
+  font-size: 0.875rem;
+  font-style: italic;
+}

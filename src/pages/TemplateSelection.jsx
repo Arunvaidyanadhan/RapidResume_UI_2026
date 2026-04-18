@@ -4,6 +4,8 @@ import { useResume } from '../context/resumecontext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { fetchTemplates } from '../utils/api';
 import { TEMPLATE_REGISTRY } from '../config/templates';
+import { AdSenseBanner } from '../components/AdSense';
+import '../components/AdSense/AdSense.css';
 
 const TemplateSelection = () => {
   const { setSelectedTemplate, selectedTemplate } = useResume();
@@ -131,6 +133,9 @@ const TemplateSelection = () => {
           })}
         </div>
       )}
+
+      {/* AdSense Banner */}
+      <AdSenseBanner slot="5678901234" />
 
       <div style={{ textAlign: 'center', marginTop: 28 }}>
         <button className="btn-secondary" onClick={() => navigate('/')}>

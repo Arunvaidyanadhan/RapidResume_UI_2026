@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogPosts';
+import { AdSenseInArticle, AdSenseBanner } from '../components/AdSense';
+import '../components/AdSense/AdSense.css';
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -41,6 +43,9 @@ const BlogPost = () => {
           dangerouslySetInnerHTML={{ __html: post.content }}
           style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--text-secondary)' }}
         />
+        
+        {/* In-article AdSense */}
+        <AdSenseInArticle slot="3456789012" style={{ margin: '2rem 0' }} />
         <hr className="divider" />
         <div style={{ 
           background: 'var(--accent-light)', 
