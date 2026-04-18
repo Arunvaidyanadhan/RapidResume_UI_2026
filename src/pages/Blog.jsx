@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogPosts';
+import { AdSenseBanner } from '../components/AdSense';
+import '../components/AdSense/AdSense.css';
 
 const Blog = () => {
   const featuredPost = blogPosts.find(post => post.featured) || blogPosts[0];
@@ -57,6 +59,9 @@ const Blog = () => {
             </div>
           </div>
         </div>
+
+        {/* AdSense Banner */}
+        <AdSenseBanner slot="2345678901" />
 
         {/* Blog Grid */}
         <div className="blog-grid">

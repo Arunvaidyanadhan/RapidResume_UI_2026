@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../data/blogPosts';
+import { AdSenseBanner } from '../components/AdSense';
+import '../components/AdSense/AdSense.css';
 
 function HomePage() {
   const regularPosts = blogPosts.filter(post => !post.featured).slice(0, 3);
@@ -239,6 +241,11 @@ function HomePage() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* AdSense Banner */}
+      <div style={{ padding: '0 72px', background: 'var(--bg)' }}>
+        <AdSenseBanner slot="1234567890" />
       </div>
 
       {/* Blog teaser */}

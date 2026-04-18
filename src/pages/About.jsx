@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AdSenseBanner } from '../components/AdSense';
+import '../components/AdSense/AdSense.css';
 
 function AboutPage() {
   return (
@@ -55,6 +57,9 @@ function AboutPage() {
             <div className="value-desc">Core resume building is and will remain free. No hidden paywalls or subscriptions.</div>
           </div>
         </div>
+
+        {/* AdSense Banner */}
+        <AdSenseBanner slot="4567890123" />
 
         <div className="card mb-20">
           <h3 style={{ fontSize: 22, marginBottom: 12 }}>How it works</h3>
