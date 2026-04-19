@@ -2,8 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../context/resumecontext';
 import { exportResumePdf } from '../lib/exportResumePdf';
-import { validateResume, getResumeCompletion, ensurePreviewReadyResume } from '../lib/resumeSchema';
-import { sampleResume } from '../lib/sampleResume';
+import { validateResume, getResumeCompletion } from '../lib/resumeSchema';
 import FormSection from '../components/builder/FormSection';
 import './BuilderStudio.css';
 
