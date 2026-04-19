@@ -110,7 +110,7 @@ function HomePage() {
           <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24, fontWeight: 600 }}>
             That never felt right.
           </p>
-          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24, fontWeight: 700, color: 'var(--accent)' }}>
+          <p style={{ fontSize: 16, color: 'var(--accent)', lineHeight: 1.8, marginBottom: 24, fontWeight: 700 }}>
             Rapid Resume is built differently.
           </p>
           <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>

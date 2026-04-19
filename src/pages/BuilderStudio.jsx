@@ -2,9 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../context/resumecontext';
 import { exportResumePdf } from '../lib/exportResumePdf';
-import { TEMPLATE_OPTIONS, validateResume, getResumeCompletion, ensurePreviewReadyResume } from '../lib/resumeSchema';
+import { validateResume, getResumeCompletion, ensurePreviewReadyResume } from '../lib/resumeSchema';
 import { sampleResume } from '../lib/sampleResume';
-import SectionCard from '../components/builder/SectionCard';
 import FormSection from '../components/builder/FormSection';
 import './BuilderStudio.css';
 
@@ -13,10 +12,8 @@ function BuilderStudio() {
   const {
     resume,
     selectedTemplate,
-    setSelectedTemplate,
     updateProfileField,
     updateListItem,
-    updateListHighlights,
     addListItem,
     removeListItem
   } = useResume();
@@ -37,7 +34,6 @@ function BuilderStudio() {
   const [downloadState, setDownloadState] = useState({ loading: false, error: '' });
 
   const validation = useMemo(() => validateResume(resume), [resume]);
-  const previewResume = useMemo(() => ensurePreviewReadyResume(resume, sampleResume), [resume]);
   const completion = useMemo(() => getResumeCompletion(resume), [resume]);
 
   const sections = [

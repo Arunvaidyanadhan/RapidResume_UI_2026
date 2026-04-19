@@ -13,7 +13,6 @@ import { useResume } from '../context/resumecontext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import TemplateCard from '../components/TemplateCard';
 import TemplateGrid from '../components/TemplateGrid';
-import { fetchTemplates } from '../utils/api';
 import { TEMPLATE_REGISTRY } from '../config/templates';
 import {
   TemplateProfessional,
