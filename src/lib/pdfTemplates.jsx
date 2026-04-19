@@ -178,11 +178,16 @@ export function ResumePdfDocument({ resume, templateId }) {
           {resume.profile.headline ? <Text style={styles.headline}>{resume.profile.headline}</Text> : null}
           {contacts ? <Text style={styles.contact}>{contacts}</Text> : null}
         </View>
+        {templateId === 'professional' ? <SplitPdf resume={resume} /> : null}
+        {templateId === 'elegant' ? <ClassicPdf resume={resume} /> : null}
         {templateId === 'modern' ? <SplitPdf resume={resume} /> : null}
-        {templateId === 'executive' ? <ExecutivePdf resume={resume} /> : null}
-        {templateId === 'minimal' ? <SplitPdf resume={resume} sidebarTitle="Skills" /> : null}
+        {templateId === 'minimalist' ? <ClassicPdf resume={resume} /> : null}
         {templateId === 'creative' ? <CreativePdf resume={resume} /> : null}
+        {templateId === 'executive' ? <ExecutivePdf resume={resume} /> : null}
+        {templateId === 'bold' ? <CreativePdf resume={resume} /> : null}
         {templateId === 'classic' ? <ClassicPdf resume={resume} /> : null}
+        {templateId === 'clean' ? <ClassicPdf resume={resume} /> : null}
+        {templateId === 'sophisticated' ? <ExecutivePdf resume={resume} /> : null}
       </Page>
     </Document>
   );

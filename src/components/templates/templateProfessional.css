@@ -1,0 +1,123 @@
+.professional-template {
+  font-family: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.professional-template .resume-header {
+  background: #ffffff;
+  border-left: 4px solid #1f7a6d;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.professional-template .resume-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f7a6d;
+  margin: 0 0 8px 0;
+}
+
+.professional-template .resume-contact {
+  font-size: 12px;
+  color: #475569;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.professional-template .resume-contact span {
+  color: #475569;
+}
+
+.professional-template .resume-section {
+  background: #ffffff;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-left: 3px solid #1f7a6d;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.professional-template .section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1f7a6d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d1e4e1;
+}
+
+.professional-template .section-content {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.professional-template .experience-item,
+.professional-template .education-item {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.professional-template .experience-item:last-child,
+.professional-template .education-item:last-child {
+  border-bottom: none;
+}
+
+.professional-template .experience-header,
+.professional-template .education-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.professional-template .experience-title,
+.professional-template .education-degree {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.professional-template .experience-date,
+.professional-template .education-year {
+  font-size: 12px;
+  color: #475569;
+}
+
+.professional-template .experience-company,
+.professional-template .education-school {
+  font-size: 13px;
+  color: #1f7a6d;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.professional-template .experience-description {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 4px 0 0 0;
+}
+
+.professional-template .skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.professional-template .skill-tag {
+  background: #1f7a6d;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}

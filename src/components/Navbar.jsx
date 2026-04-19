@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <nav className="top-bar">
       <Link className="logo" to="/">
-        Rapid<span className="logo-dot">.</span>Resume
+        <span style={{ color: 'var(--accent)', fontWeight: 800 }}>Rapid</span><span style={{ fontWeight: 700 }}>Resume</span>
       </Link>
       <div className="nav-links">
         <Link 
@@ -21,6 +21,12 @@ const Navbar = () => {
           to="/"
         >
           Home
+        </Link>
+        <Link 
+          className={`nav-link ${isActive('/templates') ? 'active' : ''}`} 
+          to="/templates"
+        >
+          Templates
         </Link>
         <Link 
           className={`nav-link ${isActive('/builder') ? 'active' : ''}`} 

@@ -11,6 +11,7 @@ import './index.css';
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
+const TemplateSelection = lazy(() => import('./pages/TemplateSelection'));
 const BuilderStudio = lazy(() => import('./pages/BuilderStudio'));
 const ThankYou = lazy(() => import('./pages/ThankYou'));
 const Blog = lazy(() => import('./pages/Blog'));
@@ -33,9 +34,9 @@ function App() {
               }>
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path="/templates" element={<TemplateSelection />} />
                   <Route path="/builder" element={<BuilderStudio />} />
                   <Route path="/template" element={<BuilderStudio />} />
-                  <Route path="/templates" element={<BuilderStudio />} />
                   <Route path="/headings" element={<BuilderStudio />} />
                   <Route path="/form" element={<BuilderStudio />} />
                   <Route path="/thank-you" element={<ThankYou />} />

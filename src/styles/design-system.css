@@ -1,0 +1,487 @@
+/**
+ * ============================================
+ * RAPID RESUME - PREMIUM DESIGN SYSTEM
+ * Version 1.0 | April 2026
+ * ============================================
+ * Core design tokens: Colors, typography, spacing, shadows, effects
+ * Use these variables throughout the application
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap');
+
+/* ============================================
+   COLOR PALETTE
+   ============================================ */
+
+:root {
+  /* PRIMARY COLORS - Teal Gradient (home page hero color) */
+  --primary-50: #f0fdf9;
+  --primary-100: #d7f5f0;
+  --primary-200: #afeae2;
+  --primary-300: #87dfd5;
+  --primary-400: #5fd4c7;
+  --primary-500: #37c9ba;
+  --primary-600: #1f7a6d;    /* Main CTA */
+  --primary-700: #16685d;    /* Hover state */
+  --primary-800: #0d514d;
+  --primary-900: #04403d;
+  --primary-950: #022d2a;
+
+  /* SECONDARY COLORS - Neutral Gray */
+  --gray-50: #f9fafb;        /* Lightest background */
+  --gray-100: #f3f4f6;       /* Light background */
+  --gray-200: #e5e7eb;       /* Border, divider */
+  --gray-300: #d1d5db;       /* Border hover */
+  --gray-400: #9ca3af;       /* Icon secondary */
+  --gray-500: #6b7280;       /* Text secondary */
+  --gray-600: #4b5563;       /* Text secondary darker */
+  --gray-700: #374151;       /* Text secondary */
+  --gray-800: #1f2937;       /* Text */
+  --gray-900: #111827;       /* Text primary */
+  --gray-950: #030712;       /* Darkest */
+
+  /* SEMANTIC COLORS */
+  --success: #10b981;        /* Emerald - Success/Check */
+  --warning: #f59e0b;        /* Amber - Warning */
+  --error: #ef4444;          /* Red - Error */
+  --info: #3b82f6;           /* Blue - Information */
+
+  /* ACCENT COLORS */
+  --accent-teal: #14b8a6;
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+
+  /* SURFACES & BACKGROUNDS */
+  --surface-bg: #ffffff;     /* Card backgrounds */
+  --surface-secondary: #f9fafb;   /* Page background */
+  --surface-tertiary: #f3f4f6;    /* Hover background */
+  --surface-overlay: rgba(15, 23, 42, 0.5);  /* Modal overlay */
+
+  /* GRADIENTS */
+  --gradient-primary: linear-gradient(135deg, #1f7a6d 0%, #16685d 100%);
+  --gradient-accent: linear-gradient(135deg, #1f7a6d 0%, #14b8a6 100%);
+  --gradient-soft: linear-gradient(135deg, #f0fdf9 0%, #f3f4f6 100%);
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'IBM Plex Sans', sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-mono: 'Monaco', 'Courier New', monospace;
+
+  /* Font sizes */
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 20px;
+  --text-3xl: 24px;
+  --text-4xl: 28px;
+  --text-5xl: 32px;
+  --text-6xl: 36px;
+  --text-7xl: 42px;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Line heights */
+  --lh-tight: 1.2;
+  --lh-normal: 1.4;
+  --lh-relaxed: 1.6;
+
+  /* ============================================
+     SPACING SYSTEM (4px base unit)
+     ============================================ */
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* ============================================
+     SHADOWS
+     ============================================ */
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* ============================================
+     GLASS MORPHISM
+     ============================================ */
+
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-backdrop: 8px;
+  --glass-border: 1px solid rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+
+  /* ============================================
+     ANIMATION TIMING
+     ============================================ */
+
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+
+  --timing-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --timing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --timing-ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+  --timing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ============================================
+     Z-INDEX SCALE
+     ============================================ */
+
+  --z-hide: -1;
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* ============================================
+   DARK MODE (Future Support)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-bg: #0f172a;
+    --surface-secondary: #1e293b;
+    --surface-tertiary: #334155;
+    --gray-900: #f1f5f9;
+    --gray-800: #e2e8f0;
+    --gray-700: #cbd5e1;
+    --gray-600: #94a3b8;
+    --gray-500: #64748b;
+    --surface-overlay: rgba(15, 23, 42, 0.8);
+    --glass-bg: rgba(15, 23, 42, 0.8);
+  }
+}
+
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--surface-secondary);
+  color: var(--gray-900);
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* ============================================
+   TYPOGRAPHY ELEMENTS
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-tight);
+  margin: 0;
+  color: var(--gray-900);
+}
+
+h1 {
+  font-size: var(--text-6xl);
+  font-weight: var(--weight-bold);
+}
+
+h2 {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-bold);
+}
+
+h3 {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+}
+
+h4 {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+}
+
+h5, h6 {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+p {
+  margin: 0;
+  line-height: var(--lh-relaxed);
+}
+
+a {
+  color: var(--primary-600);
+  text-decoration: none;
+  transition: color var(--duration-base) var(--timing-ease);
+}
+
+a:hover {
+  color: var(--primary-700);
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ============================================
+   TEXT UTILITIES
+   ============================================ */
+
+.text-xs {
+  font-size: var(--text-xs);
+}
+
+.text-sm {
+  font-size: var(--text-sm);
+}
+
+.text-base {
+  font-size: var(--text-base);
+}
+
+.text-lg {
+  font-size: var(--text-lg);
+}
+
+.text-primary {
+  color: var(--gray-900);
+}
+
+.text-secondary {
+  color: var(--gray-600);
+}
+
+.text-muted {
+  color: var(--gray-500);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-error {
+  color: var(--error);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.font-semibold {
+  font-weight: var(--weight-semibold);
+}
+
+.font-bold {
+  font-weight: var(--weight-bold);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+@media (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+    padding: 0 var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+}
+
+/* Spacing */
+.m-0 { margin: 0; }
+.mt-4 { margin-top: var(--spacing-md); }
+.mt-8 { margin-top: var(--spacing-xl); }
+.mb-4 { margin-bottom: var(--spacing-md); }
+.mb-8 { margin-bottom: var(--spacing-xl); }
+.p-4 { padding: var(--spacing-md); }
+.p-6 { padding: var(--spacing-xl); }
+
+/* Display */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.gap-2 {
+  gap: var(--spacing-sm);
+}
+
+.gap-4 {
+  gap: var(--spacing-md);
+}
+
+.gap-6 {
+  gap: var(--spacing-xl);
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Visibility */
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+/* ============================================
+   FOCUS STATES (ACCESSIBILITY)
+   ============================================ */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--primary-600);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+}

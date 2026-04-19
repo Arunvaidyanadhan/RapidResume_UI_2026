@@ -1,0 +1,140 @@
+/**
+ * ============================================
+ * TemplateGrid.css
+ * ============================================
+ * Responsive grid layout for templates
+ */
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ============================================
+   DESKTOP-LG: 4 COLUMNS (1280px+)
+   ============================================ */
+
+@media (min-width: 1280px) {
+  .template-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ============================================
+   DESKTOP: 3 COLUMNS (1024px - 1279px)
+   ============================================ */
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .template-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+/* ============================================
+   TABLET: 2 COLUMNS (768px - 1023px)
+   ============================================ */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .template-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0;
+  }
+}
+
+/* ============================================
+   MOBILE: 1 COLUMN (<768px)
+   ============================================ */
+
+@media (max-width: 767px) {
+  .template-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0;
+  }
+}
+
+/* ============================================
+   SMALL MOBILE: 1 COLUMN (<480px)
+   ============================================ */
+
+@media (max-width: 479px) {
+  .template-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0;
+  }
+}
+
+/* ============================================
+   LOADING STATE - SKELETON
+   ============================================ */
+
+.template-card-skeleton {
+  width: 100%;
+  aspect-ratio: 8.5 / 11;
+  background: linear-gradient(90deg, var(--gray-200) 0%, var(--gray-300) 50%, var(--gray-200) 100%);
+  background-size: 200% 100%;
+  animation: shimmer-skeleton 2s infinite;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes shimmer-skeleton {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.template-grid-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px;
+  text-align: center;
+}
+
+.empty-message {
+  font-size: var(--text-lg);
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ============================================
+   ERROR STATE
+   ============================================ */
+
+.template-grid-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px;
+  text-align: center;
+  background: rgba(239, 68, 68, 0.05);
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(239, 68, 68, 0.2);
+}
+
+.error-message {
+  font-size: var(--text-lg);
+  color: var(--error);
+  margin: 0;
+  font-weight: var(--weight-semibold);
+}

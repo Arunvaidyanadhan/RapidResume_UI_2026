@@ -26,9 +26,12 @@
   width: min(794px, 100%); /* A4 width at 96dpi, shrink in drawer */
   padding: 20px;
   margin: 0 auto;
-  background-color: white;
+  background-color: rgba(255,255,255,0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   box-shadow: var(--shadow-md);
-  border: 1px solid rgba(79, 70, 229, 0.14);
+  border: 1px solid rgba(157, 225, 203, 0.18);
+  border-radius: 20px;
 }
 
 .preview-root.compact .preview-container {
