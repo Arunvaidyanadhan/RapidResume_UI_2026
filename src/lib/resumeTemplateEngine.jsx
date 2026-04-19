@@ -1,11 +1,16 @@
 import React from 'react';
 
 const templateThemes = {
+  professional: { canvas: '#f8fafc', surface: '#ffffff', text: '#0f172a', muted: '#475569', accent: '#1f7a6d', hairline: '#d1e4e1', headingFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'split' },
+  elegant: { canvas: '#fafafa', surface: '#ffffff', text: '#1f2937', muted: '#6b7280', accent: '#6b7280', hairline: '#e5e7eb', headingFont: '"Playfair Display", Georgia, serif', bodyFont: '"Lato", "Segoe UI", Arial, sans-serif', type: 'classic' },
+  modern: { canvas: '#eff6ff', surface: '#ffffff', text: '#0f172a', muted: '#475569', accent: '#2563eb', hairline: '#dbeafe', headingFont: '"Inter", "Segoe UI", Arial, sans-serif', bodyFont: '"Inter", "Segoe UI", Arial, sans-serif', type: 'split' },
+  minimalist: { canvas: '#ffffff', surface: '#ffffff', text: '#111827', muted: '#4b5563', accent: '#374151', hairline: '#f3f4f6', headingFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'minimal' },
+  creative: { canvas: '#fff7ed', surface: '#ffffff', text: '#1c1917', muted: '#78716c', accent: '#c2410c', hairline: '#fed7aa', headingFont: '"Poppins", "Segoe UI", Arial, sans-serif', bodyFont: '"Poppins", "Segoe UI", Arial, sans-serif', type: 'creative' },
+  executive: { canvas: '#f8fafc', surface: '#ffffff', text: '#0f172a', muted: '#475569', accent: '#1e293b', hairline: '#e2e8f0', headingFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'executive' },
+  bold: { canvas: '#fef2f2', surface: '#ffffff', text: '#1f2937', muted: '#6b7280', accent: '#dc2626', hairline: '#fecaca', headingFont: '"Montserrat", "Segoe UI", Arial, sans-serif', bodyFont: '"Open Sans", "Segoe UI", Arial, sans-serif', type: 'creative' },
   classic: { canvas: '#f7fafc', surface: '#ffffff', text: '#0f172a', muted: '#475569', accent: '#133f3a', hairline: '#cbd5e1', headingFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'classic' },
-  modern: { canvas: '#eef8f6', surface: '#ffffff', text: '#0f172a', muted: '#475569', accent: '#1f7a6d', hairline: '#d7eeea', headingFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'split' },
-  executive: { canvas: '#f3f6f9', surface: '#ffffff', text: '#0f172a', muted: '#475569', accent: '#1e293b', hairline: '#d8e0ea', headingFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'executive' },
-  minimal: { canvas: '#f8fafc', surface: '#ffffff', text: '#111827', muted: '#4b5563', accent: '#334155', hairline: '#e5e7eb', headingFont: '"Cormorant Garamond", Georgia, serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'minimal' },
-  creative: { canvas: '#fff7ed', surface: '#fffdf9', text: '#3a2415', muted: '#7c5a46', accent: '#c2410c', hairline: '#fed7aa', headingFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', bodyFont: '"IBM Plex Sans", "Segoe UI", Arial, sans-serif', type: 'creative' }
+  clean: { canvas: '#f0f9ff', surface: '#ffffff', text: '#0f172a', muted: '#475569', accent: '#0891b2', hairline: '#cffafe', headingFont: '"Segoe UI", Arial, sans-serif', bodyFont: '"Segoe UI", Arial, sans-serif', type: 'classic' },
+  sophisticated: { canvas: '#faf5ff', surface: '#ffffff', text: '#1f2937', muted: '#6b7280', accent: '#7c3aed', hairline: '#e9d5ff', headingFont: '"Merriweather", Georgia, serif', bodyFont: '"Source Sans Pro", "Segoe UI", Arial, sans-serif', type: 'executive' }
 };
 
 function divider(theme) {

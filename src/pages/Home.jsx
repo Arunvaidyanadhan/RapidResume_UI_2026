@@ -16,58 +16,43 @@ function HomePage() {
             <div className="hero-pulse"></div>
             Free · No Signup Required
           </div>
-          <h1>Your dream job<br/>starts with a <em>great</em><br/>resume.</h1>
+          <h1>
+            <em style={{ color: 'var(--accent)', fontWeight: 800 }}>Rapid Resume</em>
+            <span style={{
+              fontSize: '10px',
+              background: 'rgba(29, 158, 117, 0.15)',
+              color: 'var(--teal-200)',
+              border: '1px solid rgba(93, 202, 165, 0.3)',
+              borderRadius: '100px',
+              padding: '2px 8px',
+              marginLeft: '8px',
+              verticalAlign: 'middle',
+              fontWeight: '600',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase'
+            }}>Beta</span>
+            <br/>Your dream job<br/>starts with a <em>great</em><br/>resume.
+          </h1>
           <p>Pick a template, fill in your details, and download a polished, ATS-friendly resume in under 5 minutes.</p>
           <div className="benefit-row">
-            <div className="benefit"><div className="benefit-dot"></div>5 professional templates for every industry</div>
+            <div className="benefit"><div className="benefit-dot"></div>10 professional templates for every industry</div>
             <div className="benefit"><div className="benefit-dot"></div>Instant PDF download — no watermarks</div>
             <div className="benefit"><div className="benefit-dot"></div>ATS-optimized formatting that gets past filters</div>
             <div className="benefit"><div className="benefit-dot"></div>Works on any device, completely free</div>
           </div>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <Link to="/builder" className="btn-primary btn-lg">Start Building Resume</Link>
+            <Link to="/templates" className="btn-primary btn-lg">Start Building Resume</Link>
             <Link to="/blog" className="btn-secondary btn-lg">Resume Tips</Link>
           </div>
           <div style={{ color: 'rgba(255,255,255,.3)', fontSize: 12, marginTop: 12 }}>
             No account · No credit card · Just download
           </div>
         </div>
-
-        <div className="hero-side fade-up-2">
-          <div className="hero-preview">
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,.4)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 14 }}>
-              Resume Preview
-            </div>
-            <div className="hero-resume-line" style={{ height: 12, background: 'rgba(255,255,255,.7)', width: '60%', marginBottom: 8 }}></div>
-            <div className="hero-resume-line" style={{ height: 7, background: 'rgba(82,183,136,.5)', width: '38%', marginBottom: 12 }}></div>
-            <div className="hero-resume-line" style={{ height: 6, background: 'rgba(255,255,255,.2)', marginBottom: 5 }}></div>
-            <div className="hero-resume-line" style={{ height: 6, background: 'rgba(255,255,255,.12)', width: '80%', marginBottom: 5 }}></div>
-            <div className="hero-resume-line" style={{ height: 6, background: 'rgba(255,255,255,.2)', marginBottom: 5 }}></div>
-            <div className="hero-resume-line" style={{ height: 6, background: 'rgba(255,255,255,.12)', width: '90%', marginBottom: 10 }}></div>
-            <div style={{ height: 10 }}></div>
-            <div style={{ height: 1, background: 'rgba(255,255,255,.1)', marginBottom: 10 }}></div>
-            <div className="hero-resume-line" style={{ height: 7, background: 'rgba(82,183,136,.3)', width: '35%', marginBottom: 8 }}></div>
-            <div className="hero-resume-line" style={{ height: 5, background: 'rgba(255,255,255,.12)', marginBottom: 3 }}></div>
-            <div className="hero-resume-line" style={{ height: 5, background: 'rgba(255,255,255,.12)', width: '85%', marginBottom: 8 }}></div>
-            <div style={{ height: 10 }}></div>
-            <div style={{ height: 1, background: 'rgba(255,255,255,.1)', marginBottom: 10 }}></div>
-            <div className="hero-resume-line" style={{ height: 7, background: 'rgba(82,183,136,.3)', width: '25%', marginBottom: 8 }}></div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              <div style={{ height: 18, width: 50, background: 'rgba(82,183,136,.25)', borderRadius: 3 }}></div>
-              <div style={{ height: 18, width: 40, background: 'rgba(82,183,136,.25)', borderRadius: 3 }}></div>
-              <div style={{ height: 18, width: 55, background: 'rgba(82,183,136,.25)', borderRadius: 3 }}></div>
-            </div>
-            <div style={{ marginTop: 14, textAlign: 'center' }}>
-              <div style={{ display: 'inline-block', background: 'var(--accent)', color: 'white', fontSize: 11, fontWeight: 600, padding: 6, borderRadius: 6 }}>
-                Download PDF ↓
-              </div>
-            </div>
-          </div>
-        </div>
+       
       </div>
 
       {/* Built for strip */}
-      <div style={{ background: 'var(--surface)', borderBottom: '1px solid var(--border)', padding: 18, display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap' }}>
+      <div style={{ background: 'var(--surface2)', borderBottom: '1px solid var(--border)', padding: 18, display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap' }}>
         <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase' }}>
           PERFECT FOR
         </div>
@@ -109,103 +94,52 @@ function HomePage() {
         </div>
       </div>
 
-      {/* Templates preview */}
-      <div style={{ padding: 60, background: 'var(--surface)', borderTop: '1px solid var(--border)' }}>
-        <div style={{ textAlign: 'center', marginBottom: 36 }}>
-          <div className="section-label" style={{ textAlign: 'center' }}>5 Templates</div>
-          <h2 style={{ fontSize: 34 }}>For every career & style</h2>
-          <p className="text-secondary mt-8" style={{ fontSize: 15 }}>All templates are ATS-friendly and recruiter-approved.</p>
+      {/* Why Rapid Resume */}
+      <div style={{ padding: 72, background: 'var(--surface2)' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div className="section-label" style={{ textAlign: 'center' }}>Why Rapid Resume</div>
+          <h2 style={{ fontSize: 38 }}>Built differently,<br/><em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>because it should be</em></h2>
         </div>
-        <div className="template-grid">
-          <div className="template-card" onClick={() => window.location.href = '/templates'}>
-            <div className="template-thumb" style={{ background: '#F7F6F2' }}>
-              <div style={{ height: 40, background: '#1A1916', borderRadius: 4, margin: -12, marginBottom: 10, padding: 8 }}>
-                <div style={{ height: 8, background: 'white', borderRadius: 2, width: '55%', marginBottom: 4 }}></div>
-                <div style={{ height: 5, background: '#52B788', borderRadius: 2, width: '38%' }}></div>
-              </div>
-              <div style={{ height: 5, background: '#E5E3DB', borderRadius: 2, marginBottom: 5 }}></div>
-              <div style={{ height: 5, background: '#E5E3DB', borderRadius: 2, width: '80%', marginBottom: 5 }}></div>
-              <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, marginBottom: 3 }}></div>
-              <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '90%', marginBottom: 3 }}></div>
-              <div style={{ height: 1, background: '#E5E3DB', margin: '8px 0' }}></div>
-              <div style={{ height: 5, background: '#D8EDDF', borderRadius: 2, width: '40%', marginBottom: 6 }}></div>
-              <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, marginBottom: 3 }}></div>
-              <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '85%' }}></div>
-            </div>
-            <div className="template-name">Classic <span className="template-tag badge badge-green">Popular</span></div>
+        <div style={{ maxWidth: 720, margin: '0 auto', background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', borderRadius: '16px', padding: '32px', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)', border: '1px solid rgba(255, 255, 255, 0.5)' }}>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+            Most resume builders today follow the same pattern.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+            You spend time filling everything, choose a template, and when you're ready to download… they ask you to pay.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24, fontWeight: 600 }}>
+            That never felt right.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24, fontWeight: 700, color: 'var(--accent)' }}>
+            Rapid Resume is built differently.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+            You can create, edit, and download your resume instantly — no signup, no hidden paywalls.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+            So how does it stay free?
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+            We use simple, non-intrusive ads to support the platform. That's it.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+            No locked features. No forced upgrades. No tricks.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24, fontWeight: 600 }}>
+            The goal is simple:
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text)', lineHeight: 1.8, marginBottom: 24, fontWeight: 700 }}>
+            Make a clean, professional resume accessible to everyone — without friction.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>
+            If it helps you land an opportunity, that's already a win.
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 32 }}>
+            And if you choose to support it later, that's just a bonus 🙌
+          </p>
+          <div style={{ textAlign: 'center' }}>
+            <Link to="/templates" className="btn-primary btn-lg">Start Building Resume</Link>
           </div>
-          <div className="template-card" onClick={() => window.location.href = '/templates'}>
-            <div className="template-thumb" style={{ background: '#F7F6F2', display: 'grid', gridTemplateColumns: '35% 1fr', gap: 0, padding: 0 }}>
-              <div style={{ background: '#2D6A4F', padding: 8 }}>
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,.2)', margin: '0 auto 6' }}></div>
-                <div style={{ height: 5, background: 'rgba(255,255,255,.5)', borderRadius: 2, marginBottom: 3 }}></div>
-                <div style={{ height: 4, background: 'rgba(255,255,255,.3)', borderRadius: 2, width: '70%', margin: '0 auto 10' }}></div>
-                <div style={{ height: 3, background: 'rgba(255,255,255,.2)', borderRadius: 2, marginBottom: 3 }}></div>
-                <div style={{ height: 3, background: 'rgba(255,255,255,.2)', borderRadius: 2, width: '80%', marginBottom: 3 }}></div>
-                <div style={{ height: 3, background: 'rgba(255,255,255,.2)', borderRadius: 2, width: '60%' }}></div>
-              </div>
-              <div style={{ padding: 8 }}>
-                <div style={{ height: 5, background: '#2D6A4F', borderRadius: 2, width: '55%', marginBottom: 6 }}></div>
-                <div style={{ height: 4, background: '#E5E3DB', borderRadius: 2, marginBottom: 3 }}></div>
-                <div style={{ height: 4, background: '#E5E3DB', borderRadius: 2, width: '85%', marginBottom: 3 }}></div>
-                <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '90%', marginBottom: 10 }}></div>
-                <div style={{ height: 5, background: '#2D6A4F', borderRadius: 2, width: '45%', marginBottom: 6 }}></div>
-                <div style={{ height: 4, background: '#E5E3DB', borderRadius: 2, marginBottom: 3 }}></div>
-                <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '75%' }}></div>
-              </div>
-            </div>
-            <div className="template-name">Modern <span className="template-tag">Sidebar</span></div>
-          </div>
-          <div className="template-card" onClick={() => window.location.href = '/templates'}>
-            <div className="template-thumb" style={{ background: 'white', padding: 10 }}>
-              <div style={{ height: 14, background: '#1A1916', borderRadius: 2, width: '65%', marginBottom: 5 }}></div>
-              <div style={{ height: 6, background: '#A09E98', borderRadius: 2, width: '40%', marginBottom: 4 }}></div>
-              <div style={{ height: 2, background: '#1A1916', margin: '6px 0' }}></div>
-              <div style={{ display: 'grid', gridTemplateColumns: '35% 1fr', gap: 8, marginTop: 8 }}>
-                <div style={{ height: 5, background: '#A09E98', borderRadius: 2 }}></div>
-                <div>
-                  <div style={{ height: 4, background: '#E5E3DB', borderRadius: 2, marginBottom: 3 }}></div>
-                  <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '80%', marginBottom: 3 }}></div>
-                  <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '90%' }}></div>
-                </div>
-              </div>
-            </div>
-            <div className="template-name">Minimal <span className="template-tag">Clean</span></div>
-          </div>
-          <div className="template-card" onClick={() => window.location.href = '/templates'}>
-            <div className="template-thumb" style={{ background: '#F7F6F2' }}>
-              <div style={{ height: 48, background: '#1A1916', borderRadius: 4, margin: -12, marginBottom: 10, padding: 10, borderBottom: 3, borderColor: '#2D6A4F' }}>
-                <div style={{ height: 10, background: 'white', borderRadius: 2, width: '60%', marginBottom: 5 }}></div>
-                <div style={{ height: 4, background: '#52B788', borderRadius: 2, width: '35%' }}></div>
-              </div>
-              <div style={{ height: 4, background: '#D8EDDF', borderRadius: 2, marginBottom: 2 }}></div>
-              <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '90%', marginBottom: 8 }}></div>
-              <div style={{ height: 6, background: '#1A1916', borderRadius: 2, display: 'inline-block', width: '45%', marginBottom: 6 }}></div>
-              <div style={{ height: 4, background: '#E5E3DB', borderRadius: 2, marginBottom: 3 }}></div>
-              <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '80%' }}></div>
-            </div>
-            <div className="template-name">Executive <span className="template-tag badge" style={{ background: 'var(--amber-light)', color: 'var(--amber)' }}>Premium</span></div>
-          </div>
-          <div className="template-card" onClick={() => window.location.href = '/templates'}>
-            <div className="template-thumb" style={{ background: 'white', borderLeft: 5, borderColor: '#2D6A4F', padding: 10 }}>
-              <div style={{ background: 'linear-gradient(135deg,#D8EDDF,#EAF5EF)', padding: 8, margin: -10, marginBottom: 8, borderLeft: 3, borderColor: '#2D6A4F' }}>
-                <div style={{ height: 8, background: '#1A1916', borderRadius: 2, width: '60%', marginBottom: 4 }}></div>
-                <div style={{ height: 5, background: '#2D6A4F', borderRadius: 2, width: '40%' }}></div>
-              </div>
-              <div style={{ height: 16, fontFamily: 'var(--font-serif)', fontSize: 12, color: '#2D6A4F', marginBottom: 5 }}></div>
-              <div style={{ height: 4, background: '#E5E3DB', borderRadius: 2, marginBottom: 3 }}></div>
-              <div style={{ height: 4, background: '#F0EFE9', borderRadius: 2, width: '85%', marginBottom: 8 }}></div>
-              <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                <div style={{ height: 12, width: 36, background: '#D8EDDF', border: 1, borderColor: '#2D6A4F', borderRadius: 10 }}></div>
-                <div style={{ height: 12, width: 28, background: '#D8EDDF', border: 1, borderColor: '#2D6A4F', borderRadius: 10 }}></div>
-                <div style={{ height: 12, width: 40, background: '#D8EDDF', border: 1, borderColor: '#2D6A4F', borderRadius: 10 }}></div>
-              </div>
-            </div>
-            <div className="template-name">Creative <span className="template-tag">Bold</span></div>
-          </div>
-        </div>
-        <div style={{ textAlign: 'center', marginTop: 28 }}>
-          <Link to="/builder" className="btn-outline">Open Builder</Link>
         </div>
       </div>
 
@@ -216,28 +150,28 @@ function HomePage() {
           <h2 style={{ fontSize: 34 }}>People who got the job</h2>
         </div>
         <div className="grid-3">
-          <div className="testi-card">
+          <div className="testi-card glass-card">
             <div className="testi-stars">★★★★★</div>
             <p className="testi-text">"I applied to 12 jobs and got 8 callbacks in two weeks. The template was clean and the whole thing took me 10 minutes."</p>
             <div className="testi-author">
               <div className="testi-avatar" style={{ background: '#2D6A4F' }}>P</div>
-              <div><div style={{ fontWeight: 600, fontSize: 13 }}>Priya S.</div><div className="text-xs text-muted">Software Engineer, Bangalore</div></div>
+              <div><div style={{ fontWeight: 600, fontSize: 13 }}>Subiksha S.</div><div className="text-xs text-muted">Software Engineer, Bangalore</div></div>
             </div>
           </div>
-          <div className="testi-card">
+          <div className="testi-card glass-card">
             <div className="testi-stars">★★★★★</div>
-            <p className="testi-text">"Finally a resume builder that doesn’t ask me to pay to download. The Executive template is 🔥. Got an interview at Deloitte."</p>
+            <p className="testi-text">"Finally a resume builder that doesn't ask me to pay to download. The Executive template is 🔥. Got an interview at Deloitte."</p>
             <div className="testi-author">
               <div className="testi-avatar" style={{ background: '#3B7DD8' }}>A</div>
-              <div><div style={{ fontWeight: 600, fontSize: 13 }}>Arun K.</div><div className="text-xs text-muted">Finance Analyst, Chennai</div></div>
+              <div><div style={{ fontWeight: 600, fontSize: 13 }}>Rajesh S.</div><div className="text-xs text-muted">Finance Analyst, Chennai</div></div>
             </div>
           </div>
-          <div className="testi-card">
+          <div className="testi-card glass-card">
             <div className="testi-stars">★★★★★</div>
             <p className="testi-text">"Switched careers from teaching to UX. The Creative template stood out perfectly. Landed my first design job within a month."</p>
             <div className="testi-author">
-              <div className="testi-avatar" style={{ background: '#E9A825' }}>M</div>
-              <div><div style={{ fontWeight: 600, fontSize: 13 }}>Meera R.</div><div className="text-xs text-muted">UX Designer, Hyderabad</div></div>
+              <div className="testi-avatar" style={{ background: '#E9A825' }}>V</div>
+              <div><div style={{ fontWeight: 600, fontSize: 13 }}>Vijayalakshmi R</div><div className="text-xs text-muted">UX Designer, Hyderabad</div></div>
             </div>
           </div>
         </div>
@@ -249,14 +183,14 @@ function HomePage() {
       </div>
 
       {/* Blog teaser */}
-      <div style={{ padding: 72, background: 'var(--surface)', borderTop: '1px solid var(--border)' }}>
+      <div style={{ padding: 72, background: 'var(--surface2)', borderTop: '1px solid var(--border)' }}>
         <div style={{ textAlign: 'center', marginBottom: 36 }}>
           <div className="section-label" style={{ textAlign: 'center' }}>Resume Tips</div>
           <h2 style={{ fontSize: 34 }}>From our blog</h2>
         </div>
         <div className="blog-grid">
           {regularPosts.map(post => (
-            <div key={post.id} className="blog-card" onClick={() => window.location.href = `/blog/${post.id}`}>
+            <div key={post.id} className="blog-card glass-card" onClick={() => window.location.href = `/blog/${post.id}`}>
               <div className="blog-thumb" style={{ background: getBlogColor(post.category) }}>
                 {getBlogEmoji(post.category)}
               </div>

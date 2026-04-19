@@ -1,0 +1,124 @@
+.elegant-template {
+  font-family: 'Playfair Display', Georgia, serif;
+  background: #fafafa;
+  color: #1f2937;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.elegant-template .resume-header {
+  text-align: center;
+  padding: 24px 20px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #6b7280;
+}
+
+.elegant-template .resume-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+.elegant-template .resume-contact {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.elegant-template .resume-section {
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  border-left: 2px solid #e5e7eb;
+}
+
+.elegant-template .section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.elegant-template .section-content {
+  font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.elegant-template .experience-item,
+.elegant-template .education-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.elegant-template .experience-item:last-child,
+.elegant-template .education-item:last-child {
+  border-bottom: none;
+}
+
+.elegant-template .experience-header,
+.elegant-template .education-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.elegant-template .experience-title,
+.elegant-template .education-degree {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.elegant-template .experience-date,
+.elegant-template .education-year {
+  font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.elegant-template .experience-company,
+.elegant-template .education-school {
+  font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.elegant-template .experience-description {
+  font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.7;
+  margin: 6px 0 0 0;
+}
+
+.elegant-template .skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.elegant-template .skill-tag {
+  background: #6b7280;
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 2px;
+  font-family: 'Lato', 'Segoe UI', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

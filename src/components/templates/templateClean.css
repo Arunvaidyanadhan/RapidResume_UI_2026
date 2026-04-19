@@ -1,0 +1,119 @@
+.clean-template {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f9ff;
+  color: #0f172a;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.clean-template .resume-header {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #cffafe;
+}
+
+.clean-template .resume-name {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0891b2;
+  margin: 0 0 10px 0;
+}
+
+.clean-template .resume-contact {
+  font-size: 12px;
+  color: #475569;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.clean-template .resume-section {
+  background: #ffffff;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #cffafe;
+}
+
+.clean-template .section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0891b2;
+  text-transform: uppercase;
+  margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #cffafe;
+}
+
+.clean-template .section-content {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.clean-template .experience-item,
+.clean-template .education-item {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0f2fe;
+}
+
+.clean-template .experience-item:last-child,
+.clean-template .education-item:last-child {
+  border-bottom: none;
+}
+
+.clean-template .experience-header,
+.clean-template .education-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.clean-template .experience-title,
+.clean-template .education-degree {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.clean-template .experience-date,
+.clean-template .education-year {
+  font-size: 11px;
+  color: #0891b2;
+  font-weight: 500;
+}
+
+.clean-template .experience-company,
+.clean-template .education-school {
+  font-size: 13px;
+  color: #0891b2;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.clean-template .experience-description {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 4px 0 0 0;
+}
+
+.clean-template .skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.clean-template .skill-tag {
+  background: #0891b2;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}

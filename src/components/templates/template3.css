@@ -1,9 +1,0 @@
-.triangle-left {
-  width: 0;
-  height: auto;
-  position: relative;
-  border-right: 190px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-top: 190px solid #9ecbee;
-}
-

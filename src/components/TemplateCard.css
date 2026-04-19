@@ -1,42 +1,78 @@
-/* TemplateCard.css */
+/**
+ * ============================================
+ * TemplateCard.css (REDESIGNED)
+ * ============================================
+ * Premium template card with glassmorphism,
+ * hover effects, and smooth animations
+ */
 
-.template-card-wrapper {
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.template-card-wrapper:hover {
-  transform: translateY(-4px);
-}
-
-.thumbnail-card {
-  background: var(--card-bg, #ffffff);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+.template-card {
   position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--timing-ease);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(157, 225, 203, 0.18);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
 }
 
-/* ---------- PREVIEW IMAGE ---------- */
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(4, 52, 44, 0.5);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(157, 225, 203, 0.35);
+}
 
-.thumbnail-preview {
+.template-card.selected {
+  border-color: var(--teal-400);
+  box-shadow: 0 0 0 4px rgba(29, 158, 117, 0.1), var(--shadow-lg);
+}
+
+.template-card.hovered {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   PREVIEW CONTAINER
+   ============================================ */
+
+.template-preview-container {
   position: relative;
   width: 100%;
-  height: 340px; /* IMPORTANT */
-  background: #f4f6f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  aspect-ratio: 8.5 / 11;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
+  flex-shrink: 0;
 }
 
-.template-preview {
+.template-live-preview {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* CRITICAL */
+  overflow: hidden;
+  transform: scale(0.7);
+  transform-origin: top center;
+}
+
+.template-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-base) var(--timing-ease);
   display: block;
 }
 
-/* ---------- LOADING ---------- */
+.template-card:hover .template-preview-image {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   LOADING SKELETON
+   ============================================ */
 
 .template-skeleton {
   position: absolute;
@@ -44,74 +80,275 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(90deg, var(--gray-100) 0%, var(--gray-200) 50%, var(--gray-100) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
 
-/* ---------- PLACEHOLDER ---------- */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================
+   PLACEHOLDER
+   ============================================ */
 
 .template-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: #666;
+  padding: 20px;
+  background: var(--surface-secondary);
 }
 
 .template-placeholder-icon {
-  opacity: 0.6;
+  color: var(--gray-400);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-placeholder-icon svg {
+  width: 48px;
+  height: 48px;
 }
 
 .template-placeholder-text {
-  margin-top: 8px;
-  font-weight: 600;
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--gray-900);
+  margin: 0 0 4px 0;
 }
 
 .template-placeholder-subtext {
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+  margin: 0;
 }
 
-/* ---------- OVERLAY ---------- */
+/* ============================================
+   OVERLAY (On Hover)
+   ============================================ */
 
 .template-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  opacity: 0;
+  background: rgba(15, 23, 42, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: fadeIn var(--duration-base) var(--timing-ease);
 }
 
-.thumbnail-card:hover .template-overlay {
-  opacity: 1;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.template-select-btn {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+.template-cta-button {
+  padding: 12px 24px;
+  background: var(--teal-400);
+  color: white;
   border: none;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 999px;
+  border-radius: 8px;
   font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(29, 158, 117, 0.3);
 }
 
-/* ---------- INFO ---------- */
+.template-cta-button:hover {
+  background: var(--teal-200);
+  color: var(--teal-900);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(29, 158, 117, 0.4);
+}
+
+.template-cta-button:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   INFO SECTION
+   ============================================ */
 
 .template-info {
   padding: 16px;
+  background: var(--surface-bg);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .template-title {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 6px;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--gray-900);
+  margin: 0 0 4px 0;
 }
 
 .template-description {
-  font-size: 13px;
-  color: #666;
+  font-size: var(--text-sm);
+  color: var(--gray-600);
+  margin: 0;
+  line-height: 1.4;
 }
 
-/* ---------- SELECTED ---------- */
+/* ============================================
+   BADGE
+   ============================================ */
 
-.template-selected .thumbnail-card {
-  outline: 3px solid #6366f1;
+.template-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--teal-400);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(29, 158, 117, 0.3);
+  animation: popIn var(--duration-base) var(--timing-spring);
 }
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   SELECTION CHECKMARK
+   ============================================ */
+
+.template-checkmark {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  background: var(--teal-400);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 10;
+  animation: popIn var(--duration-base) var(--timing-spring);
+  box-shadow: 0 2px 8px rgba(29, 158, 117, 0.3);
+}
+
+.template-checkmark svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.5;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .template-card {
+    border-radius: var(--radius-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .template-card {
+    border-radius: var(--radius-md);
+  }
+
+  .template-info {
+    padding: 12px;
+  }
+
+  .template-title {
+    font-size: var(--text-base);
+  }
+
+  .template-description {
+    font-size: var(--text-xs);
+  }
+
+  .template-cta-button {
+    padding: 10px 20px;
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .template-card {
+    border-radius: var(--radius-md);
+  }
+
+  .template-preview-container {
+    aspect-ratio: 8.5 / 11;
+  }
+
+  .template-info {
+    padding: 8px;
+  }
+
+  .template-title {
+    font-size: var(--text-sm);
+    margin-bottom: 2px;
+  }
+
+  .template-description {
+    font-size: var(--text-xs);
+    display: none;
+  }
+
+  .template-overlay {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .template-cta-button {
+    padding: 8px 16px;
+    font-size: var(--text-xs);
+  }
+
+  .template-badge {
+    padding: 2px 8px;
+    font-size: 9px;
+  }
+
+  .template-checkmark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .template-checkmark svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
